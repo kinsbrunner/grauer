@@ -5,7 +5,7 @@ es:
         current_password: Contraseña actual
         email: Correo electrónico
         password: Contraseña
-        password_confirmation: Confirmación de la contraseña
+        password_confirmation: Confirme contraseña
         remember_me: Recordarme
         username: Usuario
         firstname: Nombre
