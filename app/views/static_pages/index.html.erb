@@ -1,1 +1,7 @@
 Hello World!
+
+<% if current_user.try(:admin?) %>
+  ADMIN
+<% else %>
+  NO ADMIN
+<% end %>
