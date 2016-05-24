@@ -55,5 +55,7 @@ Grauer::Application.routes.draw do
   #     resources :products
   #   end
 
-  root 'static_pages#index'
+  root 'families#index'
+  resources :schools, only: [:index, :create]
+  #resources :families
 end

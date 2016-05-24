@@ -1,12 +1,20 @@
 class SchoolsController < ApplicationController
   before_action :authenticate_user!
 
-  def edit
-    #Acá preparo todo para cuando muestro la vista con el pop-up para que elijan la Escuela con la que van a operar
+  def index
     @schools = School.all
+    @dummy = School.new
   end
 
-  def update
-    #Acá tomo la Escuela seleccionada y la coloco en una variable de sesión
+  def create
+    session[:current_school] = school_params
+    redirect_to root_path
+  end
+
+
+  private
+
+  def school_params
+    params.require(:school).permit(:name)
   end
 end

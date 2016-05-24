@@ -6,6 +6,8 @@ Hello World!
   NO ADMIN
 <% end %>
 
+ID de Escuela elegida: <%= session[:current_school].inspect %>
+
 <script>
   $(function() {
     $('#mySchool').modal({backdrop: 'static', keyboard: false, show: true})
@@ -17,15 +19,16 @@ Hello World!
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="mySchoolLabel">Seleccione Escuela</h4>
+        <h4 class="modal-title" id="mySchoolLabel">Seleccione Escuela</h4> 
       </div>
-      <div class="modal-body">
-        <%= f.input :school, as: :select, collection: @schools %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <%= f.submit "Seleccionar", class: 'btn btn-primary' %>
-      </div>
+      <%= simple_form_for @dummy, url: schools_path do |f| %>
+        <div class="modal-body">
+          <%= f.input :name, as: :select, collection: @schools, class:"col-md-2" %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Seleccionar", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
