@@ -7,4 +7,10 @@ FactoryGirl.define do
     password_confirmation "secretPassword"
     
   end
+
+  factory :school do
+    sequence :name do |n|
+      "Colegio_#{n}"
+    end
+  end  
 end

@@ -6,7 +6,6 @@ Hello World!
   NO ADMIN
 <% end %>
 
-
 <script>
   $(function() {
     $('#mySchool').modal({backdrop: 'static', keyboard: false, show: true})
@@ -21,12 +20,11 @@ Hello World!
         <h4 class="modal-title" id="mySchoolLabel">Seleccione Escuela</h4>
       </div>
       <div class="modal-body">
-        Elija la escuela con la que desea operar:
-        
+        <%= f.input :school, as: :select, collection: @schools %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Seleccionar</button>
+        <%= f.submit "Seleccionar", class: 'btn btn-primary' %>
       </div>
     </div>
   </div>

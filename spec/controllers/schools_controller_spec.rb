@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StaticPagesController, type: :controller do
+RSpec.describe SchoolsController, type: :controller do
   describe "static_pages#index action" do
     it "should enter into the site" do
       user = FactoryGirl.create(:user)
