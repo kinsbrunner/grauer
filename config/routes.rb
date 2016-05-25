@@ -57,5 +57,6 @@ Grauer::Application.routes.draw do
 
   root 'families#index'
   resources :schools, only: [:index, :create]
+  resources :families, only: [:index, :create]
   #resources :families
 end

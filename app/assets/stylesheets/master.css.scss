@@ -43,3 +43,10 @@ table{
 table td, th {
   text-align: center;   
 }
+
+.modal-body {
+    position: relative;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 15px;
+}

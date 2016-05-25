@@ -1,3 +1,5 @@
 class Family < ActiveRecord::Base
-  belongs_to :School
+  belongs_to :school
+
+  validates :apellido, presence: true
 end
