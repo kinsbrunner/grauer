@@ -1,7 +1,9 @@
-<div class="col-xs-8 col-xs-offset-2">
+<div class="col-xs-10 col-xs-offset-1 marco">
     <div class="pull-right">
+      <%= link_to 'Bajar a PDF', '#', class: 'btn btn-success'%>  
       <%= link_to 'Nueva Familia', '#', class: 'btn btn-primary'%>  
     </div>
+    <br />
     <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -11,6 +13,7 @@
         <th>Celular</th>
         <th>Tel Casa</th>
         <th>Tel Alternativo</th>
+        <th>Dirección</th>
         <th>Cant Hijos</th>
         <th>Deuda</th>
       </tr>
@@ -24,10 +27,14 @@
           <td><%= family.tel_cel %></td>
           <td><%= family.tel_casa %></td>
           <td><%= family.tel_alt %></td>
+          <td><%= family.direccion %></td>
           <td> Sin implementar </td>
           <td> Sin implementar </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <div class="text-center">
+    <%= paginate @families %>
+  </div>
 </div>

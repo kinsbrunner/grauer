@@ -56,7 +56,15 @@ gem 'sass-rails'
 
 gem 'hirb'
 gem 'hirb-unicode'
+
 gem 'rails-erd'
+
 gem 'simple_form'
+
 gem 'devise'
 gem 'devise-i18n'
+
+gem 'kaminari'
+
+gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails.git'
+gem 'jquery-ui-rails'
