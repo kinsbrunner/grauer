@@ -1,0 +1,23 @@
+<script>
+  $("#families_list").dataTable()
+</script>
+
+
+<table id="families_list" class="display order-column" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="sorting">Familia</th>
+      <th>Contacto</th>
+      <th>Celular</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @families.each do |family| %>
+      <tr>
+        <td><%= family.apellido %></td>
+        <td><%= family.contacto_1 %></td>
+        <td><%= family.tel_cel %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
