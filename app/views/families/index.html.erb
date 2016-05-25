@@ -44,9 +44,9 @@
 
 
 <script>
-  $('#myNewModal').on('hidden.bs.modal', function () {
-      $(this).find("input,textarea,select").val('').end();
-  });
+  function limpiar(){
+      $(".input-sm").val('').end();
+  }; 
 </script>
 
 <!-- New Family Modal -->
@@ -81,7 +81,7 @@
         <br /><br />
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiar();">Cancelar</button>
         <%= f.submit 'Crear Familia', class: 'btn btn-primary' %>
       </div>
       <% end %>
