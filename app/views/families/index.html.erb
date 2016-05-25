@@ -1,23 +1,33 @@
-<script>
-  $("#families_list").dataTable()
-</script>
-
-
-<table id="families_list" class="display order-column" cellspacing="0" width="100%">
-  <thead>
-    <tr>
-      <th class="sorting">Familia</th>
-      <th>Contacto</th>
-      <th>Celular</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @families.each do |family| %>
+<div class="col-xs-8 col-xs-offset-2">
+    <div class="pull-right">
+      <%= link_to 'Nueva Familia', '#', class: 'btn btn-primary'%>  
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+    <thead>
       <tr>
-        <td><%= family.apellido %></td>
-        <td><%= family.contacto_1 %></td>
-        <td><%= family.tel_cel %></td>
+        <th>Familia</th>
+        <th>Contacto Principal</th>
+        <th>Contacto Alternativo</th>
+        <th>Celular</th>
+        <th>Tel Casa</th>
+        <th>Tel Alternativo</th>
+        <th>Cant Hijos</th>
+        <th>Deuda</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @families.each do |family| %>
+        <tr>
+          <td><%= family.apellido %></td>
+          <td><%= family.contacto_1 %></td>
+          <td><%= family.contacto_2 %></td>
+          <td><%= family.tel_cel %></td>
+          <td><%= family.tel_casa %></td>
+          <td><%= family.tel_alt %></td>
+          <td> Sin implementar </td>
+          <td> Sin implementar </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
