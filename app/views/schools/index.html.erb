@@ -1,18 +1,9 @@
-Hello World!
-
-<% if current_user.try(:admin?) %>
-  ADMIN
-<% else %>
-  NO ADMIN
-<% end %>
-
-ID de Escuela elegida: <%= session[:current_school].inspect %>
-
 <script>
   $(function() {
     $('#mySchool').modal({backdrop: 'static', keyboard: false, show: true})
   });
 </script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="mySchool" tabindex="-1" role="dialog" aria-labelledby="mySchoolLabel">
@@ -23,7 +14,7 @@ ID de Escuela elegida: <%= session[:current_school].inspect %>
       </div>
       <%= simple_form_for @dummy, url: schools_path do |f| %>
         <div class="modal-body">
-          <%= f.input :name, as: :select, collection: @schools, class:"col-md-2" %>
+          <%= f.input :id, as: :select, collection: @schools, class:"col-md-2", label: 'Escuela' %>
         </div>
         <div class="modal-footer">
           <%= f.submit "Seleccionar", class: 'btn btn-primary' %>

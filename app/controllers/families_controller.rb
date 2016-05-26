@@ -2,19 +2,22 @@ class FamiliesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
 
   def index
+    if session[:current_school].nil?
+      redirect_to schools_path
+    end
+
     @families = Family.order(:apellido).page(params[:page])
     @flia = Family.new
   end
 
   def create
-    @family = Family.create(family_params)
-    #curent_school.families.create(family_params)
+    @school = School.find_by_id(session[:current_school]['id'])
+    @family = @school.families.create(family_params)
     if @family.valid?
       redirect_to families_path
     else
-      render :index, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
-    
   end
 
 

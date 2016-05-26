@@ -66,5 +66,4 @@ gem 'devise-i18n'
 
 gem 'kaminari'
 
-gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails.git'
-gem 'jquery-ui-rails'
+gem 'jquery-datatables-rails', '~> 3.3.0'

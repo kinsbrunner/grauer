@@ -7,7 +7,8 @@ class SchoolsController < ApplicationController
   end
 
   def create
-    session[:current_school] = school_params
+
+    session[:current_school] = school_params['id']
     redirect_to root_path
   end
 
@@ -15,6 +16,6 @@ class SchoolsController < ApplicationController
   private
 
   def school_params
-    params.require(:school).permit(:name)
+    params.require(:school).permit(:id)
   end
 end
