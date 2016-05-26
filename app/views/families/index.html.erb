@@ -1,6 +1,33 @@
 <script>
 $(document).ready(function(){
-  $('.datatable').DataTable();  
+  $('.datatable').DataTable( {
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ familias",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando familias del _START_ al _END_ de un total de _TOTAL_ familias",
+            "sInfoEmpty":      "Mostrando familias del 0 al 0 de un total de 0 familias",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ familias)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Ultimo",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+            },
+            "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "decimal": ",",
+            "thousands": "."
+        }
+    });
 });
 </script>
 
@@ -13,7 +40,7 @@ $(document).ready(function(){
       </button>
     </div>
     <br />
-    <table class="datatable">
+    <table class="datatable stripe hover">
     <thead>
       <tr>
         <th>Familia</th>
@@ -23,8 +50,8 @@ $(document).ready(function(){
         <th>Tel Casa</th>
         <th>Tel Alternativo</th>
         <th>Dirección</th>
-        <th>Cant Hijos</th>
         <th>Deuda</th>
+        <th>Escuela</th>
       </tr>
     </thead>
     <tbody>
@@ -38,7 +65,7 @@ $(document).ready(function(){
           <td><%= family.tel_alt %></td>
           <td><%= family.direccion %></td>
           <td> Sin implementar </td>
-          <td> Sin implementar </td>
+          <td><%= family.school.inspect %></td>
         </tr>
       <% end %>
     </tbody>
