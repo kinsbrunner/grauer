@@ -1,6 +1,7 @@
 <script>
 $(document).ready(function(){
   $('.datatable').DataTable( {
+        responsive: true,
         "language": {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ familias",
@@ -40,7 +41,7 @@ $(document).ready(function(){
       </button>
     </div>
     <br />
-    <table class="datatable stripe hover">
+    <table class="datatable stripe hover display responsive no-wrap">
     <thead>
       <tr>
         <th>Familia</th>
