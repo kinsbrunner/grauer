@@ -23,8 +23,7 @@
     <div class="modal-content">
       <%= simple_form_for '', url: '#' do |f| %>
         <div class="modal-body">
-          <!-- selected: @bill.location_id-->
-          <%= f.input :id, :collection => @schools, :class => 'col-md-2', :label_method => :name, :value_method => :id, :label => "Escuela", :prompt => "Seleccione Escuela" %>
+          <%= f.input :id, :collection => @schools, :class => 'col-md-2', :label_method => :name, :value_method => :id, :label => 'Escuela', :prompt => 'Seleccione Escuela' %>
           <br />
         <% end %>
         <%= link_to 'Seleccionar', '#', class: 'btn btn-primary pull-right', id: 'button' %> 

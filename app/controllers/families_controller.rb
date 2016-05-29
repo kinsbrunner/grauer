@@ -4,7 +4,7 @@ class FamiliesController < ApplicationController
   def index
     # Si no tengo el SCHOOL_ID redirecciona a la página para elegirlo
     if !params[:school_id]
-      redirect_to root_path
+      redirect_to schools_path
     end
 
     # Si meten un ID que no existe o un caracter extraño, tira error
