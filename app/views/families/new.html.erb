@@ -1,0 +1,44 @@
+<script>
+  function limpiar(){
+      $(".input-sm").val('').end();
+  }; 
+</script>
+
+<!-- New Family Modal -->
+<div class="modal fade" id="myNewModal" tabindex="-1" role="dialog" aria-labelledby="myNewModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myNewModalLabel"><b>Creación de Familia</b></h4>
+      </div>
+      <%= simple_form_for @flia do |f| %>
+      <div class="modal-body">
+        <div class="col-xs-6">
+          <%= f.input :apellido, input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :contacto_1, label: 'Contacto Principal', input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :contacto_2, label: 'Contacto Alternativo', input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :email, input_html: { class: 'input-sm' } %>
+        </div>
+        <div class="col-xs-6">
+          <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :tel_alt, label: 'Teléfono Alternativo', input_html: { class: 'input-sm' } %>
+          <br />
+          <%= f.input :direccion, label: 'Dirección', input_html: { class: 'input-sm' } %>
+        </div>
+        <br /><br />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiar();">Cancelar</button>
+        <%= f.submit 'Crear Familia', class: 'btn btn-primary' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

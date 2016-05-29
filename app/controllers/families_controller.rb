@@ -1,13 +1,28 @@
 class FamiliesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
-    if session[:current_school].nil?
-      redirect_to schools_path
+    # Si no tengo el SCHOOL_ID redirecciona a la página para elegirlo
+    if !params[:school_id]
+      redirect_to root_path
     end
 
-    @families = Family.order(:apellido).page(params[:page])
-    @flia = Family.new
+    # Si meten un ID que no existe o un caracter extraño, tira error
+    return render_not_found if current_school.blank?
+
+    @families = current_school.families.order(:apellido).page(params[:page])
+  end
+
+
+  helper_method :current_school
+  def current_school
+    @current_school ||= School.find_by_id(params[:school_id])
+  end
+
+
+=begin
+  def new
+    @familiy = Family.new
   end
 
   def create
@@ -26,4 +41,5 @@ class FamiliesController < ApplicationController
     def family_params
       params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_fijo, :email, :direccion)
     end
+=end
 end

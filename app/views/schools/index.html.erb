@@ -2,24 +2,33 @@
   $(function() {
     $('#mySchool').modal({backdrop: 'static', keyboard: false, show: true})
   });
+
+  $(function(){
+    var button = $('#button');
+
+    button.click(function(){
+      var school_id = $('#_id').val();
+    
+      if(school_id){
+        window.location.href = 'schools/' + school_id + '/families';
+      }
+    });
+  });
 </script>
 
 
 <!-- Modal -->
 <div class="modal fade" id="mySchool" tabindex="-1" role="dialog" aria-labelledby="mySchoolLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-sm modal-center" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="mySchoolLabel">Seleccione Escuela</h4> 
-      </div>
-      <%= simple_form_for @dummy, url: schools_path do |f| %>
+      <%= simple_form_for '', url: '#' do |f| %>
         <div class="modal-body">
-          <%= f.input :id, as: :select, collection: @schools, class:"col-md-2", label: 'Escuela' %>
-        </div>
-        <div class="modal-footer">
-          <%= f.submit "Seleccionar", class: 'btn btn-primary' %>
-        </div>
-      <% end %>
+          <!-- selected: @bill.location_id-->
+          <%= f.input :id, :collection => @schools, :class => 'col-md-2', :label_method => :name, :value_method => :id, :label => "Escuela", :prompt => "Seleccione Escuela" %>
+          <br />
+        <% end %>
+        <%= link_to 'Seleccionar', '#', class: 'btn btn-primary pull-right', id: 'button' %> 
+      </div>      
     </div>
   </div>
 </div>

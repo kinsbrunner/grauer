@@ -45,8 +45,12 @@ table td, th {
 }
 
 .modal-body {
-    position: relative;
-    overflow-y: auto;
-    max-height: 400px;
-    padding: 15px;
+  position: relative;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+
+.modal-center{
+  margin-top: 10%;  
 }
