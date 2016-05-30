@@ -1,7 +1,7 @@
 <div>
   <h1>Nueva Familia</h1>
 
-  <%= simple_form_for @family do |f| %>
+  <%= simple_form_for [current_school, @family] do |f| %>
      <div>
       <%= f.input :apellido, input_html: { class: 'input-sm' } %>
       <br />

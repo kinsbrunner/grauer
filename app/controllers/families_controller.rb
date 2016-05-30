@@ -10,6 +10,8 @@ class FamiliesController < ApplicationController
     # Si meten un ID que no existe o un caracter extraño, tira error
     return render_not_found if current_school.blank?
 
+#ACA SETEAR ID DE SCJOOOL EN SESSION
+
     @families = current_school.families.order(:apellido).page(params[:page])
   end
 
@@ -32,11 +34,6 @@ class FamiliesController < ApplicationController
 
 
   private
-    helper_method :current_school
-    def current_school
-      @current_school ||= School.find_by_id(params[:school_id])
-    end
-
     def family_params
       params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_fijo, :email, :direccion)
     end

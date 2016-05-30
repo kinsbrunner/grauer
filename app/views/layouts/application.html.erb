@@ -23,9 +23,9 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_school %>
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Familias', school_families_path %></li>
+        <li><%= link_to 'Familias', school_families_path(current_school) %></li>
         <li><a href="#">Menúes</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Facturación<b class="caret"></b></a>
