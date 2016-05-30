@@ -7,11 +7,9 @@ class FamiliesController < ApplicationController
       redirect_to schools_path
     end
 
-    # Si meten un ID que no existe o un caracter extraño, tira error
     return render_not_found if current_school.blank?
 
-#ACA SETEAR ID DE SCJOOOL EN SESSION
-
+    session[:school_id] = params[:school_id]
     @families = current_school.families.order(:apellido).page(params[:page])
   end
 

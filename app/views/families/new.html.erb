@@ -11,7 +11,7 @@
       <br />
       <%= f.input :email, input_html: { class: 'input-sm' } %>
       <br />
-      <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm' } %>
+      <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm' }, :data => {:mask=> '15-1111-1111'} %>
       <br />
       <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
       <br />
