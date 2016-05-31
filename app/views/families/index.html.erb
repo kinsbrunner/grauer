@@ -32,10 +32,13 @@ $(document).ready(function(){
 });
 </script>
 
+<div class="col-xs-10 col-xs-offset-1">
+  <%= link_to new_school_family_path(current_school), class: "btn btn-primary pull-right" do %>
+    <span class="glyphicon glyphicon-plus"></span> 
+    Nueva Familia
+<% end %>
+</div>
 <div class="col-xs-10 col-xs-offset-1 marco table-responsive">
-    <div class="botonera pull-right">
-      <%= link_to 'Nueva Familia', new_school_family_path(current_school), class: 'btn btn-primary'%>
-    </div>
     <br />
     <table class="datatable table table-striped table-hover table-condensed table-bordered">
     <thead>
