@@ -2,28 +2,36 @@
   $("#celular").inputmask("15-1111-1111");  
 </script>
 
-<div>
-  <h1>Nueva Familia</h1>
-
-  <%= simple_form_for [current_school, @family] do |f| %>
-     <div>
-      <%= f.input :apellido, input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :contacto_1, label: 'Contacto Principal', input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :contacto_2, label: 'Contacto Alternativo', input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :email, input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm', :"data-mask" => "999-999-9999" } %>
-      <br />
-      <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :tel_alt, label: 'Teléfono Alternativo', input_html: { class: 'input-sm' } %>
-      <br />
-      <%= f.input :direccion, label: 'Dirección', input_html: { class: 'input-sm' } %>
-    </div>
-    <br /><br />
-    <%= f.submit 'Crear Familia', class: 'btn btn-primary' %>
-  <% end %>
+<div class="col-xs-10 col-xs-offset-1">
+  <h1>Creación de Familia</h1>
+  <br />
+  <div class="seccion">
+    <%= simple_form_for [current_school, @family] do |f| %>
+       <div class="col-xs-6">
+        <%= f.input :apellido, input_html: { class: 'input-sm' } %>
+        <br />
+        <%= f.input :contacto_1, label: 'Contacto Principal', input_html: { class: 'input-sm' } %>
+        <br />
+        <%= f.input :contacto_2, label: 'Contacto Alternativo', input_html: { class: 'input-sm' } %>
+        <br />
+        <%= f.input :email, input_html: { class: 'input-sm' } %>
+      </div>
+      <div class="col-xs-6">
+        <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm', :"data-mask" => "999-999-9999" } %>
+        <br />
+        <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
+        <br />
+        <%= f.input :tel_alt, label: 'Teléfono Alternativo', input_html: { class: 'input-sm' } %>
+        <br />
+        <%= f.input :direccion, label: 'Dirección', input_html: { class: 'input-sm' } %>
+      </div>
+      <br /><br />
+      <div class="clearfix"></div>
+      <div>  
+        <br /><br />
+        <%= f.submit 'Crear Familia', class: 'btn btn-primary pull-right' %>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
+  </div>
 </div>
