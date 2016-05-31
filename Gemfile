@@ -67,3 +67,4 @@ gem 'devise-i18n'
 gem 'kaminari'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
+gem 'jquery-inputmask-rails'
