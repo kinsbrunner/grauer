@@ -1,5 +1,7 @@
 <script>
-  $("#celular").inputmask("15-1111-1111");  
+  $(document).ready(function(){
+    $("#phone").inputmask("99-9999999");
+  }
 </script>
 
 <div class="col-xs-10 col-xs-offset-1">
@@ -17,7 +19,7 @@
         <%= f.input :email, input_html: { class: 'input-sm' } %>
       </div>
       <div class="col-xs-6">
-        <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm', :"data-mask" => "999-999-9999" } %>
+        <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm' }, :id => "phone" %>
         <br />
         <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
         <br />
