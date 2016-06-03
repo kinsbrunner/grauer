@@ -27,6 +27,9 @@ class FamiliesController < ApplicationController
   end
 
   def show
+    #hacer NEW de Hijo
+    #hacer NEW de Registro
+    #hacer NEW de Comentario
   end
 
   def edit

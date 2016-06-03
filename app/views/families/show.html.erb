@@ -31,7 +31,13 @@
   </div>
   <br />
 
-<h1 class>Hijos</h1>
+  <h1 class="pull-left'">
+    Hijos
+    <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-user"></span> 
+      Agregar Hijo
+    <% end %>
+  </h1>
 
   <div class='seccion'>
     <br />
@@ -42,7 +48,13 @@
   </div>
   <br />
 
-<h1 class>Cuenta Corriente</h1>
+  <h1 class="pull-left'">
+    Cuenta Corriente
+    <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-usd"></span> 
+      Agregar Registro
+    <% end %>
+  </h1>
 
   <div class='seccion'>
     <br />
@@ -53,7 +65,13 @@
   </div>
   <br />
 
-  <h1 class>Comentarios</h1>
+  <h1 class="pull-left'">
+    Comentarios
+    <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-comment"></span> 
+      Modificar Comentario
+    <% end %>
+  </h1>
 
   <div class='seccion'>
     <br />
