@@ -1,5 +1,5 @@
 class FamiliesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :show]
+  before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update]
 
   def index
     # Si no tengo el SCHOOL_ID redirecciona a la página para elegirlo
@@ -27,7 +27,14 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    @family = Family.find_by_id(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    current_family.update_attributes(family_params)
+    redirect_to school_family_path(current_school, current_family)
   end
 
 

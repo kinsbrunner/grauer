@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     @current_school ||= School.find_by_id(params[:school_id])
   end
 
+  helper_method :current_family
+  def current_family
+    @current_family ||= Family.find_by_id(params[:id])
+  end
+
   protected
 
   def configure_permitted_parameters

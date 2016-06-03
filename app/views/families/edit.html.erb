@@ -1,9 +1,11 @@
 <div class="col-xs-10 col-xs-offset-1">
-  <h1>Creación de Familia</h1>
-  <br />
+  
+  <h1 class="pull-left'">Modificación de Familia</h1>
 
+  <div class="clearfix"></div>
+  
   <div class="seccion">
-    <%= simple_form_for [current_school, @family] do |f| %>
+    <%= simple_form_for [current_school, current_family] do |f| %>
        <div class="col-md-6 col-xs-12">
         <%= f.input :apellido, input_html: { class: 'input-sm' } %>
         <br />
@@ -24,13 +26,24 @@
         <%= f.input :direccion, label: 'Dirección', input_html: { class: 'input-sm' } %>
       </div>
       <br /><br />
+      
       <div class="clearfix"></div>
+
       <div>  
         <br /><br />
+
+
+
         <%= button_tag(type: 'submit', class: "btn btn-primary pull-right") do %>
           <span class="glyphicon glyphicon-ok"></span>
-          Crear Familia
+          Modificar Familia
         <% end %>
+
+        <%= link_to school_family_path(current_school, current_family), class: 'btn btn-primary pull-right separate_btn' do %>
+          <span class="glyphicon glyphicon-remove"></span> 
+          Cancelar
+        <% end %>
+
       </div>
       <div class="clearfix"></div>
     <% end %>

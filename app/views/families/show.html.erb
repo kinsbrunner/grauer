@@ -1,21 +1,30 @@
 <div class='col-xs-10 col-xs-offset-1'>
-  <h1 class>Familia <%= @family.apellido %></h1>
+
+  <h1 class="pull-left'">
+    Familia <%= current_family.apellido %>
+    <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-pencil"></span> 
+      Modificar Familia
+    <% end %>
+  </h1>
+
+  <div class="clearfix"></div>
 
   <div class='seccion'>
     <div class='col-xs-4'>
-      <u><b>Contacto Principal:</b></u> <%= @family.contacto_1 %>
+      <u><b>Contacto Principal:</b></u> <%= current_family.contacto_1 %>
       <br />
-      <u><b>Contacto Alternativo:</b></u> <%= @family.contacto_2 %>
+      <u><b>Contacto Alternativo:</b></u> <%= current_family.contacto_2 %>
     </div>
     <div class='col-xs-4'>
-      <u><b>Teléfono Celular:</b></u> <%= @family.tel_cel %>
+      <u><b>Teléfono Celular:</b></u> <%= current_family.tel_cel %>
       <br />
-      <u><b>Teléfonos Fijos:</b></u> <%= @family.tel_casa %> / <%= @family.tel_alt %>
+      <u><b>Teléfonos Fijos:</b></u> <%= current_family.tel_casa %> / <%= current_family.tel_alt %>
     </div>
     <div class='col-xs-4'>  
-      <u><b>Email:</b></u> <%= @family.email %>
+      <u><b>Email:</b></u> <%= current_family.email %>
       <br />
-      <u><b>Dirección:</b></u> <%= @family.direccion %>
+      <u><b>Dirección:</b></u> <%= current_family.direccion %>
       <br />
     </div>
     <div class='clearfix'></div>
@@ -25,22 +34,10 @@
 <h1 class>Hijos</h1>
 
   <div class='seccion'>
-    <div class='col-xs-4'>
-      <u><b>Contacto Principal:</b></u> <%= @family.contacto_1 %>
-      <br />
-      <u><b>Contacto Alternativo:</b></u> <%= @family.contacto_2 %>
-    </div>
-    <div class='col-xs-4'>
-      <u><b>Teléfono Celular:</b></u> <%= @family.tel_cel %>
-      <br />
-      <u><b>Teléfonos Fijos:</b></u> <%= @family.tel_casa %> / <%= @family.tel_alt %>
-    </div>
-    <div class='col-xs-4'>  
-      <u><b>Email:</b></u> <%= @family.email %>
-      <br />
-      <u><b>Dirección:</b></u> <%= @family.direccion %>
-      <br />
-    </div>
+    <br />
+    <br />
+    <br />
+    <br />
     <div class='clearfix'></div>
   </div>
   <br />
@@ -48,22 +45,10 @@
 <h1 class>Cuenta Corriente</h1>
 
   <div class='seccion'>
-    <div class='col-xs-4'>
-      <u><b>Contacto Principal:</b></u> <%= @family.contacto_1 %>
-      <br />
-      <u><b>Contacto Alternativo:</b></u> <%= @family.contacto_2 %>
-    </div>
-    <div class='col-xs-4'>
-      <u><b>Teléfono Celular:</b></u> <%= @family.tel_cel %>
-      <br />
-      <u><b>Teléfonos Fijos:</b></u> <%= @family.tel_casa %> / <%= @family.tel_alt %>
-    </div>
-    <div class='col-xs-4'>  
-      <u><b>Email:</b></u> <%= @family.email %>
-      <br />
-      <u><b>Dirección:</b></u> <%= @family.direccion %>
-      <br />
-    </div>
+    <br />
+    <br />
+    <br />
+    <br />
     <div class='clearfix'></div>
   </div>
   <br />
@@ -71,9 +56,10 @@
   <h1 class>Comentarios</h1>
 
   <div class='seccion'>
-    <div class='col-xs-12'>
-      <%= @family.contacto_1 %>
-    </div>
+    <br />
+    <br />
+    <br />
+    <br />
     <div class='clearfix'></div>
   </div>
   <br />
