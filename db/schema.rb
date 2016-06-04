@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525194835) do
+ActiveRecord::Schema.define(version: 20160604234725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "children", force: true do |t|
+    t.integer  "family_id"
+    t.string   "nombre"
+    t.integer  "grado"
+    t.integer  "division"
+    t.integer  "tipo_servicio"
+    t.text     "comentario"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "children", ["family_id"], name: "index_children_on_family_id", using: :btree
 
   create_table "families", force: true do |t|
     t.string   "apellido"
