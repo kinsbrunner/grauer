@@ -4,24 +4,24 @@
     Familia <%= current_family.apellido %>
     <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-pencil"></span> 
-      Modificar Familia
+      Modificar
     <% end %>
   </h1>
 
   <div class="clearfix"></div>
 
   <div class='seccion'>
-    <div class='col-xs-4'>
+    <div class='col-md-4 col-xs-12'>
       <u><b>Contacto Principal:</b></u> <%= current_family.contacto_1 %>
       <br />
       <u><b>Contacto Alternativo:</b></u> <%= current_family.contacto_2 %>
     </div>
-    <div class='col-xs-4'>
-      <u><b>Teléfono Celular:</b></u> <%= current_family.tel_cel %>
+    <div class='col-md-4 col-xs-12'>
+      <u><b>Tel. Celular:</b></u> <%= current_family.tel_cel %>
       <br />
-      <u><b>Teléfonos Fijos:</b></u> <%= current_family.tel_casa %> / <%= current_family.tel_alt %>
+      <u><b>Tels. Fijos:</b></u> <%= current_family.tel_casa %> / <%= current_family.tel_alt %>
     </div>
-    <div class='col-xs-4'>  
+    <div class='col-md-4 col-xs-12'>
       <u><b>Email:</b></u> <%= current_family.email %>
       <br />
       <u><b>Dirección:</b></u> <%= current_family.direccion %>
@@ -34,8 +34,8 @@
   <h1 class="pull-left'">
     Hijos
     <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
-      <span class="glyphicon glyphicon-user"></span> 
-      Agregar Hijo
+      <span class="glyphicon glyphicon-plus"></span> 
+      Hijo
     <% end %>
   </h1>
 
@@ -51,8 +51,8 @@
   <h1 class="pull-left'">
     Cuenta Corriente
     <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
-      <span class="glyphicon glyphicon-usd"></span> 
-      Agregar Registro
+      <span class="glyphicon glyphicon-plus"></span> 
+      Registro
     <% end %>
   </h1>
 
@@ -68,8 +68,8 @@
   <h1 class="pull-left'">
     Comentarios
     <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
-      <span class="glyphicon glyphicon-comment"></span> 
-      Modificar Comentario
+      <span class="glyphicon glyphicon-pencil"></span> 
+      Comentario
     <% end %>
   </h1>
 
