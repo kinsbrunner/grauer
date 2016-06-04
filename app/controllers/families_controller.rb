@@ -1,5 +1,6 @@
 class FamiliesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update]
+  before_action :family_belongs_school
 
   def index
     # Si no tengo el SCHOOL_ID redirecciona a la página para elegirlo
@@ -44,5 +45,11 @@ class FamiliesController < ApplicationController
   private
     def family_params
       params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion)
+    end
+
+    def family_belongs_school
+      if !current_family || current_family.school != current_school
+        return render text: 'No relation', status: :bad_request
+      end
     end
 end
