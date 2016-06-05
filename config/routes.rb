@@ -4,7 +4,7 @@ Grauer::Application.routes.draw do
   root 'schools#index'
   resources :schools, only: [:index] do
     resources :families, only: [:index, :new, :create, :show, :edit, :update] do
-      resources :children, only: [:new, :create]
+      resources :children, only: [:new, :create, :edit, :update, :destroy]
     end
   end
 end

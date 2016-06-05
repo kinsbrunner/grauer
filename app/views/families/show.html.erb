@@ -39,17 +39,49 @@
     <% end %>
   </h1>
 
-  <div class='seccion'>
-    <br />
-    <br />
-      <% @children.each do |child| %>
-        <%= child.nombre %>
-      <% if child.humanized_tipo_serv.present? %>
-        <b><%= child.humanized_tipo_serv %></b> -
-      <% end %>
-      <% end %>    
-    <br />
-    <br />
+  <div class='seccion table-responsive'>
+    <table class='table table-condensed table_margin_off'>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Grado</th>
+          <th>División</th>
+          <th>Servicio</th>
+          <th>Comentario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @children.each do |child| %>
+          <tr>
+            <td><%= child.nombre %></td>
+            <td><%= child.humanized_grado %></td>
+            <td><%= child.division %></td>
+            <td><%= child.humanized_tipo_serv %></td>
+            <td><%= child.comentario %></td>
+            <td>
+              <%= link_to edit_school_family_child_path(current_school, current_family, child) do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+              &nbsp;&nbsp;&nbsp;
+              <%= link_to school_family_child_path(current_school, current_family, child), method: 'DELETE', data: {confirm:
+'¿Está seguro que desea eliminar a este Hijo?'} do %>
+                <span class="glyphicon glyphicon-trash"></span>
+              <% end %>                
+            </td>
+          </tr>
+        <% end %>
+
+
+        <% if @children.empty? %>
+          <tr>
+            <td colspan='6'>No hay hijos</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
     <div class='clearfix'></div>
   </div>
   <br />
