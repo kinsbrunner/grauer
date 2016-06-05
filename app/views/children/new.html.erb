@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
         
         <div class="col-md-10">
-          <%= f.input :grado, input_html: { class: 'input-sm' } %>
+          <%= f.input :grado, as: :select, collection: Child::GRADOS %>
           <br />
         </div>
         <div class="clearfix"></div>
@@ -24,7 +24,7 @@
         <div class="clearfix"></div>
 
         <div class="col-md-10">
-          <%= f.input :tipo_servicio, label: 'Tipo de Servicio', input_html: { class: 'input-sm' } %>
+          <%= f.input :tipo_servicio, as: :select, collection: Child::TIPO_SERVICIOS, label: 'Tipo de Servicio' %>
           <br />
         </div>
         <div class="clearfix"></div>

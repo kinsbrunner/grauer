@@ -6,23 +6,23 @@ class Child < ActiveRecord::Base
   validates :tipo_servicio, presence: true
 
   TIPO_SERVICIOS = {
-    '1' => 'Mensual',
-    '2' => 'Diario'
+    'Mensual' => '1',
+    'Diario'  => '2'
   }
 
   GRADOS = {
-    '1'  => 'Maternal',
-    '2'  => 'Sala de 2',
-    '3'  => 'Sala de 3',
-    '4'  => 'Sala de 4',
-    '5'  => 'Sala de 5',
-    '6'  => '1er Grado',
-    '7'  => '2do Grado',
-    '8'  => '3er Grado',
-    '9'  => '4to Grado',
-    '10' => '5to Grado',
-    '11' => '6to Grado',
-    '12' => '7mo Grado'
+    'Maternal'  => '1',
+    'Sala de 2' => '2',
+    'Sala de 3' => '3',
+    'Sala de 4' => '4',
+    'Sala de 5' => '5',
+    '1er Grado' => '6',
+    '2do Grado' => '7',
+    '3er Grado' => '8',
+    '4to Grado' => '9',
+    '5to Grado' => '10',
+    '6to Grado' => '11',
+    '7mo Grado' => '12'
   }
 
   def humanized_tipo_serv

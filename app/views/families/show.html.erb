@@ -42,6 +42,12 @@
   <div class='seccion'>
     <br />
     <br />
+      <% @children.each do |child| %>
+        <%= child.nombre %>
+      <% if child.humanized_tipo_serv.present? %>
+        <b><%= child.humanized_tipo_serv %></b> -
+      <% end %>
+      <% end %>    
     <br />
     <br />
     <div class='clearfix'></div>
