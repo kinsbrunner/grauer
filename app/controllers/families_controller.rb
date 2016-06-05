@@ -47,9 +47,14 @@ class FamiliesController < ApplicationController
       params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion)
     end
 
-    def family_belongs_school
+    def family_belongs_school      
       if !current_family || current_family.school != current_school
         return render text: 'No relation', status: :bad_request
       end
     end
+
+  helper_method :current_family
+  def current_family
+    @current_family ||= Family.find_by_id(params[:id])
+  end
 end
