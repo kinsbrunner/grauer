@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update]
-  before_action :family_belongs_school
+  before_action :family_belongs_school, only: [:show, :edit, :update]
 
   def index
     # Si no tengo el SCHOOL_ID redirecciona a la página para elegirlo
@@ -28,7 +28,7 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    #hacer NEW de Hijo
+    @children = current_family.children.all
     #hacer NEW de Registro
     #hacer NEW de Comentario
   end
