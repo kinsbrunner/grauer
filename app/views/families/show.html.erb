@@ -111,31 +111,12 @@
   </h1>
 
   <div class='seccion table-responsive'>
-    <table class='table table-condensed table_margin_off'>
-      <thead>
-        <tr>
-          <th>Comentario</th>
-          <th>Creado por</th>
-          <th>Creado el</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @comments.each do |comment| %>
-          <tr>
-            <td><%= comment.message %></td>
-            <td><%= comment.user.firstname %></td>
-            <td><%= comment.created_at %></td>
-          </tr>
-        <% end %>
-
-        <% if @comments.empty? %>
-          <tr>
-            <td colspan='3'>No hay comentarios</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <% @comments.each do |comment| %>
+      <b>[<%= comment.user.firstname %> - <%= comment.created_at.in_time_zone('Buenos Aires').strftime('%d-%m-%Y %H:%M') %>]</b> <%= comment.message %> <br /><br />
+    <% end %>
+    <% if @comments.empty? %>
+      No hay comentarios
+    <% end %>
     <div class='clearfix'></div>
   </div>
   <br />
