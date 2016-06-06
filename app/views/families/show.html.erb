@@ -112,7 +112,7 @@
 
   <div class='seccion table-responsive'>
     <% @comments.each do |comment| %>
-      <b>[<%= comment.user.firstname %> - <%= comment.created_at.in_time_zone('Buenos Aires').strftime('%d-%m-%Y %H:%M') %>]</b> <%= comment.message %> <br /><br />
+      <b>[<%= comment.user.firstname %> - <%= l comment.created_at.in_time_zone('Buenos Aires'), format: :custom %>]</b> <%= comment.message %> <br /><br />
     <% end %>
     <% if @comments.empty? %>
       No hay comentarios

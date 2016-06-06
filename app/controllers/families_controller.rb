@@ -28,7 +28,7 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    @children = current_family.children.order(:nombre).all
+    @children = current_family.children.order(grado: :desc, division: :asc, nombre: :asc).all
     @comments = current_family.comments.order(created_at: :desc).all
     @comment  = Comment.new
     #hacer NEW de Registro
