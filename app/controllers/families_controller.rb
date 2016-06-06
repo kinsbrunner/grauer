@@ -29,6 +29,7 @@ class FamiliesController < ApplicationController
 
   def show
     @children = current_family.children.all
+    @comments = current_family.comments.all
     @comment  = Comment.new
     #hacer NEW de Registro
   end

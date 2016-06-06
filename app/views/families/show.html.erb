@@ -72,7 +72,6 @@
           </tr>
         <% end %>
 
-
         <% if @children.empty? %>
           <tr>
             <td colspan='6'>No hay hijos</td>
@@ -106,16 +105,37 @@
     Comentarios
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myCommentModal">
-      <span class="glyphicon glyphicon-pencil"></span> 
+      <span class="glyphicon glyphicon-plus"></span> 
       Comentario
     </button>
   </h1>
 
-  <div class='seccion'>
-    <br />
-    <br />
-    <br />
-    <br />
+  <div class='seccion table-responsive'>
+    <table class='table table-condensed table_margin_off'>
+      <thead>
+        <tr>
+          <th>Comentario</th>
+          <th>Creado por</th>
+          <th>Creado el</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td><%= comment.message %></td>
+            <td><%= comment.user.firstname %></td>
+            <td><%= comment.created_at %></td>
+          </tr>
+        <% end %>
+
+        <% if @comments.empty? %>
+          <tr>
+            <td colspan='3'>No hay comentarios</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     <div class='clearfix'></div>
   </div>
   <br />
