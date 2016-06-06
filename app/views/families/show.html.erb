@@ -65,8 +65,7 @@
                 <span class="glyphicon glyphicon-pencil"></span>
               <% end %>
               &nbsp;&nbsp;&nbsp;
-              <%= link_to school_family_child_path(current_school, current_family, child), method: 'DELETE', data: {confirm:
-'¿Está seguro que desea eliminar a este Hijo?'} do %>
+              <%= link_to school_family_child_path(current_school, current_family, child), method: :delete, data: {confirm:'¿Está seguro que desea eliminar a este Hijo?'} do %>
                 <span class="glyphicon glyphicon-trash"></span>
               <% end %>                
             </td>
