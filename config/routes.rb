@@ -6,6 +6,7 @@ Grauer::Application.routes.draw do
     resources :families, only: [:index, :new, :create, :show, :edit, :update] do
       resources :children, only: [:new, :create, :edit, :update, :destroy]
       resources :comments, only: [:new, :create]
+      resources :movements, only: [:new, :create, :destroy]
     end
   end
 end

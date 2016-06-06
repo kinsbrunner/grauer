@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606150530) do
+ActiveRecord::Schema.define(version: 20160606191056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,22 @@ ActiveRecord::Schema.define(version: 20160606150530) do
 
   add_index "families", ["school_id"], name: "index_families_on_school_id", using: :btree
   add_index "families", ["user_id"], name: "index_families_on_user_id", using: :btree
+
+  create_table "movements", force: true do |t|
+    t.integer  "family_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tipo"
+    t.decimal  "monto"
+    t.decimal  "saldo"
+    t.integer  "forma"
+    t.decimal  "descuento",  default: 0.0
+    t.text     "nota"
+  end
+
+  add_index "movements", ["family_id"], name: "index_movements_on_family_id", using: :btree
+  add_index "movements", ["user_id", "family_id"], name: "index_movements_on_user_id_and_family_id", using: :btree
 
   create_table "schools", force: true do |t|
     t.string   "name"
