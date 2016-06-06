@@ -14,6 +14,12 @@ class MovementsController < ApplicationController
     end
   end
   
+  def destroy
+    return render_not_found if current_movement.blank?
+    current_movement.destroy
+    redirect_to school_family_path(current_school, current_family)
+  end
+  
   
   private
   
@@ -26,8 +32,8 @@ class MovementsController < ApplicationController
     @current_family ||= Family.find_by_id(params[:family_id])
   end
 
-  helper_method :current_child
-  def current_child
-    @current_child ||= Child.find_by_id(params[:id])
+  helper_method :current_movement
+  def current_movement
+    @current_movement ||= Movement.find_by_id(params[:id])
   end  
 end

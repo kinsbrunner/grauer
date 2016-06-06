@@ -31,7 +31,7 @@ class FamiliesController < ApplicationController
     @children = current_family.children.order(grado: :desc, division: :asc, nombre: :asc).all
     @comments = current_family.comments.order(created_at: :desc).all
     @comment  = Comment.new
-    #hacer NEW de Registro
+    @movements = current_family.movements.order(fecha: :asc).page(params[:page])
   end
 
   def edit

@@ -1,3 +1,37 @@
+<script>
+$(document).ready(function(){
+  $('.datatable').DataTable( {
+        responsive: true,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ movimientos",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando movimientos del _START_ al _END_ de un total de _TOTAL_ movimientos",
+            "sInfoEmpty":      "Mostrando movimientos del 0 al 0 de un total de 0 movimientos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ movimientos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Ultimo",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+            },
+            "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "decimal": ",",
+            "thousands": "."
+        }
+    });
+});
+</script>
+
 <div class='col-xs-10 col-xs-offset-1'>
 
   <h1 class="pull-left'">
@@ -92,11 +126,43 @@
     <% end %>
   </h1>
 
-  <div class='seccion'>
-    <br />
-    <br />
-    <br />
-    <br />
+  <div class='seccion table-responsive'>
+    <table class="datatable table table-striped table-hover table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Monto</th>
+        <th>Saldo</th>
+        <th>Forma</th>
+        <th>Descuento</th>
+        <th>Nota</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movements.each do |mov| %>
+        <tr>
+          <td><%= mov.fecha %></td>
+          <td><%= mov.tipo %></td>
+          <td>$ <%= mov.monto %></td>
+          <td>$ <%= mov.saldo %></td>
+          <td><%= mov.forma %></td>
+          <td><%= mov.descuento %> %</td>
+          <td><%= mov.nota %></td>
+          <td>
+            <%= link_to school_family_movement_path(current_school, current_family, mov), method: :delete, data: {confirm:'¿Está seguro que desea eliminar este Movimiento?'} do %>
+                <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= paginate @movements %>
+  </div>
+
     <div class='clearfix'></div>
   </div>
   <br />
