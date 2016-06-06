@@ -17,6 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
+  template: template0
   database: grauer_development
   pool: 5
   username: postgres
@@ -47,6 +48,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
+  template: template0
   database: grauer_test
   pool: 5
   username: postgres
@@ -56,6 +58,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
+  template: template0
   database: grauer_production
   pool: 5
   username: postgres
