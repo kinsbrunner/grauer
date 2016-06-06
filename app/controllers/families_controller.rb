@@ -29,8 +29,8 @@ class FamiliesController < ApplicationController
 
   def show
     @children = current_family.children.all
+    @comment  = Comment.new
     #hacer NEW de Registro
-    #hacer NEW de Comentario
   end
 
   def edit
@@ -53,8 +53,8 @@ class FamiliesController < ApplicationController
       end
     end
 
-  helper_method :current_family
-  def current_family
-    @current_family ||= Family.find_by_id(params[:id])
-  end
+    helper_method :current_family
+    def current_family
+      @current_family ||= Family.find_by_id(params[:id])
+    end
 end

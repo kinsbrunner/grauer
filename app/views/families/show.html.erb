@@ -104,10 +104,11 @@
 
   <h1 class="pull-left'">
     Comentarios
-    <%= link_to edit_school_family_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myCommentModal">
       <span class="glyphicon glyphicon-pencil"></span> 
       Comentario
-    <% end %>
+    </button>
   </h1>
 
   <div class='seccion'>
@@ -118,4 +119,28 @@
     <div class='clearfix'></div>
   </div>
   <br />
+</div>
+
+
+
+
+<!-- Comments Modal -->
+<div class="modal fade" id="myCommentModal" tabindex="-1" role="dialog" aria-labelledby="myCommentModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myCommentModalLabel">Familia <%= current_family.apellido %></h4>
+      </div>
+      <%= simple_form_for @comment, url: school_family_comments_path(current_school, current_family) do |f| %>
+      <div class="modal-body">
+          <%= f.input :message, label: 'Comentario' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <%= f.submit "Agregar Comentario", class: 'btn btn-primary' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
 </div>
