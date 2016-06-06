@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605002903) do
+ActiveRecord::Schema.define(version: 20160606150530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20160605002903) do
   end
 
   add_index "children", ["family_id"], name: "index_children_on_family_id", using: :btree
+
+  create_table "comments", force: true do |t|
+    t.text     "message"
+    t.integer  "family_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["family_id"], name: "index_comments_on_family_id", using: :btree
+  add_index "comments", ["user_id", "family_id"], name: "index_comments_on_user_id_and_family_id", using: :btree
 
   create_table "families", force: true do |t|
     t.string   "apellido"
