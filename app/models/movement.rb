@@ -2,15 +2,15 @@ class Movement < ActiveRecord::Base
   belongs_to :family
   belongs_to :user
   
-  validates :fecha, presence: true
   validates :tipo, presence: true
   validates :monto, presence: true
   validates :descuento, presence: true
   
   TIPO_TIPOS = {
-    'Servicio'   => 1,
-    'Pago'       => 2,
-    'Descuento'  => 3
+    'Servicio'        => 1,
+    'Pago'            => 2,
+    'Descuento'       => 3,
+    'Nota de Crédito' => 4
   }
   
   TIPO_FORMAS = {
@@ -20,11 +20,11 @@ class Movement < ActiveRecord::Base
   }
   
 
-  def humanized_tipos
+  def humanized_tipo
     TIPO_TIPOS.invert[self.tipo]
   end
   
-  def humanized_formas
-    TIPO_FORMAS.invert[self.formas]
+  def humanized_forma
+    TIPO_FORMAS.invert[self.forma]
   end  
 end

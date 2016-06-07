@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606200017) do
+ActiveRecord::Schema.define(version: 20160606224236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20160606200017) do
     t.integer  "forma"
     t.decimal  "descuento",  default: 0.0
     t.text     "nota"
-    t.datetime "fecha"
   end
 
   add_index "movements", ["family_id"], name: "index_movements_on_family_id", using: :btree

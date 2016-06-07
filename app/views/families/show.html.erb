@@ -126,8 +126,8 @@ $(document).ready(function(){
     <% end %>
   </h1>
 
-  <div class='seccion table-responsive'>
-    <table class="datatable table table-striped table-hover table-condensed table-bordered">
+  <div class='seccion'>
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
     <thead>
       <tr>
         <th>Fecha</th>
@@ -143,11 +143,11 @@ $(document).ready(function(){
     <tbody>
       <% @movements.each do |mov| %>
         <tr>
-          <td><%= mov.fecha %></td>
-          <td><%= mov.tipo %></td>
+          <td><%= l mov.created_at.in_time_zone('Buenos Aires'), format: :custom %></td>
+          <td><%= mov.humanized_tipo %></td>
           <td>$ <%= mov.monto %></td>
           <td>$ <%= mov.saldo %></td>
-          <td><%= mov.forma %></td>
+          <td><%= mov.humanized_forma %></td>
           <td><%= mov.descuento %> %</td>
           <td><%= mov.nota %></td>
           <td>

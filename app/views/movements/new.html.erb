@@ -6,12 +6,6 @@
     <%= simple_form_for [current_school, current_family, @movement] do |f| %>
       <div class="col-md-6 col-xs-12">
         <div class="col-md-10">
-          <%= f.input :fecha, input_html: { class: 'input-sm' } %>
-          <br />
-        </div>
-        <div class="clearfix"></div>
-        
-        <div class="col-md-10">
           <%= f.input :tipo, as: :select, collection: Movement::TIPO_TIPOS %>
           <br />
         </div>
@@ -23,6 +17,12 @@
         </div>
         <div class="clearfix"></div>
         
+        <div class="col-md-10">
+          <%= f.input :descuento, input_html: { class: 'input-sm' } %>
+          <br />
+        </div>
+        <div class="clearfix"></div>
+
         <div class="col-md-10">
           <%= f.input :saldo, input_html: { class: 'input-sm' } %>
           <br />
