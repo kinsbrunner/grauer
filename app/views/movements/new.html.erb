@@ -18,7 +18,7 @@
         <div class="clearfix"></div>
         
         <div class="col-md-10">
-          <%= f.input :descuento, as: :select, collection: Movement::TIPO_DESCUENTOS %>
+          <%= f.input :descuento, as: :select, :include_blank => false, collection: Movement::TIPO_DESCUENTOS %>
           <br />
         </div>
         <div class="clearfix"></div>
