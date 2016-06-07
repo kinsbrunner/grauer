@@ -18,13 +18,7 @@
         <div class="clearfix"></div>
         
         <div class="col-md-10">
-          <%= f.input :descuento, input_html: { class: 'input-sm' } %>
-          <br />
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="col-md-10">
-          <%= f.input :saldo, input_html: { class: 'input-sm' } %>
+          <%= f.input :descuento, as: :select, collection: Movement::TIPO_DESCUENTOS %>
           <br />
         </div>
         <div class="clearfix"></div>

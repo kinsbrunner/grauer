@@ -143,12 +143,12 @@ $(document).ready(function(){
     <tbody>
       <% @movements.each do |mov| %>
         <tr>
-          <td><%= l mov.created_at.in_time_zone('Buenos Aires'), format: :custom %></td>
+          <td><%= l mov.created_at.in_time_zone('Buenos Aires'), format: :fecha_short %></td>
           <td><%= mov.humanized_tipo %></td>
-          <td>$ <%= mov.monto %></td>
-          <td>$ <%= mov.saldo %></td>
+          <td><%= number_to_currency(mov.monto) %></td>
+          <td><%= number_to_currency(mov.saldo) %></td>
           <td><%= mov.humanized_forma %></td>
-          <td><%= mov.descuento %> %</td>
+          <td><%= (mov.descuento * 100).to_i %> %</td>
           <td><%= mov.nota %></td>
           <td>
             <%= link_to school_family_movement_path(current_school, current_family, mov), method: :delete, data: {confirm:'¿Está seguro que desea eliminar este Movimiento?'} do %>
