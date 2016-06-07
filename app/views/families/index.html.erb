@@ -44,26 +44,26 @@ $(document).ready(function(){
     <thead>
       <tr>
         <th>Familia</th>
+        <th>Deuda</th>
         <th>Contacto Principal</th>
         <th>Contacto Alternativo</th>
         <th>Celular</th>
         <th>Tel Casa</th>
         <th>Tel Alternativo</th>
         <th>Dirección</th>
-        <th>Deuda</th>
       </tr>
     </thead>
     <tbody>
       <% @families.each do |family| %>
         <tr>
           <td><%= link_to family.apellido, school_family_path(current_school, family) %></td>
+          <td><%= number_to_currency(family.saldo) %></td>
           <td><%= family.contacto_1 %></td>
           <td><%= family.contacto_2 %></td>
           <td><%= family.tel_cel %></td>
           <td><%= family.tel_casa %></td>
           <td><%= family.tel_alt %></td>
           <td><%= family.direccion %></td>
-          <td><%= number_to_currency(family.saldo) %></td>
         </tr>
       <% end %>
     </tbody>
