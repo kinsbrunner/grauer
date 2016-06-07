@@ -63,7 +63,7 @@ $(document).ready(function(){
           <td><%= family.tel_casa %></td>
           <td><%= family.tel_alt %></td>
           <td><%= family.direccion %></td>
-          <td> Sin implementar </td>
+          <td><%= number_to_currency(family.saldo) %></td>
         </tr>
       <% end %>
     </tbody>
