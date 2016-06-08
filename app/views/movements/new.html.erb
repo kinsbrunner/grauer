@@ -1,6 +1,6 @@
 <div class="col-xs-6 col-xs-offset-3">
   <h1>Familia <%= current_family.apellido %></h1>
-  <h3 class='no_top_margin'>Movimiento</h3>
+  <h3 class='no_top_margin'>Nuevo Movimiento</h3>
 
  <div class="seccion">
     <%= simple_form_for [current_school, current_family, @movement] do |f| %>
@@ -16,7 +16,8 @@
           <br />
         </div>
         <div class="clearfix"></div>
-        
+      </div>
+      <div class="col-md-6 col-xs-12">  
         <div class="col-md-10">
           <%= f.input :descuento, as: :select, :include_blank => false, collection: Movement::TIPO_DESCUENTOS %>
           <br />
@@ -28,18 +29,15 @@
           <br />
         </div>
         <div class="clearfix"></div>
-
-        <div class="col-md-10">
+      </div>
+      <div class="col-md-12 col-xs-12">  
+        <div class="col-md-11">
           <%= f.input :nota, input_html: { class: 'input-sm' } %>
           <br />
         </div>
         <div class="clearfix"></div>
         <br />        
       </div>
-
-      <br /><br />
-      
-      <div class="clearfix"></div>
 
       <div>  
         <br /><br />
@@ -51,7 +49,7 @@
         
           <%= button_tag(type: 'submit', class: 'btn btn-primary separate_btn') do %>
             <span class="glyphicon glyphicon-ok"></span>
-            Crear Movimiento
+            Crear
           <% end %>
         </div>
       </div>
