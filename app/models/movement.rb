@@ -11,12 +11,13 @@ class Movement < ActiveRecord::Base
   validates :forma, presence: true, if: "tipo == TIPO_TIPOS['Pago']"
   
   TIPO_TIPOS = {
-    'Servicio'        => 1,
-    'Pago'            => 2,
-    'Descuento'       => 3,
-    'Nota de Crédito' => 4
+    'Pago'            => 1,
+    'Servicio'        => 2,
+    'Nota de Crédito' => 3,
+    'Descuento'       => 4
+    
   }
-  
+
   TIPO_FORMAS = {
     'Efectivo'       => 1,
     'Transferencia'  => 2,
