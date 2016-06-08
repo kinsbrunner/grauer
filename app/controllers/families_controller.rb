@@ -9,7 +9,6 @@ class FamiliesController < ApplicationController
     end
 
     return render_not_found if current_school.blank?
-
     session[:school_id] = params[:school_id]
     @families = current_school.families.order(:apellido).page(params[:page])
   end
@@ -31,7 +30,7 @@ class FamiliesController < ApplicationController
     @children = current_family.children.order(grado: :desc, division: :asc, nombre: :asc).all
     @comments = current_family.comments.order(created_at: :desc).all
     @comment  = Comment.new
-    @movements = current_family.movements.order(created_at: :asc).page(params[:page])
+    @movements = current_family.movements.order(:created_at).page(params[:page])
   end
 
   def edit

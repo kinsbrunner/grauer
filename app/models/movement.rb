@@ -3,6 +3,7 @@ class Movement < ActiveRecord::Base
   belongs_to :user
   
   before_save :adjust_monto
+  after_save  :add_descuento
 
   validates :tipo, presence: true
   validates :monto, presence: true, :numericality => true
@@ -67,6 +68,25 @@ class Movement < ActiveRecord::Base
       self.monto = self.monto.abs
     else  
       self.monto = -(self.monto.abs)
+    end
+    
+    if self.tipo == TIPO_TIPOS['Pago'] && self.descuento != 0
+      self.monto = self.monto * (1 - self.descuento)
+    end
+  end
+  
+  def add_descuento
+    if self.tipo == TIPO_TIPOS['Pago']
+      mov           = Movement.new
+      mov.family_id = self.family_id
+      mov.user_id   = self.user_id
+      mov.tipo      = TIPO_TIPOS['Descuento']
+      puts 'MONTO >>>>>>>>>> #{self.monto}'
+      puts 'MONTO >>>>>>>>>> #{monto}'
+      mov.monto     = (self.monto / (1 - self.descuento)) * self.descuento
+      mov.descuento = self.descuento
+      mov.save
+      
     end
   end
 end

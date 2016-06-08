@@ -147,7 +147,7 @@ $(document).ready(function(){
           <td><%= mov.humanized_tipo %></td>
           <td class= '<%= mov.monto < 0 ? 'negativo' : '' %>'><%= number_to_currency(mov.monto) %></td>
           <td><%= number_to_currency(mov.saldo) %></td>
-          <td><%= mov.humanized_forma %></td>
+          <td><%= mov.forma.nil? ?  '-' : mov.humanized_forma %></td>
           <td><%= (mov.descuento * 100).to_i %> %</td>
           <td><%= mov.nota %></td>
           <td>
