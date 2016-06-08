@@ -2,9 +2,12 @@ class Movement < ActiveRecord::Base
   belongs_to :family
   belongs_to :user
   
+  before_save :adjust_monto
+
   validates :tipo, presence: true
-  validates :monto, presence: true
+  validates :monto, presence: true, :numericality => true
   validates :descuento, presence: true
+  validates :forma, presence: true, if: "tipo == TIPO_TIPOS['Pago']"
   
   TIPO_TIPOS = {
     'Servicio'        => 1,
@@ -54,5 +57,16 @@ class Movement < ActiveRecord::Base
   
   def humanized_descuento
     TIPO_DESCUENTOS.invert["%.2f" % BigDecimal(self.descuento).truncate(2)] 
+  end
+
+
+  private
+
+  def adjust_monto
+    if tipo == TIPO_TIPOS['Servicio']
+      self.monto = self.monto.abs
+    else  
+      self.monto = -(self.monto.abs)
+    end
   end
 end

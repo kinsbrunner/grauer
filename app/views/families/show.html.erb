@@ -30,10 +30,6 @@ $(document).ready(function(){
         }
     });
 });
-  
-$(document).load(function() {
-  $('#movement_monto').val() = 0;
-});
 </script>
 
 <div class='col-xs-10 col-xs-offset-1'>
@@ -126,7 +122,7 @@ $(document).load(function() {
     Cuenta Corriente
     <%= link_to new_school_family_movement_path(current_school, current_family), class: 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-plus"></span> 
-      Registro
+      Movimiento
     <% end %>
   </h1>
 
@@ -149,7 +145,7 @@ $(document).load(function() {
         <tr>
           <td><%= l mov.created_at.in_time_zone('Buenos Aires'), format: :fecha_short %></td>
           <td><%= mov.humanized_tipo %></td>
-          <td><%= number_to_currency(mov.monto) %></td>
+          <td class= '<%= mov.monto < 0 ? 'negativo' : '' %>'><%= number_to_currency(mov.monto) %></td>
           <td><%= number_to_currency(mov.saldo) %></td>
           <td><%= mov.humanized_forma %></td>
           <td><%= (mov.descuento * 100).to_i %> %</td>
