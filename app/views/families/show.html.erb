@@ -128,11 +128,12 @@ $(document).ready(function(){
   </h1>
 
   <div class='seccion'>
-    <div class= "seccion no_padding deuda <%= @total <= 0 ? 'saldo_ok' : 'saldo_deudor' %>">
+    <div class= "col-xs-12 col-md-8 col-md-offset-2 seccion no_padding deuda <%= @total <= 0 ? 'saldo_ok' : 'saldo_deudor' %>">
       <h2 class='text-center'>
         Saldo: <%= number_to_currency(@total) %>
       </h2>
     </div>
+    <div class='clearfix'></div>
     <br />
 
     <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
