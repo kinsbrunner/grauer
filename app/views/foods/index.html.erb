@@ -1,1 +1,62 @@
-Listado de Comidas
+<script>
+$(document).ready(function(){
+  $('.datatable').DataTable( {
+        responsive: true,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ platos",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando platos del _START_ al _END_ de un total de _TOTAL_ platos",
+            "sInfoEmpty":      "Mostrando platos del 0 al 0 de un total de 0 platos",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ platos)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Ultimo",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+            },
+            "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+</script>
+
+<div class="col-xs-10 col-xs-offset-1">
+  <%= link_to new_school_food_path(current_school), class: "btn btn-primary pull-right" do %>
+    <span class="glyphicon glyphicon-plus"></span> 
+    Plato
+  <% end %>
+</div>
+<div class="col-xs-10 col-xs-offset-1 marco">
+    <br />
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
+    <thead>
+      <tr>
+        <th>Plato</th>
+        <th>Tipo de Plato</th>
+        <th>Incluir siempre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.plato %></td>
+          <td><%= food.humanized_tipo %></td>
+          <td><%= food.siempre %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= paginate @foods %>
+  </div>
+</div>
