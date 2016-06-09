@@ -1,3 +1,11 @@
+<script>
+  $(function() {
+    if($('#movement_monto').val() == 0){
+      $('#movement_monto').val('');
+    }
+  });
+</script>
+
 <div class="col-xs-6 col-xs-offset-3">
   <h1>Familia <%= current_family.apellido %></h1>
   <h3 class='no_top_margin'>Nuevo Movimiento</h3>
