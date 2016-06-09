@@ -18,6 +18,13 @@ class Movement < ActiveRecord::Base
     
   }
 
+  TIPO_TIPOS_DDLB = {
+    'Pago'            => 1,
+    'Servicio'        => 2,
+    'Nota de Crédito' => 3
+    
+  }
+
   TIPO_FORMAS = {
     'Efectivo'       => 1,
     'Transferencia'  => 2,

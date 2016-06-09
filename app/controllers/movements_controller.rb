@@ -3,7 +3,6 @@ class MovementsController < ApplicationController
   
   def new
     @movement = Movement.new
-    @tipos = Movement::TIPO_TIPOS.delete_if{|key, value| key == 'Descuento'}
   end
   
   def create
