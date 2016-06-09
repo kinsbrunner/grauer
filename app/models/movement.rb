@@ -5,6 +5,8 @@ class Movement < ActiveRecord::Base
   before_save :adjust_monto
   after_save  :add_descuento
 
+  attr_accessor :saldo
+  
   validates :tipo, presence: true
   validates :monto, presence: true, :numericality => true
   validates :descuento, presence: true

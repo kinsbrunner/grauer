@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607175702) do
+ActiveRecord::Schema.define(version: 20160609171742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20160607175702) do
     t.datetime "updated_at"
     t.integer  "tipo"
     t.decimal  "monto",      precision: 8, scale: 2, default: 0.0
-    t.decimal  "saldo",      precision: 8, scale: 2, default: 0.0
     t.integer  "forma"
     t.decimal  "descuento",  precision: 8, scale: 2, default: 0.0
     t.text     "nota"
