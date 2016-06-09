@@ -3,6 +3,7 @@ class FoodsController < ApplicationController
   
   def index
     @foods = Food.order(:comida).page(params[:page])
+    @food = Food.new
   end
   
   def new
@@ -10,9 +11,9 @@ class FoodsController < ApplicationController
   end
   
   def create
-    @food = current_food.create(food_params)
+    @food = Food.create(food_params)
     if @food.valid?
-      redirect_to foods_path
+      redirect_to school_foods_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -21,14 +22,14 @@ class FoodsController < ApplicationController
   def destroy
     return render_not_found if current_food.blank?
     current_food.destroy
-    redirect_to foods_path
+    redirect_to school_foods_path
   end
   
     
   private
   
   def food_params
-      params.require(:food).permit(:tipo, :comida, :siempre)
+      params.require(:food).permit(:tipo, :comida)
   end
   
   helper_method :current_food

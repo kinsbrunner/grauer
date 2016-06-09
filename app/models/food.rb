@@ -7,9 +7,7 @@ class Food < ActiveRecord::Base
     'Acompañamiento' => 2
   }
 
-  
-  private
-  
+
   def humanized_tipo
     TIPO_COMIDAS.invert[self.tipo]
   end
