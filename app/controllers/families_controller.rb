@@ -31,6 +31,12 @@ class FamiliesController < ApplicationController
     @comments = current_family.comments.order(created_at: :desc).all
     @comment  = Comment.new
     @movements = current_family.movements.order(:created_at).page(params[:page])
+    @total = 0
+    @movements.each do |mov|
+      @total = @total + mov.monto
+      mov.saldo = @total
+    end
+
   end
 
   def edit

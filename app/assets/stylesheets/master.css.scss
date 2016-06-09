@@ -91,3 +91,15 @@ table td, th {
 .error, .negativo {
   color: red;
 }
+
+.no_padding{
+  padding: 0px;
+}
+
+.saldo_deudor{
+  background-color: #FFBBBB; /*red*/
+}
+
+.saldo_ok{
+  background-color: #BBFFBB; /*green*/
+}

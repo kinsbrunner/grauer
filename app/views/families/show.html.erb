@@ -128,6 +128,13 @@ $(document).ready(function(){
   </h1>
 
   <div class='seccion'>
+    <div class= "seccion no_padding deuda <%= @total <= 0 ? 'saldo_ok' : 'saldo_deudor' %>">
+      <h2 class='text-center'>
+        Saldo: <%= number_to_currency(@total) %>
+      </h2>
+    </div>
+    <br />
+
     <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
     <thead>
       <tr>
@@ -150,7 +157,7 @@ $(document).ready(function(){
           <td><%= number_to_currency(mov.saldo) %></td>
           <td><%= mov.forma.nil? ?  '-' : mov.humanized_forma %></td>
           <td><%= (mov.descuento * 100).to_i %> %</td>
-          <td><%= mov.nota %></td>
+          <td><%= mov.nota.nil? ?  '-' : mov.nota %></td>
           <td>
             <%= link_to school_family_movement_path(current_school, current_family, mov), method: :delete, data: {confirm:'¿Está seguro que desea eliminar este Movimiento?'} do %>
                 <span class="glyphicon glyphicon-trash"></span>
