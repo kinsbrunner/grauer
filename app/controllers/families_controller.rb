@@ -9,7 +9,7 @@ class FamiliesController < ApplicationController
     end
 
     return render_not_found if current_school.blank?
-    session[:school_id] = params[:school_id]
+    session[:school_id] = current_school.id
     @families = current_school.families.order(:apellido).page(params[:page])
   end
 

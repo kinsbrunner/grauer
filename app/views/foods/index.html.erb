@@ -53,7 +53,7 @@ $(document).ready(function(){
           <td><%= food.comida %></td>
           <td><%= food.humanized_tipo %></td>
           <td>
-            <%= link_to school_food_path(current_school, food), method: :delete, data: {confirm:'¿Está seguro que desea eliminar esta comida?'} do %>
+            <%= link_to food_path(food), method: :delete, data: {confirm:'¿Está seguro que desea eliminar esta comida?'} do %>
               <span class="glyphicon glyphicon-trash"></span>
             <% end %> 
           </td>
@@ -76,7 +76,7 @@ $(document).ready(function(){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myFoodModalLabel">Nuevo Plato</h4>
       </div>
-      <%= simple_form_for @food, url: school_foods_path(current_school) do |f| %>
+      <%= simple_form_for @food, url: foods_path do |f| %>
       <div class="modal-body">
           <%= f.input :comida, label: 'Plato' %>
           <br />

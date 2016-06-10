@@ -8,7 +8,6 @@ Grauer::Application.routes.draw do
       resources :comments, only: [:new, :create]
       resources :movements, only: [:new, :create, :destroy]
     end
-    resources :foods, only: [:index, :new, :create, :destroy]
   end
-  
+  resources :foods, only: [:index, :new, :create, :destroy]
 end
