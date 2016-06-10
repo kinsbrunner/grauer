@@ -57,7 +57,6 @@ class Movement < ActiveRecord::Base
     '100 %' => 1.00      
   }
   
-
   def humanized_tipo
     TIPO_TIPOS.invert[self.tipo]
   end
@@ -91,12 +90,9 @@ class Movement < ActiveRecord::Base
       mov.family_id = self.family_id
       mov.user_id   = self.user_id
       mov.tipo      = TIPO_TIPOS['Descuento']
-      puts 'MONTO >>>>>>>>>> #{self.monto}'
-      puts 'MONTO >>>>>>>>>> #{monto}'
       mov.monto     = (self.monto / (1 - self.descuento)) * self.descuento
       mov.descuento = self.descuento
       mov.save
-      
     end
   end
 end

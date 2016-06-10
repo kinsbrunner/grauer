@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :families
   has_many :comments
   has_many :movements
+  has_many :menus
   
   attr_accessor :school
 end
