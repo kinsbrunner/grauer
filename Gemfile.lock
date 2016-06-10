@@ -197,6 +197,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.3.0)
   jquery-rails
   kaminari
+  momentjs-rails
   pg
   rails (= 4.0.1)
   rails-erd
