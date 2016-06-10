@@ -1,5 +1,5 @@
 class FoodsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
+  before_action :authenticate_user!, only: [:index, :new, :create, :destroy, :edit, :update]
   
   def index
     @foods = Food.order(:comida).page(params[:page])
@@ -13,16 +13,25 @@ class FoodsController < ApplicationController
   def create
     @food = Food.create(food_params)
     if @food.valid?
-      redirect_to school_foods_path
+      redirect_to foods_path
     else
       render :new, status: :unprocessable_entity
     end
   end
   
+  def edit
+    @food ||= Food.find_by_id(params[:id])
+  end
+
+  def update
+    current_food.update_attributes(food_params)
+    redirect_to foods_path
+  end
+  
   def destroy
     return render_not_found if current_food.blank?
     current_food.destroy
-    redirect_to school_foods_path
+    redirect_to foods_path
   end
   
     

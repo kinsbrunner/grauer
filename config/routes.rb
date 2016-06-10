@@ -9,5 +9,5 @@ Grauer::Application.routes.draw do
       resources :movements, only: [:new, :create, :destroy]
     end
   end
-  resources :foods, only: [:index, :new, :create, :destroy]
+  resources :foods, only: [:index, :new, :create, :destroy, :edit, :update]
 end

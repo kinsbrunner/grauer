@@ -30,12 +30,11 @@ $(document).ready(function(){
 });
 </script>
 
-<div class="col-xs-10 col-xs-offset-1">
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myFoodModal">
+<div class="col-xs-6 col-xs-offset-3">
+  <%= link_to new_food_path, class: "btn btn-primary pull-right" do %>
     <span class="glyphicon glyphicon-plus"></span> 
     Plato
-  </button>  
+  <% end %> 
 </div>
 <div class="col-xs-6 col-xs-offset-3 marco">
     <br />
@@ -53,6 +52,10 @@ $(document).ready(function(){
           <td><%= food.comida %></td>
           <td><%= food.humanized_tipo %></td>
           <td>
+            <%= link_to edit_food_path(food) do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %> 
+            &nbsp;&nbsp;&nbsp;
             <%= link_to food_path(food), method: :delete, data: {confirm:'¿Está seguro que desea eliminar esta comida?'} do %>
               <span class="glyphicon glyphicon-trash"></span>
             <% end %> 
@@ -63,30 +66,5 @@ $(document).ready(function(){
   </table>
   <div class="text-center">
     <%= paginate @foods %>
-  </div>
-</div>
-
-
-
-<!-- Food Modal -->
-<div class="modal fade" id="myFoodModal" tabindex="-1" role="dialog" aria-labelledby="myFoodModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myFoodModalLabel">Nuevo Plato</h4>
-      </div>
-      <%= simple_form_for @food, url: foods_path do |f| %>
-      <div class="modal-body">
-          <%= f.input :comida, label: 'Plato' %>
-          <br />
-          <%= f.input :tipo, as: :select, collection: Food::TIPO_COMIDAS, label: 'Tipo de Plato' %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <%= f.submit 'Agregar', class: 'btn btn-primary' %>
-      </div>
-      <% end %>
-    </div>
   </div>
 </div>
