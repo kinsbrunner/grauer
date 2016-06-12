@@ -11,10 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610200750) do
+ActiveRecord::Schema.define(version: 20160612174251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bills", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "user_id"
+    t.integer  "tipo"
+    t.date     "periodo"
+    t.integer  "limite_grp_1"
+    t.decimal  "valor_1"
+    t.integer  "limite_grp_2"
+    t.decimal  "valor_2"
+    t.integer  "limite_grp_3"
+    t.decimal  "valor_3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bills", ["school_id"], name: "index_bills_on_school_id", using: :btree
+  add_index "bills", ["user_id", "school_id"], name: "index_bills_on_user_id_and_school_id", using: :btree
 
   create_table "children", force: true do |t|
     t.integer  "family_id"
