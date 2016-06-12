@@ -57,7 +57,7 @@ $(document).ready(function(){
       <% @families.each do |family| %>
         <tr>
           <td><%= link_to family.apellido, school_family_path(current_school, family) %></td>
-          <td><%= number_to_currency(family.saldo) %></td>
+          <td><%= number_to_currency(family.get_saldo) %></td>
           <td><%= family.contacto_1 %></td>
           <td><%= family.contacto_2 %></td>
           <td><%= family.tel_cel %></td>

@@ -6,4 +6,8 @@ class Family < ActiveRecord::Base
   has_many   :movements
 
   validates :apellido, presence: true
+
+  def get_saldo
+    return self.movements.sum(:monto)
+  end
 end

@@ -37,7 +37,6 @@ class FamiliesController < ApplicationController
       @total = @total + mov.monto
       mov.saldo = @total
     end
-
   end
 
   def edit
