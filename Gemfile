@@ -72,3 +72,5 @@ gem 'rails-i18n'
 
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+
+gem 'jquery-ui-rails'

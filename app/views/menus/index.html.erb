@@ -5,7 +5,6 @@
 
 		/* initialize the external events
 		-----------------------------------------------------------------*/
-
 		$('#external-events .fc-event').each(function() {
 
 			// store data so the calendar knows to render an event upon drop
@@ -24,15 +23,27 @@
 		});
 
 
+
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
 
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev,next today',
+				left: '',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				right: 'prev,next today'
 			},
+	    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		  monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+		  dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+		  buttonText: {
+	      today: 'Hoy',
+	      month: 'month',
+	      week: 'week',
+	      day: 'day'
+	    },
+		  dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
 			drop: function() {
@@ -41,7 +52,12 @@
 					// if so, remove the element from the "Draggable Events" list
 					$(this).remove();
 				}
-			}
+			},
+			weekends: false,
+			fixedWeekCount: false,
+			eventSources: [{
+	      url: '/events'
+	    }],
 		});
 
 
