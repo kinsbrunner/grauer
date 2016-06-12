@@ -1,7 +1,11 @@
 <div class='col-xs-10 col-xs-offset-1'>
 
   <h1 class="pull-left'">
-    Facturación Histórica Mensual
+    Facturación Mensual
+    <%= link_to new_bill_path, class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-plus"></span> 
+      Facturar Mes
+    <% end %>
   </h1>
 
   <div class='seccion table-responsive'>
@@ -21,13 +25,13 @@
       <tbody>
         <% @bills_monthly.each do |bm| %>
           <tr>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
+            <td><%= l bm.periodo.in_time_zone('Buenos Aires'), format: :mes_anio %></td>
+            <td><%= bm.limite_grp_1.nil? ? '-' : bm.limite_grp_1 %></td>
+            <td><%= bm.valor_1.nil? ? '-' : number_to_currency(bm.valor_1) %></td>
+            <td><%= bm.limite_grp_2.nil? ? '-' : bm.limite_grp_2 %></td>
+            <td><%= bm.valor_2.nil? ? '-' : number_to_currency(bm.valor_2) %></td>
+            <td><%= bm.limite_grp_3.nil? ? '-' : bm.limite_grp_3 %></td>
+            <td><%= bm.valor_3.nil? ? '-' : number_to_currency(bm.valor_3) %></td>
           </tr>
         <% end %>
 
@@ -45,7 +49,7 @@
   <br /><br />
 
   <h1 class="pull-left'">
-    Facturación Histórica Diaria
+    Facturación Diaria
   </h1>
 
   <div class='seccion table-responsive'>

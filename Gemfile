@@ -74,3 +74,5 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
 gem 'jquery-ui-rails'
+
+gem 'bootstrap-datepicker-rails'

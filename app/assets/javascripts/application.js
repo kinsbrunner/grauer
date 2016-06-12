@@ -19,5 +19,7 @@
 //= require dataTables/extras/dataTables.responsive
 //= require moment
 //= require fullcalendar
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
 //= require turbolinks
 //= require_tree .

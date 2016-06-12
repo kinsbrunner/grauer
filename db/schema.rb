@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612174251) do
+ActiveRecord::Schema.define(version: 20160612221101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160612174251) do
     t.integer  "school_id"
     t.integer  "user_id"
     t.integer  "tipo"
-    t.date     "periodo"
+    t.string   "periodo"
     t.integer  "limite_grp_1"
     t.decimal  "valor_1"
     t.integer  "limite_grp_2"

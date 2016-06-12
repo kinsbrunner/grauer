@@ -213,4 +213,5 @@ es:
       short: "%d de %b a las %H:%M hrs"
       custom: "%d-%b-%Y %H:%M"
       fecha_short: "%d-%b-%y"
+      mes_anio: "%B-%y"
     pm: pm

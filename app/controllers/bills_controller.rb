@@ -2,8 +2,8 @@ class BillsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create]
   
   def index
-    @bills_monthly = current_school.bills.where("tipo = "+ Bill::TIPO_TIPOS_FACTURACION['Mensual'].to_s).order(:periodo).page(params[:page])
-    #@bills_daily = current_school.bills.where("tipo = "+ Bill::TIPO_TIPOS_FACTURACION['Diaria'].to_s).order(:periodo).page(params[:page])
+    @bills_monthly = current_school.bills.where("tipo = "+ Bill::TIPOS_FACTURACION['Mensual'].to_s).order(:periodo).page(params[:page])
+    #@bills_daily = current_school.bills.where("tipo = "+ Bill::TIPOS_FACTURACION['Diaria'].to_s).order(:periodo).page(params[:page])
   end
 
   def new
@@ -11,14 +11,12 @@ class BillsController < ApplicationController
   end
   
   def create
-=begin   
-    @food = Food.create(food_params)
-    if @food.valid?
-      redirect_to foods_path
+    @bill = Bill.create(bill_params)
+    if @bill.valid?
+      redirect_to bills_path
     else
       render :new, status: :unprocessable_entity
     end
-=end
   end
 
 
