@@ -4,7 +4,7 @@
  <div class="seccion">
     <%= simple_form_for @bill do |f| %>
       <div class="col-md-10 col-md-offset-1 col-xs-12">
-          <%= f.input :periodo, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
+          <%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
           <br />
           <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
           <br />

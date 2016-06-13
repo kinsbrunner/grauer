@@ -14,30 +14,24 @@
         <tr>
           <th>Período</th>
           <th>Grupo 1</th>
-          <th>Valor </th>
           <th>Grupo 2</th>
-          <th>Valor</th>
           <th>Grupo 3</th>
-          <th>Valor</th>
         </tr>
       </thead>
 
       <tbody>
         <% @bills_monthly.each do |bm| %>
           <tr>
-            <td><%= l bm.periodo.in_time_zone('Buenos Aires'), format: :mes_anio %></td>
-            <td><%= bm.limite_grp_1.nil? ? '-' : bm.limite_grp_1 %></td>
-            <td><%= bm.valor_1.nil? ? '-' : number_to_currency(bm.valor_1) %></td>
-            <td><%= bm.limite_grp_2.nil? ? '-' : bm.limite_grp_2 %></td>
-            <td><%= bm.valor_2.nil? ? '-' : number_to_currency(bm.valor_2) %></td>
-            <td><%= bm.limite_grp_3.nil? ? '-' : bm.limite_grp_3 %></td>
-            <td><%= bm.valor_3.nil? ? '-' : number_to_currency(bm.valor_3) %></td>
+            <td><%= l bm.periodo, format: :mes_anio %></td>
+            <td><%= bm.limite_grp_1.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_1 + ':' + number_to_currency(bm.valor_1) %></td>
+            <td><%= bm.limite_grp_2.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_2 + ':' + number_to_currency(bm.valor_2) %></td>
+            <td><%= bm.limite_grp_3.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_3 + ':' + number_to_currency(bm.valor_3) %></td>
           </tr>
         <% end %>
 
         <% if @bills_monthly.empty? %>
           <tr>
-            <td colspan='7'>No hay facturas por mostrar</td>
+            <td colspan='4'>No hay facturas por mostrar</td>
           </tr>
         <% end %>
       </tbody>

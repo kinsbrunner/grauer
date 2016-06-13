@@ -11,7 +11,7 @@ class BillsController < ApplicationController
   end
   
   def create
-    @bill = Bill.create(bill_params)
+    @bill = current_school.bills.create(bill_params)
     if @bill.valid?
       redirect_to bills_path
     else

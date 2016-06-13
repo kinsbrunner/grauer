@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612221101) do
+ActiveRecord::Schema.define(version: 20160613004119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20160612221101) do
     t.integer  "school_id"
     t.integer  "user_id"
     t.integer  "tipo"
-    t.string   "periodo"
     t.integer  "limite_grp_1"
     t.decimal  "valor_1"
     t.integer  "limite_grp_2"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160612221101) do
     t.decimal  "valor_3"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "periodo"
   end
 
   add_index "bills", ["school_id"], name: "index_bills_on_school_id", using: :btree
