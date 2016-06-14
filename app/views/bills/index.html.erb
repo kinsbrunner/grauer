@@ -7,7 +7,6 @@
       Facturar Mes
     <% end %>
   </h1>
-
   <div class='seccion table-responsive'>
     <table class='table table-condensed table_margin_off'>
       <thead>
@@ -22,7 +21,7 @@
       <tbody>
         <% @bills_monthly.each do |bm| %>
           <tr>
-            <td><%= l bm.periodo, format: :mes_anio %></td>
+            <td><%= bm.periodo %></td>
             <td><%= bm.limite_grp_1.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_1 + ':' + number_to_currency(bm.valor_1) %></td>
             <td><%= bm.limite_grp_2.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_2 + ':' + number_to_currency(bm.valor_2) %></td>
             <td><%= bm.limite_grp_3.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_3 + ':' + number_to_currency(bm.valor_3) %></td>

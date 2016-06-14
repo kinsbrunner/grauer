@@ -23,7 +23,10 @@ class BillsController < ApplicationController
   private 
 
   def bill_params
-    params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3)
+    valid = params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3)
+    fecha = Date.parse valid[:periodo]
+    valid[:periodo] = fecha.to_s
+    return valid
   end
 
   helper_method :current_school
