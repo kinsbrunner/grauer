@@ -24,7 +24,7 @@ class BillsController < ApplicationController
 
   def bill_params
     valid = params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3)
-    fecha = Date.parse valid[:periodo]
+    fecha = Date.parse("01 #{valid[:periodo]}", format: '%d %B %Y') if valid[:periodo]
     valid[:periodo] = fecha.to_s
     return valid
   end

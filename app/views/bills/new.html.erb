@@ -1,3 +1,16 @@
+<script>
+	$(document).ready(function() {
+    $('#bill_periodo').change(function() {
+      var d = new Date($('#bill_periodo').val());
+      var day = d.getDate();
+      var month = d.getMonth() + 1;
+      var year = d.getFullYear();
+      
+      /*$('#bill_fecha_hidden').val(year + '-' + month + '-' + day);*/
+    });    
+  });
+</script>
+
 <div class="col-xs-6 col-xs-offset-3">
   <h1>Facturar Clientes Mensuales</h1>
 
@@ -5,6 +18,7 @@
     <%= simple_form_for @bill do |f| %>
       <div class="col-md-10 col-md-offset-1 col-xs-12">
           <%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
+          <%= f.input :periodo_hidden, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm picker2' } %>
           <br />
           <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
           <br />
@@ -42,15 +56,29 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('.datepicker').datepicker({
+  $(function() {
+    $('#bill_periodo').datepicker({
         format: "MM yyyy",
         startView: 1,
         minViewMode: 1,
         maxViewMode: 2,
         language: "es",
         autoclose: true,
-        todayHighlight: true
+        todayHighlight: true,
+        onSelect: function(selected) {
+          alert(selected)
+          $(".picker2").datepicker("setDate", selected);
+        } 
     });
+    
+    $('#bill_periodo').on("keyup", function(e) {
+      alert('HOLA'); 
+    });
+    
+    $('.picker2').datepicker({
+        format: "yyyy-mm-dd",
+        language: "es"
+    });
+    
   });
 </script>

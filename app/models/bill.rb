@@ -1,6 +1,8 @@
 class Bill < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
+  
+  attr_accessor :periodo_hidden
 
   validates :school_id, presence: true
   validates :tipo, presence: true
