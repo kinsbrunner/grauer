@@ -15,6 +15,7 @@ class BillsController < ApplicationController
     if @bill.valid?
       redirect_to bills_path
     else
+      switch_fechas
       render :new, status: :unprocessable_entity
     end
   end
@@ -23,12 +24,21 @@ class BillsController < ApplicationController
   private 
 
   def bill_params
-    valid = params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3)
-    fecha = Date.parse("01 #{valid[:periodo]}", format: '%d %B %Y') if valid[:periodo]
-    valid[:periodo] = fecha.to_s
+    valid = params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3, :periodo_hidden)
+    fecha_aux = valid[:periodo]
+    valid[:periodo] = valid[:periodo_hidden]
+    valid[:periodo_hidden] = fecha_aux
     return valid
   end
 
+  def switch_fechas
+    valid = params.require(:bill).permit(:periodo, :periodo_hidden)
+    fecha_aux = valid[:periodo]
+    valid[:periodo] = valid[:periodo_hidden]
+    valid[:periodo_hidden] = fecha_aux
+    return valid
+  end
+  
   helper_method :current_school
   def current_school
     @current_school ||= School.find_by_id(session[:school_id])
