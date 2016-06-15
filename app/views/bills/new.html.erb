@@ -63,5 +63,44 @@
         language: "es"
     });
     
+		limite_1 = $("#bill_limite_grp_1");
+		limite_2 = $("#bill_limite_grp_2");
+		valor_2 = $("#bill_valor_2");
+		limite_3 = $("#bill_limite_grp_3");
+		valor_3 = $("#bill_valor_3");
+		
+
+		limite_1.change(function() {
+			if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
+				limite_2.prop('disabled', 'disabled')
+				        .val('');
+				valor_2.prop('disabled', 'disabled')
+							 .val('');
+				limite_3.prop('disabled', 'disabled')
+							  .val('');
+				valor_3.prop('disabled', 'disabled')
+							 .val('');
+			}
+			else{
+				limite_2.prop('disabled', false);
+				valor_2.prop('disabled', false);
+				limite_3.prop('disabled', false);
+				valor_3.prop('disabled', false);
+			}
+	});
+	
+	limite_2.change(function() {	
+		if(limite_2.val() == <%= Child::GRADOS['7mo Grado'] %>){
+				limite_3.prop('disabled', 'disabled')
+							  .val('');
+				valor_3.prop('disabled', 'disabled')
+							 .val('');
+			}
+			else{
+				limite_3.prop('disabled', false);
+				        .val(<%= Child::GRADOS['7mo Grado'] %>);
+				valor_3.prop('disabled', false);
+			}
+		});
   });
 </script>
