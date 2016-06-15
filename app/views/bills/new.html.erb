@@ -88,8 +88,8 @@
 		}
 	});
 	
-	limite_2.change(function() {	
-		if(limite_2.val() == <%= Child::GRADOS['7mo Grado'] %>){
+	limite_2.change(function() {
+		if(limite_2.val() == <%= Child::GRADOS['7mo Grado'] %> || limite_2.val() == ''){
 			limite_3.prop('disabled', 'disabled')
 							.val('');
 			valor_3.prop('disabled', 'disabled')
@@ -100,5 +100,15 @@
 							.val(<%= Child::GRADOS['7mo Grado'] %>);
 			valor_3.prop('disabled', false);
 		}
+		
+		if(limite_2.val() == ''){
+			valor_2.val('');
+		}
   });
+	
+	limite_3.change(function() {
+		if(limite_3.val() == ''){
+			valor_3.val('');
+		}
+	});
 </script>
