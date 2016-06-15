@@ -4,12 +4,12 @@
  <div class="seccion">
     <%= simple_form_for @bill do |f| %>
       <div class="col-md-10 col-md-offset-1 col-xs-12">
-          <%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
-          <%= f.input :periodo_hidden, as: :hidden, input_html: { class: 'datepicker input-sm' } %>
-          <br />
           <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
           <br />
-          <%= f.input :limite_grp_1, as: :select, :include_blank => false, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+					<%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
+          <%= f.input :periodo_hidden, as: :hidden, input_html: { class: 'datepicker input-sm' } %>
+          <br />
+          <%= f.input :limite_grp_1, as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
           <br />
           <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
           <br />          
@@ -62,45 +62,43 @@
         format: "yyyy-mm-dd",
         language: "es"
     });
-    
-		limite_1 = $("#bill_limite_grp_1");
-		limite_2 = $("#bill_limite_grp_2");
-		valor_2 = $("#bill_valor_2");
-		limite_3 = $("#bill_limite_grp_3");
-		valor_3 = $("#bill_valor_3");
+	});
 		
+	limite_1 = $("#bill_limite_grp_1");
+	limite_2 = $("#bill_limite_grp_2");
+	valor_2 = $("#bill_valor_2");
+	limite_3 = $("#bill_limite_grp_3");
+	valor_3 = $("#bill_valor_3");
+	
+	limite_2.prop('disabled', 'disabled');
+	valor_2.prop('disabled', 'disabled');
+	limite_3.prop('disabled', 'disabled');
+	valor_3.prop('disabled', 'disabled');
 
-		limite_1.change(function() {
-			if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
-				limite_2.prop('disabled', 'disabled')
-				        .val('');
-				valor_2.prop('disabled', 'disabled')
-							 .val('');
-				limite_3.prop('disabled', 'disabled')
-							  .val('');
-				valor_3.prop('disabled', 'disabled')
-							 .val('');
-			}
-			else{
-				limite_2.prop('disabled', false);
-				valor_2.prop('disabled', false);
-				limite_3.prop('disabled', false);
-				valor_3.prop('disabled', false);
-			}
+	limite_1.change(function() {
+		if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
+			limite_2.prop('disabled', 'disabled')
+			        .val('');
+			valor_2.prop('disabled', 'disabled')
+						 .val('');
+		}
+		else{
+			limite_2.prop('disabled', false);
+			valor_2.prop('disabled', false);
+		}
 	});
 	
 	limite_2.change(function() {	
 		if(limite_2.val() == <%= Child::GRADOS['7mo Grado'] %>){
-				limite_3.prop('disabled', 'disabled')
-							  .val('');
-				valor_3.prop('disabled', 'disabled')
-							 .val('');
-			}
-			else{
-				limite_3.prop('disabled', false);
-				        .val(<%= Child::GRADOS['7mo Grado'] %>);
-				valor_3.prop('disabled', false);
-			}
-		});
+			limite_3.prop('disabled', 'disabled')
+							.val('');
+			valor_3.prop('disabled', 'disabled')
+						 .val('');
+		}
+		else{
+			limite_3.prop('disabled', false)
+							.val(<%= Child::GRADOS['7mo Grado'] %>);
+			valor_3.prop('disabled', false);
+		}
   });
 </script>
