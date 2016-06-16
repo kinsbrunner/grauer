@@ -71,11 +71,16 @@
 	limite_3 = $("#bill_limite_grp_3");
 	valor_3 = $("#bill_valor_3");
 	
-	limite_2.prop('disabled', 'disabled');
-	valor_2.prop('disabled', 'disabled');
-	limite_3.prop('disabled', 'disabled');
-	valor_3.prop('disabled', 'disabled');
+  if(limite_2.val() == ''){
+    limite_2.prop('disabled', 'disabled');
+    valor_2.prop('disabled', 'disabled');
+  }
 
+  if(limite_3.val() == ''){
+  	limite_3.prop('disabled', 'disabled');
+  	valor_3.prop('disabled', 'disabled');
+  }
+  
 	limite_1.change(function() {
 		if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
 			limite_2.prop('disabled', 'disabled')
