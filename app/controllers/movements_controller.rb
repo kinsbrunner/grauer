@@ -25,7 +25,7 @@ class MovementsController < ApplicationController
   
   def movement_params
     params.require(:movement).permit(:tipo, :monto, :saldo, :forma, :descuento, :nota)
-  end
+  end 
   
   helper_method :current_family
   def current_family

@@ -10,8 +10,8 @@ class BillsController < ApplicationController
     @bill = Bill.new
   end
   
-  def create
-    @bill = current_school.bills.create(bill_params)
+  def create   
+    @bill = current_school.bills.create(bill_params.merge(user: current_user))
     if @bill.valid?
       redirect_to bills_path
     else

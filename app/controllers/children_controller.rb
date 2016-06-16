@@ -32,8 +32,8 @@ class ChildrenController < ApplicationController
   
   def child_params
     params.require(:child).permit(:nombre, :grado, :division, :tipo_servicio, :comentario)
-  end
-
+  end 
+  
   helper_method :current_family
   def current_family
     @current_family ||= Family.find_by_id(params[:family_id])

@@ -58,7 +58,7 @@ class FamiliesController < ApplicationController
         return render text: 'No relation', status: :bad_request
       end
     end
-
+  
     helper_method :current_family
     def current_family
       @current_family ||= Family.find_by_id(params[:id])

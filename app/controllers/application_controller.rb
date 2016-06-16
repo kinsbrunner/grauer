@@ -13,8 +13,7 @@ class ApplicationController < ActionController::Base
   def current_school
     @current_school ||= School.find_by_id(params[:school_id])
   end
-
-
+  
   protected
 
   def configure_permitted_parameters
