@@ -3,25 +3,47 @@
 
  <div class="seccion">
     <%= simple_form_for @bill do |f| %>
-      <div class="col-md-10 col-md-offset-1 col-xs-12">
-          <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
-          <br />
+      <div class="col-xs-12">
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :periodo_mask, as: :string, label: '* Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
+            <%= f.input :periodo, as: :hidden, input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
+            <br />
+          </div>
 
-          <%= f.input :periodo_mask, as: :string, label: '* Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
-          <%= f.input :periodo, as: :hidden, input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
-          <br />
-          <%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-          <br />
-          <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
-          <br />          
-          <%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-          <br />
-          <%= f.input :valor_2, input_html: { class: 'input-sm' } %>
-          <br />
-          <%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-          <br />
-          <%= f.input :valor_3, input_html: { class: 'input-sm' } %>
-          <br />
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :valor_2, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <%= f.input :valor_3, input_html: { class: 'input-sm' } %>
+            <br />
+          </div>
       </div>
    
       <div>  
