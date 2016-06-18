@@ -6,18 +6,19 @@
       <div class="col-md-10 col-md-offset-1 col-xs-12">
           <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
           <br />
-					<%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm' } %>
-          <%= f.input :periodo_hidden, as: :hidden, input_html: { class: 'datepicker input-sm' } %>
+
+          <%= f.input :periodo_mask, as: :string, label: '* Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
+          <%= f.input :periodo, as: :hidden, input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
           <br />
-          <%= f.input :limite_grp_1, as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+          <%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
           <br />
           <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
           <br />          
-          <%= f.input :limite_grp_2, as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+          <%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
           <br />
           <%= f.input :valor_2, input_html: { class: 'input-sm' } %>
           <br />
-          <%= f.input :limite_grp_3, as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+          <%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
           <br />
           <%= f.input :valor_3, input_html: { class: 'input-sm' } %>
           <br />
@@ -44,24 +45,31 @@
 
 <script type="text/javascript">
   $(function() {
-    $('#bill_periodo').datepicker({
-        format: "MM yyyy",
-        startView: 1,
-        minViewMode: 1,
-        maxViewMode: 2,
-        language: "es",
-        autoclose: true,
-        todayHighlight: true
+    periodo_mask = $('#bill_periodo_mask');
+    periodo = $('#bill_periodo');
+
+    periodo_mask.datepicker({
+      format: "MM yyyy",
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2,
+      language: "es",
+      autoclose: true,
+      todayHighlight: true
     });
     
-		$('#bill_periodo').datepicker().on('changeDate', function (ev) {
-				$("#bill_periodo_hidden").datepicker("setDate", ev.date);
+		periodo_mask.datepicker().on('changeDate', function (ev) {
+			periodo.datepicker("setDate", ev.date);
 		});
 		
-    $('#bill_periodo_hidden').datepicker({
-        format: "yyyy-mm-dd",
-        language: "es"
+    periodo.datepicker({
+      format: "yyyy-mm-dd",
+      language: "es"
     });
+
+    if(periodo_mask.val() == '' && periodo.val() != ''){
+      periodo_mask.val($.datepicker.formatDate('MM yy', periodo.datepicker('getDate')));
+    }
 	});
 	
 	/*TO-DO: ajustar esto ya que grisa si valida y vuelve por error...*/
@@ -80,7 +88,7 @@
   	limite_3.prop('disabled', 'disabled');
   	valor_3.prop('disabled', 'disabled');
   }
-  
+
 	limite_1.change(function() {
 		if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
 			limite_2.prop('disabled', 'disabled')
@@ -102,8 +110,7 @@
 						 .val('');
 		}
 		else{
-			limite_3.prop('disabled', false)
-							.val(<%= Child::GRADOS['7mo Grado'] %>);
+			limite_3.val(<%= Child::GRADOS['7mo Grado'] %>);
 			valor_3.prop('disabled', false);
 		}
 		

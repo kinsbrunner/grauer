@@ -1,11 +1,12 @@
 class Bill < ActiveRecord::Base
+  attr_accessor :periodo_mask
+
   belongs_to :school
   belongs_to :user
   
-  attr_accessor :periodo_hidden
-
   validates :school_id, presence: true
   validates :tipo, presence: true
+  #validates :periodo_mask, presence: true
   validates :periodo, presence: true
   validates :limite_grp_1, presence: true
   validates :valor_1, presence: true, :numericality => true
@@ -14,7 +15,6 @@ class Bill < ActiveRecord::Base
   validates :limite_grp_2, presence: true, if: "limite_grp_1 != nil && limite_grp_1 < " + Child::GRADOS['7mo Grado'].to_s
   validates :limite_grp_3, presence: true, if: "limite_grp_2 != nil && limite_grp_2 < " + Child::GRADOS['7mo Grado'].to_s  
   
-
 
 
   TIPOS_FACTURACION = {
@@ -38,4 +38,3 @@ class Bill < ActiveRecord::Base
     Child::GRADOS.invert[self.limite_grp_3]
   end  
 end
-
