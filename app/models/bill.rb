@@ -1,12 +1,13 @@
 class Bill < ActiveRecord::Base
   attr_accessor :periodo_mask
 
+  before_save :check_limites
+
   belongs_to :school
   belongs_to :user
   
   validates :school_id, presence: true
   validates :tipo, presence: true
-  #validates :periodo_mask, presence: true
   validates :periodo, presence: true
   validates :limite_grp_1, presence: true
   validates :valor_1, presence: true, :numericality => true
@@ -37,4 +38,12 @@ class Bill < ActiveRecord::Base
   def humanized_limite_grp_3
     Child::GRADOS.invert[self.limite_grp_3]
   end  
+
+
+  private
+
+  def check_limites
+    errors.add(:limite_grp_2, "El valor debe ser mayor al Límite de Grupo 1") if limite_grp_1.present? && limite_grp_2.present? && limite_grp_2 <= limite_grp_1
+    errors.add(:limite_grp_3, "El valor debe ser mayor al Límite de Grupo 2") if limite_grp_2.present? && limite_grp_3.present? && limite_grp_3 <= limite_grp_2
+  end
 end

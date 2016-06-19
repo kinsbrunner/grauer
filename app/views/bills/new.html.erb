@@ -14,6 +14,7 @@
             <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
             <br />
           </div>
+          <div class="clearfix"></div>
 
           <div class="col-md-6 col-xs-12">
             <%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
@@ -24,6 +25,7 @@
             <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
             <br />
           </div>
+          <div class="clearfix"></div>
 
           <div class="col-md-6 col-xs-12">
             <%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
@@ -34,6 +36,7 @@
             <%= f.input :valor_2, input_html: { class: 'input-sm' } %>
             <br />
           </div>
+          <div class="clearfix"></div>
 
           <div class="col-md-6 col-xs-12">
             <%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
@@ -44,6 +47,7 @@
             <%= f.input :valor_3, input_html: { class: 'input-sm' } %>
             <br />
           </div>
+          <div class="clearfix"></div>          
       </div>
    
       <div>  
@@ -122,6 +126,13 @@
 			limite_2.prop('disabled', false);
 			valor_2.prop('disabled', false);
 		}
+
+    if(limite_1.val() != ''){
+      $('#bill_limite_grp_2 option').show();
+      $('#bill_limite_grp_2 option').filter(function() {
+        return parseInt($(this).attr("value")) <= parseInt(limite_1.val());
+      }).hide();
+    }
 	});
 	
 	limite_2.change(function() {
@@ -132,13 +143,20 @@
 						 .val('');
 		}
 		else{
-			limite_3.val(<%= Child::GRADOS['7mo Grado'] %>);
+      limite_3.val(<%= Child::GRADOS['7mo Grado'].to_s %>);
+      limite_3.prop('disabled', false);
 			valor_3.prop('disabled', false);
 		}
-		
+    
 		if(limite_2.val() == ''){
 			valor_2.val('');
 		}
+    else {
+      $('#bill_limite_grp_3 option').show();
+      $('#bill_limite_grp_3 option').filter(function() {
+        return parseInt($(this).attr("value")) <= parseInt(limite_2.val());
+      }).hide();
+    }
   });
 	
 	limite_3.change(function() {
