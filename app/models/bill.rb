@@ -1,4 +1,6 @@
 class Bill < ActiveRecord::Base
+  has_many :movements
+
   attr_accessor :periodo_mask
 
   before_save :check_limites

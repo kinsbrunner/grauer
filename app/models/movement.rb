@@ -1,7 +1,8 @@
 class Movement < ActiveRecord::Base
   belongs_to :family
   belongs_to :user
-  
+  belongs_to :bill
+
   before_save :adjust_monto
   after_save  :add_descuento
 

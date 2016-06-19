@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613004119) do
+ActiveRecord::Schema.define(version: 20160619225905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,8 +114,10 @@ ActiveRecord::Schema.define(version: 20160613004119) do
     t.integer  "forma"
     t.decimal  "descuento",  precision: 8, scale: 2, default: 0.0
     t.text     "nota"
+    t.integer  "bill_id"
   end
 
+  add_index "movements", ["bill_id"], name: "index_movements_on_bill_id", using: :btree
   add_index "movements", ["family_id"], name: "index_movements_on_family_id", using: :btree
   add_index "movements", ["user_id", "family_id"], name: "index_movements_on_user_id_and_family_id", using: :btree
 
