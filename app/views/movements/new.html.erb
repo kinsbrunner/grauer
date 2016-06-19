@@ -1,11 +1,3 @@
-<script>
-  $(function() {
-    if($('#movement_monto').val() == 0){
-      $('#movement_monto').val('');
-    }
-  });
-</script>
-
 <div class="col-xs-6 col-xs-offset-3">
   <h1>Familia <%= current_family.apellido %></h1>
   <h3 class='no_top_margin'>Nuevo Movimiento</h3>
@@ -65,3 +57,30 @@
     <% end %>
   </div> 
 </div>
+
+
+<script>
+  $(function() {
+    if($('#movement_monto').val() == 0){
+      $('#movement_monto').val('');
+    }
+
+
+    tipo = $('#movement_tipo');
+    descuento = $('#movement_descuento');
+    forma = $('#movement_forma');
+
+    tipo.change(function() {
+      if(tipo.val() == <%= Movement::TIPO_TIPOS['Servicio'] %> || tipo.val() == <%= Movement::TIPO_TIPOS['Nota de Crédito'] %>){
+        descuento.prop('disabled', 'disabled')
+                 .val('');
+        forma.prop('disabled', 'disabled')
+             .val('');
+      }
+      else{
+        descuento.prop('disabled', false);
+        forma.prop('disabled', false);
+      }
+    });
+  });
+</script>

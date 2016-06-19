@@ -86,7 +86,7 @@ class Movement < ActiveRecord::Base
   end
   
   def add_descuento
-    if self.tipo == TIPO_TIPOS['Pago']
+    if self.tipo == TIPO_TIPOS['Pago'] && self.descuento > 0
       mov           = Movement.new
       mov.family_id = self.family_id
       mov.user_id   = self.user_id
