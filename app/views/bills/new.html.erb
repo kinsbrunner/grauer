@@ -5,8 +5,7 @@
     <%= simple_form_for @bill do |f| %>
       <div class="col-xs-12">
           <div class="col-md-6 col-xs-12">
-            <%= f.input :periodo_mask, as: :string, label: '* Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
-            <%= f.input :periodo, as: :hidden, input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
+            <%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
             <br />
           </div>
 
@@ -71,11 +70,10 @@
 
 <script type="text/javascript">
   $(function() {
-    periodo_mask = $('#bill_periodo_mask');
     periodo = $('#bill_periodo');
 
-    periodo_mask.datepicker({
-      format: "MM yyyy",
+    periodo.datepicker({
+      format: "yyyy-mm-dd",
       startView: 1,
       minViewMode: 1,
       maxViewMode: 2,
@@ -83,22 +81,8 @@
       autoclose: true,
       todayHighlight: true
     });
-    
-		periodo_mask.datepicker().on('changeDate', function (ev) {
-			periodo.datepicker("setDate", ev.date);
-		});
-		
-    periodo.datepicker({
-      format: "yyyy-mm-dd",
-      language: "es"
-    });
-
-    if(periodo_mask.val() == '' && periodo.val() != ''){
-      periodo_mask.val($.datepicker.formatDate('MM yy', periodo.datepicker('getDate')));
-    }
 	});
 	
-	/*TO-DO: ajustar esto ya que grisa si valida y vuelve por error...*/
 	limite_1 = $("#bill_limite_grp_1");
 	limite_2 = $("#bill_limite_grp_2");
 	valor_2 = $("#bill_valor_2");

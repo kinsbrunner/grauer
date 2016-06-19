@@ -15,9 +15,6 @@ class BillsController < ApplicationController
     if @bill.valid?
       redirect_to bills_path
     else
-      if !@bill.errors[:periodo].empty?
-        @bill.errors.add :periodo_mask, :blank
-      end
       render :new, status: :unprocessable_entity
     end
   end
@@ -26,11 +23,12 @@ class BillsController < ApplicationController
   private 
 
   def bill_params
-    params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3, :periodo_hidden)
+    params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3)
   end
   
   helper_method :current_school
   def current_school
     @current_school ||= School.find_by_id(session[:school_id])
   end  
+
 end

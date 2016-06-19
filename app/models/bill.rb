@@ -7,7 +7,7 @@ class Bill < ActiveRecord::Base
   belongs_to :user
   
   validates :school_id, presence: true
-  validates :tipo, presence: true
+  validates :tipo, presence: true, uniqueness: { scope: :school_id, message: "Ya se ha facturado este período para esta Escuela" }
   validates :periodo, presence: true
   validates :limite_grp_1, presence: true
   validates :valor_1, presence: true, :numericality => true
@@ -15,7 +15,6 @@ class Bill < ActiveRecord::Base
   validates :valor_3, presence: true, :numericality => true, if: "limite_grp_3 != nil"
   validates :limite_grp_2, presence: true, if: "limite_grp_1 != nil && limite_grp_1 < " + Child::GRADOS['7mo Grado'].to_s
   validates :limite_grp_3, presence: true, if: "limite_grp_2 != nil && limite_grp_2 < " + Child::GRADOS['7mo Grado'].to_s  
-  
 
 
   TIPOS_FACTURACION = {
