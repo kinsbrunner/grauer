@@ -15,6 +15,7 @@
           <th>Grupo 1</th>
           <th>Grupo 2</th>
           <th>Grupo 3</th>
+          <th>Acciones</th>
         </tr>
       </thead>
 
@@ -25,6 +26,11 @@
             <td><%= bm.limite_grp_1.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_1 + ':' + number_to_currency(bm.valor_1) %></td>
             <td><%= bm.limite_grp_2.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_2 + ':' + number_to_currency(bm.valor_2) %></td>
             <td><%= bm.limite_grp_3.nil? ? '-' : 'Hasta ' + bm.humanized_limite_grp_3 + ':' + number_to_currency(bm.valor_3) %></td>
+            <td>
+                <%= link_to bill_path(bm), method: :delete, data: {confirm:'IMPORTANTE: Al eliminar esta Factura, se borrarán todos los movimientos generados por esta. ¿Está seguro que desea eliminarla?'} do %>
+                <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+            </td>
           </tr>
         <% end %>
 

@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create]
+  before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
 
 
   def index
@@ -22,6 +22,12 @@ class BillsController < ApplicationController
     end
   end
 
+  def destroy
+    return render_not_found if current_bill.blank?
+    current_bill.destroy
+    redirect_to bills_path
+  end
+
 
   private 
 
@@ -32,6 +38,11 @@ class BillsController < ApplicationController
   helper_method :current_school
   def current_school
     @current_school ||= School.find_by_id(session[:school_id])
+  end  
+
+  helper_method :current_bill
+  def current_bill
+    @current_bill ||= Bill.find_by_id(params[:id])
   end  
 
   def generate_movements(factura)

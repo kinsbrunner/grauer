@@ -1,5 +1,5 @@
 class Bill < ActiveRecord::Base
-  has_many :movements
+  has_many :movements, :dependent => :destroy
 
   attr_accessor :periodo_mask
 
