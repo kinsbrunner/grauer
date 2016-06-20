@@ -10,13 +10,15 @@ class BillsController < ApplicationController
     @bill = Bill.new
   end
   
-  def create   
-    @bill = current_school.bills.create(bill_params.merge(user: current_user))
-    if @bill.valid?
-      generate_movements(@bill)
-      redirect_to bills_path
-    else
-      render :new, status: :unprocessable_entity
+  def create
+    Bill.transaction do   
+      @bill = current_school.bills.create(bill_params.merge(user: current_user))
+      if @bill.valid?
+        generate_movements(@bill)
+        redirect_to bills_path
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
@@ -45,11 +47,11 @@ class BillsController < ApplicationController
         end
 
         if child.grado <= factura.limite_grp_1
-          comps << factura.valor_1
+          comps << factura.valor_1.to_i
         elsif child.grado <= factura.limite_grp_2
-          comps << factura.valor_2
+          comps << factura.valor_2.to_i
         else
-          comps << factura.valor_3
+          comps << factura.valor_3.to_i
         end
       end
 
@@ -64,7 +66,7 @@ class BillsController < ApplicationController
         mov.tipo      = Movement::TIPO_TIPOS['Servicio']
         mov.monto     = total
         mov.nota      = detalle 
-        mov.save
+        mov.save!
       end
     end
   end
