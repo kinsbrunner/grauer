@@ -7,7 +7,7 @@
       Facturar Mes
     <% end %>
   </h1>
-  <div class='seccion table-responsive'>
+  <div class='seccion'>
     <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
       <thead>
         <tr>
@@ -51,7 +51,7 @@
     Facturación Diaria
   </h1>
 
-  <div class='seccion table-responsive'>
+  <div class='seccion'>
     <table class='table table-condensed table_margin_off'>
       <thead>
         <tr>
@@ -120,7 +120,8 @@ $(document).ready(function(){
             },
             "decimal": ",",
             "thousands": "."
-        }
+         },
+        "bSort": false
     });
 });
 </script>
