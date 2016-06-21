@@ -60,7 +60,12 @@
 	    }],
 		});
 
-
+		$( "#external_events" ).droppable({
+      drop: function( event, ui ) {
+        alert('SOLTO');
+      }
+    });
+		
 	});
 
 </script>
@@ -71,19 +76,19 @@
 	<div id='wrap'>
 		<div id='external-events'>
 			<h4>Platos Principales</h4>
-			<div class='fc-event'>My Event 1</div>
-			<div class='fc-event'>My Event 2</div>
-			<div class='fc-event'>My Event 3</div>
-			<div class='fc-event'>My Event 4</div>
-			<div class='fc-event'>My Event 5</div>
-			<p>
-				<input type='checkbox' id='drop-remove' />
-				<label for='drop-remove'>remove after drop</label>
-			</p>
+ 			<% @foods_p.each do |food_p| %>
+      	<div class='fc-event' id='<%= food_p.id %>'><%= food_p.comida %></div>
+			<% end %>
+			
+			<br />
+			<h4>Acompañamientos</h4>
+			<% @foods_a.each do |food_a| %>
+      	<div class='fc-event' id='<%= food_a.id %>'><%= food_a.comida %></div>
+			<% end %>
 		</div>
-
+		
 		<div id='calendar'></div>
-
+		
 		<div style='clear:both'></div>
 	</div>
 </div>
