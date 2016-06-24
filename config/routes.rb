@@ -10,6 +10,6 @@ Grauer::Application.routes.draw do
     end
   end
   resources :foods, only: [:index, :new, :create, :destroy, :edit, :update]
-  resources :menus, only: [:index]
+  resources :menus, only: [:index, :create, :destroy]
   resources :bills, only: [:index, :new, :create, :destroy]
 end

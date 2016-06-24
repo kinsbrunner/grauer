@@ -5,7 +5,5 @@ class Menu < ActiveRecord::Base
   
   validates :school_id, presence: true
   validates :fecha, presence: true
-  validates :entrada, presence: true
-  validates :plato, presence: true
-  validates :guarnicion, presence: true
+  validates :food_id, presence: true
 end

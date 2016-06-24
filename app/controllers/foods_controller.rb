@@ -38,7 +38,7 @@ class FoodsController < ApplicationController
   private
   
   def food_params
-      params.require(:food).permit(:tipo, :comida)
+    params.require(:food).permit(:tipo, :comida)
   end
   
   helper_method :current_food

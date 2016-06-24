@@ -10,7 +10,8 @@
 			// store data so the calendar knows to render an event upon drop
 			$(this).data('event', {
 				title: $.trim($(this).text()), // use the element's text as the event title
-				stick: true // maintain when user navigates (see docs on the renderEvent method)
+				stick: true, // maintain when user navigates (see docs on the renderEvent method)
+				allDay: true
 			});
 
 			// make the event draggable using jQuery UI
@@ -46,13 +47,25 @@
 			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
-			drop: function() {
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
+			drop: function(date) {
+				fecha = date.format('YYYY-MM-DD');
+				food_id = $(this).attr('id');
+	      
+				$.ajax({
+				    url: "/menus",
+				    type: "POST",
+				    data: { menu: {
+				    	fecha: date.format('YYYY-MM-DD'),
+							food_id: $(this).attr('id')    	
+				    }},
+				    dataType: "JSON",
+				    success: function(resp){ 
+				    	console.log(resp);
+				    }
+				});
+				return false; // prevents normal behaviour
 			},
+			timezone: 'UTC-3',
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
