@@ -1,6 +1,4 @@
-class Food < ActiveRecord::Base
-  has_and_belongs_to_many :menus,  :join_table => :foods_menus
-  
+class Food < ActiveRecord::Base 
   validates :tipo, presence: true
   validates :comida, presence: true
   

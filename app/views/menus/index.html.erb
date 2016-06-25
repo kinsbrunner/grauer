@@ -54,10 +54,10 @@
 				$.ajax({
 				    url: "/menus",
 				    type: "POST",
-				    data: { menu: {
+				    data: {
 				    	fecha: date.format('YYYY-MM-DD'),
 							food_id: $(this).attr('id')    	
-				    }},
+				    },
 				    dataType: "JSON",
 				    success: function(resp){ 
 				    	console.log(resp);
