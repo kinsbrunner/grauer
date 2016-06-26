@@ -50,17 +50,21 @@
 			drop: function(date) {
 				fecha = date.format('YYYY-MM-DD');
 				food_id = $(this).attr('id');
-	      
+	      $(this).remove();
 				$.ajax({
 				    url: "/menus",
 				    type: "POST",
-				    data: {
+				    data: { menu: {
 				    	fecha: date.format('YYYY-MM-DD'),
 							food_id: $(this).attr('id')    	
-				    },
+				    }},
 				    dataType: "JSON",
 				    success: function(resp){ 
 				    	console.log(resp);
+				    }, 
+				    error: function(resp){
+				    	alert('ERROR');
+				    	console.log(this);
 				    }
 				});
 				return false; // prevents normal behaviour
@@ -69,7 +73,7 @@
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
-	      url: '/events'
+	      url: '/menus'
 	    }],
 		});
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625010500) do
+ActiveRecord::Schema.define(version: 20160626142133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,14 +87,19 @@ ActiveRecord::Schema.define(version: 20160625010500) do
 
   create_table "menus", force: true do |t|
     t.integer  "school_id"
-    t.integer  "user_id"
+    t.integer  "food_id"
+    t.date     "fecha"
+    t.integer  "orden"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "fecha"
+    t.integer  "user_id"
   end
 
+  add_index "menus", ["fecha"], name: "index_menus_on_fecha", using: :btree
+  add_index "menus", ["food_id"], name: "index_menus_on_food_id", using: :btree
+  add_index "menus", ["school_id", "fecha"], name: "index_menus_on_school_id_and_fecha", using: :btree
   add_index "menus", ["school_id"], name: "index_menus_on_school_id", using: :btree
-  add_index "menus", ["user_id", "school_id"], name: "index_menus_on_user_id_and_school_id", using: :btree
+  add_index "menus", ["user_id"], name: "index_menus_on_user_id", using: :btree
 
   create_table "movements", force: true do |t|
     t.integer  "family_id"

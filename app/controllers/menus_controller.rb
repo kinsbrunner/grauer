@@ -7,16 +7,11 @@ class MenusController < ApplicationController
   end
 
   def create
-    @food = Food.find_by_id(params[:food_id])
-
-    Menu.transaction do
-      @menu = current_school.menus.new(fecha: params[:fecha], user: current_user)
-      if @menu.save
-        render :json => { } # send back any data if necessary
-      else
-        render :json => { }, :status => 500
-      end
-
+    @menu = current_school.menus.new(menu_params.merge(user: current_user))
+    if @menu.save
+      render :json => { } # send back any data if necessary
+    else
+      render :json => { }, :status => 500
     end
   end
 
@@ -37,5 +32,9 @@ class MenusController < ApplicationController
   helper_method :current_school
   def current_school
     @current_school ||= School.find_by_id(session[:school_id])
-  end  
+  end
+
+  def menu_params
+    params.require(:menu).permit(:fecha, :food_id)
+  end 
 end
