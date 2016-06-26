@@ -1,7 +1,7 @@
 class Menu < ActiveRecord::Base
   belongs_to :user
   belongs_to :school
-  belongs_to :foods
+  belongs_to :food
   
   validates :school_id, presence: true
   validates :fecha, presence: true

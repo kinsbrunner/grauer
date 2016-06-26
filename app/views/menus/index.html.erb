@@ -50,7 +50,6 @@
 			drop: function(date) {
 				fecha = date.format('YYYY-MM-DD');
 				food_id = $(this).attr('id');
-	      $(this).remove();
 				$.ajax({
 				    url: "/menus",
 				    type: "POST",
@@ -73,15 +72,9 @@
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
-	      url: '/menus'
+	      url: 'menus/get_menus'
 	    }],
 		});
-
-		$( "#external_events" ).droppable({
-      drop: function( event, ui ) {
-        alert('SOLTO');
-      }
-    });
 		
 	});
 

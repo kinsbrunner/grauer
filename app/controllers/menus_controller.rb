@@ -6,10 +6,19 @@ class MenusController < ApplicationController
     @foods_a = Food.where("tipo = "+ Food::TIPO_COMIDAS['Acompañamiento'].to_s).order(:comida)
   end
 
+  def get_menus
+    @menus = current_school.menus.where("fecha >= '#{params['start'].to_s}' and fecha <= '#{params['end'].to_s}'")
+    platos = []
+    @menus.each do |menu|
+      platos << {:id => menu.id, :title => "#{menu.food.comida}", :start => "#{menu.fecha}", :allDay => true }
+    end
+    render :text => platos.to_json
+  end
+
   def create
     @menu = current_school.menus.new(menu_params.merge(user: current_user))
     if @menu.save
-      render :json => { } # send back any data if necessary
+      render :json => { id: @menu.id } # send back any data if necessary
     else
       render :json => { }, :status => 500
     end
