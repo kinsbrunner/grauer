@@ -47,9 +47,10 @@
 			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
-			drop: function(date) {
+			drop: function(date, jsEvent, ui, resource) {
 				fecha = date.format('YYYY-MM-DD');
 				food_id = $(this).attr('id');
+
 				$.ajax({
 				    url: "/menus",
 				    type: "POST",
@@ -60,15 +61,32 @@
 				    dataType: "JSON",
 				    success: function(resp){ 
 				    	console.log(resp);
+				    	console.log(resource.id);
 				    }, 
 				    error: function(resp){
 				    	alert('ERROR');
-				    	console.log(this);
+				    	console.log(resource.id);
 				    }
 				});
 				return false; // prevents normal behaviour
 			},
-			timezone: 'UTC-3',
+			
+			eventReceive: function(event){
+				alert(event.title + " was dropped on " + event.start.format());
+				//console.log(this);
+				//console.log(event);
+			},
+			
+			eventDrop: function(event, delta, revertFunc) {
+				/*************************************************************/
+				/*DESDE ACA MANEJO EL UPDATE CUANDO CAMBIO DE FECHA UN EVENTO*/
+				/*************************************************************/
+        alert(event.title + " was dropped on " + event.start.format());
+        if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+        }
+    	},
+			//timezone: 'UTC-3',
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
