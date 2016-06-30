@@ -8,12 +8,14 @@
 		$('#external-events .fc-event').each(function() {
 
 			// store data so the calendar knows to render an event upon drop
-			$(this).data('event', {
+			var eventData = $(this).data('event');
+			$.extend(eventData, {			
 				title: $.trim($(this).text()), // use the element's text as the event title
 				stick: true, // maintain when user navigates (see docs on the renderEvent method)
 				allDay: true
 			});
-
+			$(this).data('event', eventData);
+			
 			// make the event draggable using jQuery UI
 			$(this).draggable({
 				zIndex: 999,
@@ -27,7 +29,6 @@
 
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
-
 		$('#calendar').fullCalendar({
 			header: {
 				left: '',
@@ -47,16 +48,55 @@
 			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
+			/*
 			drop: function(date) {
-				$(this).remove();
+				alert('DROP');
 			},
-			
+			*/
 			eventReceive: function(event){
-				var obj = jQuery.parseJSON( event );
-				alert(obj);
-				//alert(event.title + " was dropped on " + event.start.format());
+				$.ajax({
+						url: "/menus",
+						type: "POST",
+						data: { menu: {
+							fecha: event.start.format(),
+							food_id: event.foodId
+						}},
+						dataType: "JSON",
+						success: function(resp){
+							event.id = resp.menuId;
+							if(event.id){
+								$('#calendar').fullCalendar('updateEvent', event);
+							}
+							else{
+								event.id = -1;
+								$('#calendar').fullCalendar('updateEvent', event);
+								$('#calendar').fullCalendar('removeEvents', -1);
+							}
+						}
+				});
+				//return false; // prevents normal behaviour
+				
+				 
+				/*
+				var specificEvent = $('#calendar').fullCalendar('clientEvents', event.id);
+				console.log(specificEvent);
+				if(specificEvent.id == -1){
+					$('#calendar').fullCalendar('removeEvents', specificEvent.id);
+				}
+				
+				
+				var clientEvents = $('#calendar').fullCalendar('clientEvents');
+				var lastEvent = clientEvents[clientEvents.length-1];
+				var lastEventId = clientEvents[clientEvents.length-1].id;
+				console.log(lastEvent);
+				console.log(lastEvent.id);
+				console.log(lastEventId);
+				if(lastEvent.id == -1){
+					$('#calendar').fullCalendar('removeEvents', lastEvent.id);
+					console.log('ENTRE');
+				}
+				*/
 			},
-			
 			eventDrop: function(event, delta, revertFunc) {
 				/*************************************************************/
 				/*DESDE ACA MANEJO EL UPDATE CUANDO CAMBIO DE FECHA UN EVENTO*/
@@ -66,7 +106,6 @@
             revertFunc();
         }
     	},
-			//timezone: 'UTC-3',
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
@@ -85,13 +124,13 @@
 		<div id='external-events'>
 			<h4>Platos Principales</h4>
  			<% @foods_p.each do |food_p| %>
-      	<div class='fc-event' data-event='{"randomProperty": "foobar"}'><%= food_p.id.to_s + ' - ' + food_p.comida %></div>
+      	<div class='fc-event' data-event='{"foodId": "<%= food_p.id.to_s %>" }'><%= food_p.comida %></div>
 			<% end %>
 			
 			<br />
 			<h4>Acompañamientos</h4>
 			<% @foods_a.each do |food_a| %>
-      	<div class='fc-event' data-event='{"randomProperty": "foobar"}'><%= food_a.id.to_s + ' - ' + food_a.comida %></div>
+      	<div class='fc-event' data-event='{"foodId": "<%= food_a.id.to_s %>" }'><%= food_a.comida %></div>
 			<% end %>
 		</div>
 		

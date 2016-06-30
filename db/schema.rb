@@ -101,6 +101,13 @@ ActiveRecord::Schema.define(version: 20160626142133) do
   add_index "menus", ["school_id"], name: "index_menus_on_school_id", using: :btree
   add_index "menus", ["user_id"], name: "index_menus_on_user_id", using: :btree
 
+  create_table "menus_foods", id: false, force: true do |t|
+    t.integer "menu_id"
+    t.integer "food_id"
+  end
+
+  add_index "menus_foods", ["menu_id"], name: "index_menus_foods_on_menu_id", using: :btree
+
   create_table "movements", force: true do |t|
     t.integer  "family_id"
     t.integer  "user_id"

@@ -20,7 +20,7 @@ class MenusController < ApplicationController
     if @menu.save
       render :json => { menuId: @menu.id } # send back any data if necessary
     else
-      render :json => { }, :status => 500
+      render :json => { }
     end
   end
 
