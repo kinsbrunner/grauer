@@ -47,34 +47,14 @@
 			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
-			drop: function(date, jsEvent, ui, resource) {
-				fecha = date.format('YYYY-MM-DD');
-				food_id = $(this).attr('id');
-
-				$.ajax({
-				    url: "/menus",
-				    type: "POST",
-				    data: { menu: {
-				    	fecha: date.format('YYYY-MM-DD'),
-							food_id: $(this).attr('id')    	
-				    }},
-				    dataType: "JSON",
-				    success: function(resp){ 
-				    	console.log(resp);
-				    	console.log(resource.id);
-				    }, 
-				    error: function(resp){
-				    	alert('ERROR');
-				    	console.log(resource.id);
-				    }
-				});
-				return false; // prevents normal behaviour
+			drop: function(date) {
+				$(this).remove();
 			},
 			
 			eventReceive: function(event){
-				alert(event.title + " was dropped on " + event.start.format());
-				//console.log(this);
-				//console.log(event);
+				var obj = jQuery.parseJSON( event );
+				alert(obj);
+				//alert(event.title + " was dropped on " + event.start.format());
 			},
 			
 			eventDrop: function(event, delta, revertFunc) {
@@ -105,13 +85,13 @@
 		<div id='external-events'>
 			<h4>Platos Principales</h4>
  			<% @foods_p.each do |food_p| %>
-      	<div class='fc-event' id='<%= food_p.id %>'><%= food_p.comida %></div>
+      	<div class='fc-event' data-event='{"randomProperty": "foobar"}'><%= food_p.id.to_s + ' - ' + food_p.comida %></div>
 			<% end %>
 			
 			<br />
 			<h4>Acompañamientos</h4>
 			<% @foods_a.each do |food_a| %>
-      	<div class='fc-event' id='<%= food_a.id %>'><%= food_a.comida %></div>
+      	<div class='fc-event' data-event='{"randomProperty": "foobar"}'><%= food_a.id.to_s + ' - ' + food_a.comida %></div>
 			<% end %>
 		</div>
 		
