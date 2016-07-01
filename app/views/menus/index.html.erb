@@ -76,27 +76,6 @@
 						}
 				});
 				//return false; // prevents normal behaviour
-				
-				 
-				/*
-				var specificEvent = $('#calendar').fullCalendar('clientEvents', event.id);
-				console.log(specificEvent);
-				if(specificEvent.id == -1){
-					$('#calendar').fullCalendar('removeEvents', specificEvent.id);
-				}
-				
-				
-				var clientEvents = $('#calendar').fullCalendar('clientEvents');
-				var lastEvent = clientEvents[clientEvents.length-1];
-				var lastEventId = clientEvents[clientEvents.length-1].id;
-				console.log(lastEvent);
-				console.log(lastEvent.id);
-				console.log(lastEventId);
-				if(lastEvent.id == -1){
-					$('#calendar').fullCalendar('removeEvents', lastEvent.id);
-					console.log('ENTRE');
-				}
-				*/
 			},
 			eventDrop: function(event, delta, revertFunc) {
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO MOVER MENUES*/
@@ -115,28 +94,26 @@
 			eventDragStop: function (event, jsEvent, ui, view) {
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO ELIMINAR MENUES*/
 				if (isElemOverDiv()) {
-					$('#calendar').fullCalendar('removeEvents', event.id);
-					
-					var con = confirm('Are you sure to delete this event permanently?');
-				 	if(con == true) {
-						/*
-						$.ajax({
-							url: "/menus/" + event.id,
-							type: "DELETE",
-							dataType: "JSON",
-							success: function(response){
-								if(response.status == 'success')
-									$('#calendar').fullCalendar('removeEvents');
-									$('#calendar').fullCalendar('addEventSource', JSON.parse(json_events));
-							},
-							error: function(e){
-							alert('Error processing your request: '+e.responseText);
+					alert('ENTRO');
+					$.ajax({
+						url: "/menus/" + event.id,
+						type: "DELETE",
+						dataType: "JSON",
+						success: function(resp){
+							console.log(resp);
+							if(resp.status == 0){
+								$('#calendar').fullCalendar('removeEvents', event.id);
 							}
-					 	});
-						*/
-					}
+						},
+						error: function(e){
+							alert('Error processing your request: ' + e.responseText);
+						}
+					});
 				}
-			}
+				else{
+					alert('NO ENTRO');
+				}
+			},
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
@@ -145,7 +122,30 @@
 		});
 		
 	});
+	
+function isElemOverDiv() {
+   var trashEl = jQuery('#trash');
+   var ofs = trashEl.offset();
+   var x1 = ofs.left;
+   var x2 = ofs.left + trashEl.outerWidth(true);
+   var y1 = ofs.top;
+   var y2 = ofs.top + trashEl.outerHeight(true);
+   if (currentMousePos.x >= x1 && currentMousePos.x <= x2 && currentMousePos.y >= y1 && currentMousePos.y <= y2) {      
+		 return true;    
+	 }    
+	return false; 
+}	
 
+var currentMousePos = {
+  	x: -1,
+  	y: -1
+};
+
+jQuery(document).on("mousemove", function (event) {
+	currentMousePos.x = event.pageX;
+	currentMousePos.y = event.pageY;
+});	
+	
 </script>
 
 <div class="col-xs-10 col-xs-offset-1">
@@ -166,7 +166,7 @@
 			
 			<br />
 			<p>
-    		<img src="trash.png" id="trash" alt="">
+				<%= image_tag("trash.png", :id => "trash") %>
   		</p>
 		</div>
 		

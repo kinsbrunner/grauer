@@ -36,9 +36,11 @@ class MenusController < ApplicationController
   end
   
   def destroy
-    return render_not_found if current_menu.blank?
+    if current_menu.blank?
+      render :json => { status: -1 }
+    end
     current_menu.destroy
-    redirect_to menus_path
+    render :json => { status: 0 }
   end
   
 
