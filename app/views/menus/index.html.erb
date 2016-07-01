@@ -54,6 +54,7 @@
 			},
 			*/
 			eventReceive: function(event){
+				/*ACA VA EL CODIGO PARA CUANDO QUIERO AGREGAR MENUES*/
 				$.ajax({
 						url: "/menus",
 						type: "POST",
@@ -98,6 +99,7 @@
 				*/
 			},
 			eventDrop: function(event, delta, revertFunc) {
+				/*ACA VA EL CODIGO PARA CUANDO QUIERO MOVER MENUES*/
 				$.ajax({
 						url: "/menus/" + event.id,
 						type: "PUT",
@@ -110,6 +112,31 @@
 						}
 				});
     	},
+			eventDragStop: function (event, jsEvent, ui, view) {
+				/*ACA VA EL CODIGO PARA CUANDO QUIERO ELIMINAR MENUES*/
+				if (isElemOverDiv()) {
+					$('#calendar').fullCalendar('removeEvents', event.id);
+					
+					var con = confirm('Are you sure to delete this event permanently?');
+				 	if(con == true) {
+						/*
+						$.ajax({
+							url: "/menus/" + event.id,
+							type: "DELETE",
+							dataType: "JSON",
+							success: function(response){
+								if(response.status == 'success')
+									$('#calendar').fullCalendar('removeEvents');
+									$('#calendar').fullCalendar('addEventSource', JSON.parse(json_events));
+							},
+							error: function(e){
+							alert('Error processing your request: '+e.responseText);
+							}
+					 	});
+						*/
+					}
+				}
+			}
 			weekends: false,
 			fixedWeekCount: false,
 			eventSources: [{
@@ -136,6 +163,11 @@
 			<% @foods_a.each do |food_a| %>
       	<div class='fc-event' data-event='{"foodId": "<%= food_a.id.to_s %>" }'><%= food_a.comida %></div>
 			<% end %>
+			
+			<br />
+			<p>
+    		<img src="trash.png" id="trash" alt="">
+  		</p>
 		</div>
 		
 		<div id='calendar'></div>
