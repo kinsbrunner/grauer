@@ -98,13 +98,17 @@
 				*/
 			},
 			eventDrop: function(event, delta, revertFunc) {
-				/*************************************************************/
-				/*DESDE ACA MANEJO EL UPDATE CUANDO CAMBIO DE FECHA UN EVENTO*/
-				/*************************************************************/
-        alert(event.title + " was dropped on " + event.start.format());
-        if (!confirm("Are you sure about this change?")) {
-            revertFunc();
-        }
+				$.ajax({
+						url: "/menus/" + event.id,
+						type: "PUT",
+						data: { fecha: event.start.format() },
+						dataType: "JSON",
+						success: function(resp){
+							if(resp.status != 0){
+								revertFunc();
+							}
+						}
+				});
     	},
 			weekends: false,
 			fixedWeekCount: false,

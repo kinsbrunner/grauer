@@ -1,5 +1,5 @@
 class MenusController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create, :destroy]
+  before_action :authenticate_user!, only: [:index, :create, :update, :destroy]
   
   def index
     @foods_p = Food.where("tipo = "+ Food::TIPO_COMIDAS['Principal'].to_s).order(:comida)
@@ -24,6 +24,17 @@ class MenusController < ApplicationController
     end
   end
 
+  def update
+    @menu = Menu.where("school_id = :school_id AND food_id = :food_id AND fecha = :fecha", 
+      {school_id: current_menu.school_id, food_id: current_menu.food_id, fecha: params[:fecha]})
+    if @menu.blank?
+      current_menu.update_attribute(:fecha, params[:fecha])
+      render :json => { status: 0 }
+    else
+      render :json => { status: -1 }
+    end    
+  end
+  
   def destroy
     return render_not_found if current_menu.blank?
     current_menu.destroy
