@@ -17,12 +17,13 @@
 			$(this).data('event', eventData);
 			
 			// make the event draggable using jQuery UI
+			
 			$(this).draggable({
 				zIndex: 999,
 				revert: true,      // will cause the event to go back to its
 				revertDuration: 0  //  original position after the drag
 			});
-
+			
 		});
 
 
@@ -67,8 +68,10 @@
 							event.id = resp.menuId;
 							if(event.id){
 								$('#calendar').fullCalendar('updateEvent', event);
+								console.log('EVENT SAVED: Event has been updated);
 							}
 							else{
+								console.log('EVENT NOT SAVED: Uniqueness validation failed');
 								event.id = -1;
 								$('#calendar').fullCalendar('updateEvent', event);
 								$('#calendar').fullCalendar('removeEvents', -1);
@@ -86,7 +89,11 @@
 						dataType: "JSON",
 						success: function(resp){
 							if(resp.status != 0){
+								console.log('EVENT NOT MOVED: Uniqueness validation failed');
 								revertFunc();
+							}
+							else{
+								console.log('EVENT UPDATED TO NEW DATE');
 							}
 						}
 				});
@@ -102,7 +109,11 @@
 						success: function(resp){
 							console.log(resp);
 							if(resp.status == 0){
+								console.log('EVENT DELETED');
 								$('#calendar').fullCalendar('removeEvents', event.id);
+							}
+							else{
+								console.log('EVENT COULD NOT BE DELETED');
 							}
 						},
 						error: function(e){
