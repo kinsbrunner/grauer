@@ -36,7 +36,7 @@ class FamiliesController < ApplicationController
     @movements.each do |mov|
       @total = @total + mov.monto
       mov.saldo = @total
-    end
+    end   
   end
 
   def edit

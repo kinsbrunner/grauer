@@ -1,0 +1,12 @@
+<div class="col-xs-10 col-xs-offset-1 marco">
+  Notificaciones a Imprimir
+  <br />
+  <% @families.each do |family| %>
+      Familia: <%= family.apellido %>  Saldo: <%= number_to_currency(family.get_saldo) %>  <br />
+  <% end %>
+ 
+  <br />
+  <br />
+  <br />
+  <%= link_to "Notificaciones (PDF)", school_notifications_path(format: "pdf") %>
+</div>
