@@ -7,25 +7,24 @@ class Movement < ActiveRecord::Base
   after_save  :add_descuento
 
   attr_accessor :saldo
+  attr_accessor :do_forma_validation
   
   validates :tipo, presence: true
   validates :monto, presence: true, :numericality => true
   validates :descuento, presence: true
-  validates :forma, presence: true, if: "tipo == TIPO_TIPOS['Pago']"
+  validates :forma, presence: true, unless: :do_forma_validation
   
   TIPO_TIPOS = {
     'Pago'            => 1,
     'Servicio'        => 2,
     'Nota de Crédito' => 3,
     'Descuento'       => 4
-    
   }
 
   TIPO_TIPOS_DDLB = {
     'Pago'            => 1,
     'Servicio'        => 2,
     'Nota de Crédito' => 3
-    
   }
 
   TIPO_FORMAS = {

@@ -6,8 +6,15 @@ class MovementsController < ApplicationController
   end
   
   def create
-    @movement = current_family.movements.create(movement_params.merge(user: current_user))
-    if @movement.valid?
+    @movement = current_family.movements.new(movement_params.merge(user: current_user))
+    
+    if @movement.tipo == Movement::TIPO_TIPOS['Pago'] 
+      @movement.do_forma_validation = false
+    else
+      @movement.do_forma_validation = true
+    end  
+    
+    if @movement.save
       redirect_to school_family_path(current_school, current_family)
     else
       render :new, status: :unprocessable_entity
