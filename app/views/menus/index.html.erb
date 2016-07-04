@@ -1,29 +1,15 @@
 <script>
 
 	$(document).ready(function() {
-
-
 		/* initialize the external events
 		-----------------------------------------------------------------*/
 		$('#external-events .fc-event').each(function() {
-
-			// store data so the calendar knows to render an event upon drop
-			var eventData = $(this).data('event');
-			$.extend(eventData, {			
-				title: $.trim($(this).text()), // use the element's text as the event title
-				stick: true, // maintain when user navigates (see docs on the renderEvent method)
-				allDay: true
-			});
-			$(this).data('event', eventData);
-			
 			// make the event draggable using jQuery UI
-			
 			$(this).draggable({
 				zIndex: 999,
 				revert: true,      // will cause the event to go back to its
 				revertDuration: 0  //  original position after the drag
 			});
-			
 		});
 
 
@@ -49,36 +35,35 @@
 			aspectRatio: 1.35,
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
-			/*
 			drop: function(date) {
-				alert('DROP');
-			},
-			*/
-			eventReceive: function(event){
-				/*ACA VA EL CODIGO PARA CUANDO QUIERO AGREGAR MENUES*/
+				fecha = date.format('YYYY-MM-DD');
+  			food_id = $(this).attr('id');
+				titulo = $.trim($(this).text());
+				
 				$.ajax({
 						url: "/menus",
 						type: "POST",
 						data: { menu: {
-							fecha: event.start.format(),
-							food_id: event.foodId
+							fecha: fecha,
+							food_id: food_id
 						}},
 						dataType: "JSON",
 						success: function(resp){
-							event.id = resp.menuId;
-							if(event.id){
-								$('#calendar').fullCalendar('updateEvent', event);
+							if(resp.menuId) {
 								console.log('EVENT SAVED: Event has been updated');
+									var newEvent = {
+										id: resp.menuId,
+										title: titulo,
+										start: fecha,
+										allDay: true
+									};
+									$('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');								
 							}
-							else{
+							else {
 								console.log('EVENT NOT SAVED: Uniqueness validation failed');
-								event.id = -1;
-								$('#calendar').fullCalendar('updateEvent', event);
-								$('#calendar').fullCalendar('removeEvents', -1);
 							}
 						}
 				});
-				//return false; // prevents normal behaviour
 			},
 			eventDrop: function(event, delta, revertFunc) {
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO MOVER MENUES*/
@@ -88,11 +73,11 @@
 						data: { fecha: event.start.format() },
 						dataType: "JSON",
 						success: function(resp){
-							if(resp.status != 0){
+							if(resp.status != 0) {
 								console.log('EVENT NOT MOVED: Uniqueness validation failed');
 								revertFunc();
 							}
-							else{
+							else {
 								console.log('EVENT UPDATED TO NEW DATE');
 							}
 						}
@@ -101,28 +86,23 @@
 			eventDragStop: function (event, jsEvent, ui, view) {
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO ELIMINAR MENUES*/
 				if (isElemOverDiv()) {
-					alert('ENTRO');
 					$.ajax({
 						url: "/menus/" + event.id,
 						type: "DELETE",
 						dataType: "JSON",
-						success: function(resp){
-							console.log(resp);
-							if(resp.status == 0){
+						success: function(resp) {
+							if(resp.status == 0) {
 								console.log('EVENT DELETED');
 								$('#calendar').fullCalendar('removeEvents', event.id);
 							}
-							else{
+							else {
 								console.log('EVENT COULD NOT BE DELETED');
 							}
 						},
-						error: function(e){
+						error: function(e) {
 							alert('Error processing your request: ' + e.responseText);
 						}
 					});
-				}
-				else{
-					alert('NO ENTRO');
 				}
 			},
 			weekends: false,
@@ -166,13 +146,13 @@ jQuery(document).on("mousemove", function (event) {
 		<div id='external-events'>
 			<h4>Platos Principales</h4>
  			<% @foods_p.each do |food_p| %>
-      	<div class='fc-event' data-event='{"foodId": "<%= food_p.id.to_s %>" }'><%= food_p.comida %></div>
+      	<div class='fc-event' id='<%= food_p.id.to_s %>'><%= food_p.comida %></div>
 			<% end %>
 			
 			<br />
 			<h4>Acompañamientos</h4>
 			<% @foods_a.each do |food_a| %>
-      	<div class='fc-event' data-event='{"foodId": "<%= food_a.id.to_s %>" }'><%= food_a.comida %></div>
+      	<div class='fc-event' id='<%= food_a.id.to_s %>'><%= food_a.comida %></div>
 			<% end %>
 			
 			<br />
