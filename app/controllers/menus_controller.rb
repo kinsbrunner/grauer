@@ -10,7 +10,7 @@ class MenusController < ApplicationController
     @menus = current_school.menus.where("fecha >= '#{params['start'].to_s}' and fecha <= '#{params['end'].to_s}'")
     platos = []
     @menus.each do |menu|
-      platos << {:id => menu.id, :title => "#{menu.food.comida}", :start => "#{menu.fecha}", :allDay => true }
+      platos << {:id => menu.id, :title => "#{menu.food.comida}", :start => "#{menu.fecha}", :allDay => true, :tipo => "#{menu.food.tipo}"}
     end
     render :text => platos.to_json
   end
