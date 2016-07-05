@@ -36,7 +36,14 @@ class FamiliesController < ApplicationController
     @movements.each do |mov|
       @total = @total + mov.monto
       mov.saldo = @total
-    end   
+    end
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "familias"   # Excluding ".pdf" extension.
+      end
+    end    
   end
 
   def edit

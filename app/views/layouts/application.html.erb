@@ -35,7 +35,7 @@
           </ul>
         </li>
         <li><%= link_to 'Facturación', bills_path %></li>
-        <li><%= link_to 'Notificaciones', school_notifications_path %></li>
+        <li><%= link_to 'Notificaciones', school_notifications_path(session[:school_id]) %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

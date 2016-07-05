@@ -17,11 +17,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up)        << :firstname
-    devise_parameter_sanitizer.for(:sign_up)        << :lastname
-    devise_parameter_sanitizer.for(:sign_up)        << :email
-    devise_parameter_sanitizer.for(:account_update) << :firstname
-    devise_parameter_sanitizer.for(:account_update) << :lastname
-    devise_parameter_sanitizer.for(:account_update) << :email
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:lastname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])    
+    devise_parameter_sanitizer.permit(:account_update, keys: [:firstname])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:lastname])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email])
   end
 end
