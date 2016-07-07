@@ -8,7 +8,16 @@ class NotificationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Impresiones_#{current_school.name}", :template => 'notifications/index.html.erb'   # Excluding ".pdf" extension.
+        render  :pdf         => "Impresiones_#{current_school.name}", 
+                :template    => 'notifications/index.html.erb',   # Excluding ".pdf" extension.
+                :disposition => 'inline',  # 'attachment'
+                :orientation => 'portrait', 
+                :page_size   => 'A4',
+                :title       => 'TITULITO',
+                :margin      =>  {  top:      5,                     # default 10 (mm)
+                                    bottom:   10,
+                                    left:     10,
+                                    right:    5 }
       end
     end    
   end  
