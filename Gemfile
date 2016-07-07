@@ -78,4 +78,4 @@ gem 'jquery-ui-rails'
 gem 'bootstrap-datepicker-rails'
 
 gem 'wkhtmltopdf-binary'
-gem 'pdfkit'
+gem 'wicked_pdf'

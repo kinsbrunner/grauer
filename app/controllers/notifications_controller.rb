@@ -4,6 +4,13 @@ class NotificationsController < ApplicationController
   def index
     @families = current_school.families.order(:apellido, :contacto_1)
 
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Impresiones_#{current_school.name}", :template => 'notifications/index.html.erb'   # Excluding ".pdf" extension.
+      end
+    end    
   end  
 
   
