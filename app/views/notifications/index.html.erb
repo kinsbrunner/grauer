@@ -1,8 +1,8 @@
-<%= wicked_pdf_stylesheet_link_tag "application" %>
+<%= wicked_pdf_stylesheet_link_tag 'application' %>
   
 <div>
     <div class='pull-right'>
-      <%= wicked_pdf_image_tag 'logo.png', size: '180x80' %>
+      <%= wicked_pdf_image_tag 'logo.png', :width => "180",  :height=>"80"  %>
     </div>
   
     <div class='pull-left'>
@@ -11,7 +11,7 @@
 
     <div class='clearfix'></div>
 
-    <div id='wrap'>  
+    <div>  
       <div id='calendar'></div>
       <div style='clear:both'></div>
     </div>
@@ -52,9 +52,11 @@
     aspectRatio: 1.35,
     weekends: false,
     fixedWeekCount: false,
+    /*
     eventSources: [{
       url: 'menus/get_menus'
     }],
+    */
     eventOrder: ["tipo", "title"]
   });
   

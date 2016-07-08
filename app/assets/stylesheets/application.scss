@@ -13,8 +13,9 @@
  *= require dataTables/extras/dataTables.responsive 
  *= require jquery-ui
  *= require bootstrap-datepicker3
- *= require fullcalendar
+ *= require fullcalendar 
  *= require_tree .
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
