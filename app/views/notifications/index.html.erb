@@ -23,15 +23,15 @@
   <br />
   
   <div id="cuenta" class="col-xs-12">
-    <h3><u>Estado de cuenta - Familia <%= family.apellido %></u></h3>
+    <h3><u>Familia <%= family.apellido %> - Estado de cuenta</u></h3>
     <table id="cuenta">
       <tr>
         <td>Estado previo a última factura:</td>
-        <td><%= number_to_currency(family.get_saldo) %></td>
+        <td><%= number_to_currency(family.saldo_previo_ult_factura) %></td>
       </tr>
       <tr>
-        <td>Ultima factura:</td>
-        <td><%= number_to_currency(family.get_saldo) %></td>
+        <td>Ultima factura (<%= l family.ultima_factura.created_at.in_time_zone('Buenos Aires'), format: :fecha_texto %>):</td>
+        <td><%= number_to_currency(family.ultima_factura.monto) %></td>
       </tr>
       <tr>
         <td><b>Estado al <%= l @date.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>

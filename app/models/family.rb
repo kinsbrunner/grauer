@@ -14,4 +14,12 @@ class Family < ActiveRecord::Base
   def hijo_menor
     return self.children.order(grado: :ASC, division: :ASC).first
   end
+  
+  def ultima_factura
+    return self.movements.where("tipo = " + Movement::TIPO_TIPOS['Servicio'].to_s).order(created_at: :DESC).first
+  end 
+  
+  def saldo_previo_ult_factura
+    return get_saldo - ultima_factura.monto
+  end
 end
