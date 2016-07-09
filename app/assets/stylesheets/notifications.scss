@@ -51,17 +51,21 @@
 }
 
 div.hoja { page-break-after: always; }
-
-div.hoja:last-of-type { page-break-after: auto }
+div.hoja:last-of-type { page-break-after: auto; }
+.header { width: 100%; }
+.nombre_entrega { text-align: right; }
+.texto_final {
+  font-size: 12px;
+  text-align: justify;
+  margin-left: 15px;
+}
 
 #cuenta {
   border-collapse: collapse;
-  //width: 100%;
-
+    
   td, th {
     font-family: "Lucida Grande", arial, helvetica, sans-serif;
-    padding: 6px;
-    //border: 1px solid #999;
+    padding: 1px;
     font-size: 16px;
     text-align: left;
   }

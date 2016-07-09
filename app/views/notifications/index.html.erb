@@ -3,27 +3,22 @@
 
 <% @families.each do |family| %>
 <div class='hoja'>
-    <div class='col-xs-12 row'>
-      <div class='col-xs-4 pull-left'>
-        <h2>ESCUELA <%= current_school.name.upcase %></h2>
-      </div>
-
-      <div class='col-xs-4'>
-        <h4><%= "#{family.hijo_menor.nombre} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h4>
-      </div>
-
-      <div class='col-xs-4 pull-right'>
-        <%= wicked_pdf_image_tag 'logo.png', :width => "180",  :height=>"80"  %>
-      </div>
-    </div>
-    <div class='clearfix'></div>
-    
+  <table class = 'header'>
+    <tr>
+      <td>
+        <h2>ESCUELA <br /> <%= current_school.name.upcase %></h2>
+      </td>
+      <td class= 'nombre_entrega'>
+        <h4><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h4>
+      </td>
+      <td>  
+        <%= wicked_pdf_image_tag 'logo.png', :width => "198",  :height=>"88", class: 'pull-right'  %>
+      </td>
+    </tr>
+  </table>
   
   <br />
-  <br />
-  
   <div id="cuenta" class="col-xs-12">
-    <h3><u>Familia <%= family.apellido %> - Estado de cuenta</u></h3>
     <table id="cuenta">
       <tr>
         <td>Estado previo a última factura:</td>
@@ -45,22 +40,33 @@
   <br />
   
   
-    <div id="notifications" class="col-xs-12">
-      <h2 id="month">
-        Menú de <%= l @date.in_time_zone('Buenos Aires'), format: :mes_anio %>
-      </h2>      
-      <%= calendar @date do |date| %>
-        <%= date.day %>
-        <% if @menus_by_date[date] %>
-          <ul>
-            <li> Ensalada </li>
-            <% @menus_by_date[date].each do |menu| %>
-              <li><%= menu.food.comida %></li>
-            <% end %>
-          </ul>
-        <% end %>        
-      <% end %>
-    </div>
-    <div class='clearfix'></div>
+  <div id="notifications" class="col-xs-12">
+    <h2 id="month">
+      MENU DE <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
+    </h2>      
+    <%= calendar @date do |date| %>
+      <%= date.day %>
+      <% if @menus_by_date[date] %>
+        <ul>
+          <li> Ensalada </li>
+          <% @menus_by_date[date].each do |menu| %>
+            <li><%= menu.food.comida %></li>
+          <% end %>
+        </ul>
+      <% end %>        
+    <% end %>
+  </div>
+  <div class='clearfix'></div>
+  
+  <div class = 'texto_final'>
+    <br />
+    <br />
+    <p>
+      Sumamos a este menú todos los días souflé (zapallitos, calabazas, vegetales, etc.), calabaza, arroz y frutas de estación. <br /> 
+      El buffet de ensaladas cuenta diariamente con una amplia variedad, donde los chicos eligen libremente.<br />
+      Ante la necesidad de alguna dieta, por favor, enviar el pedido por cuaderno de comunicaciones.<br />
+      Los días en que el menú tiene alimentos fritos, también existe la alternativa de solicitar al horno.
+    </p>  
+  </div>
 </div>
 <% end %>
