@@ -10,4 +10,8 @@ class Family < ActiveRecord::Base
   def get_saldo
     return self.movements.sum(:monto)
   end
+  
+  def hijo_menor
+    return self.children.order(grado: :ASC, division: :ASC).first
+  end
 end

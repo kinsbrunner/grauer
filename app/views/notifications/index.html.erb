@@ -1,64 +1,47 @@
+<meta charset="utf-8" />
 <%= wicked_pdf_stylesheet_link_tag 'application' %>
-  
-<div>
-    <div class='pull-right'>
-      <%= wicked_pdf_image_tag 'logo.png', :width => "180",  :height=>"80"  %>
-    </div>
-  
-    <div class='pull-left'>
-      <h2>ESCUELA <%= current_school.name.upcase %></h2>
-    </div>
 
+<% @families.each do |family| %>
+<div class='hoja'>
+    <div class='col-xs-12 row'>
+      <div class='col-xs-4 pull-left'>
+        <h2>ESCUELA <%= current_school.name.upcase %></h2>
+      </div>
+
+      <div class='col-xs-4'>
+        <h4><%= family.hijo_menor.nombre + ' (' + family.hijo_menor.humanized_grado + ' ' + family.hijo_menor.division + ')' %></h4>
+      </div>
+
+      <div class='col-xs-4 pull-right'>
+        <%= wicked_pdf_image_tag 'logo.png', :width => "180",  :height=>"80"  %>
+      </div>
+    </div>
     <div class='clearfix'></div>
-
-    <div>  
-      <div id='calendar'></div>
-      <div style='clear:both'></div>
+    
+  
+  <br />
+  <br />
+    Familia: <%= family.apellido %>  Saldo: <%= number_to_currency(family.get_saldo) %>  <br />
+  <br />
+  <br />
+  
+  
+    <div id="notifications" class="col-xs-12">
+      <h2 id="month">
+        <%= l @date.in_time_zone('Buenos Aires'), format: :mes_anio %>
+      </h2>      
+      <%= calendar @date do |date| %>
+        <%= date.day %>
+        <% if @menus_by_date[date] %>
+          <ul>
+            <li> Ensalada </li>
+            <% @menus_by_date[date].each do |menu| %>
+              <li><%= menu.food.comida %></li>
+            <% end %>
+          </ul>
+        <% end %>        
+      <% end %>
     </div>
-  
-    <br />
-    <br />      
-    <br />
-    <br />
-  
-    <% @families.each do |family| %>
-        Familia: <%= family.apellido %>  Saldo: <%= number_to_currency(family.get_saldo) %>  <br />
-    <% end %>
-
-    <br />
-    <br />
-    <br />
-    <%= link_to "Notificaciones (PDF)", school_notifications_path(format: "pdf") %>
+    <div class='clearfix'></div>
 </div>
-
-
-<script>
-  $('#calendar').fullCalendar({
-    header: {
-      left: '',
-      center: 'title',
-      right: 'prev,next today'
-    },
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    buttonText: {
-      today: 'Hoy',
-      month: 'month',
-      week: 'week',
-      day: 'day'
-    },
-    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-    aspectRatio: 1.35,
-    weekends: false,
-    fixedWeekCount: false,
-    /*
-    eventSources: [{
-      url: 'menus/get_menus'
-    }],
-    */
-    eventOrder: ["tipo", "title"]
-  });
-  
-  /*$('.fc-state-highlight').css('background-color', 'white');*/
-</script>
+<% end %>

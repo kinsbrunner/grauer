@@ -2,8 +2,11 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
   
   def index
+    @menus = current_school.menus.order(:fecha)
+    @menus_by_date = @menus.group_by(&:fecha)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today    
+    
     @families = current_school.families.order(:apellido, :contacto_1)
-
     
     respond_to do |format|
       format.html
