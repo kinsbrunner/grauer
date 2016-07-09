@@ -21,14 +21,33 @@
   
   <br />
   <br />
-    Familia: <%= family.apellido %>  Saldo: <%= number_to_currency(family.get_saldo) %>  <br />
+  
+  <div id="cuenta" class="col-xs-12">
+    <h3><u>Estado de cuenta - Familia <%= family.apellido %></u></h3>
+    <table id="cuenta">
+      <tr>
+        <td>Estado previo a última factura:</td>
+        <td><%= number_to_currency(family.get_saldo) %></td>
+      </tr>
+      <tr>
+        <td>Ultima factura:</td>
+        <td><%= number_to_currency(family.get_saldo) %></td>
+      </tr>
+      <tr>
+        <td><b>Estado al <%= l @date.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
+        <td><b><%= number_to_currency(family.get_saldo) %></b></td>
+      </tr>      
+    </table>
+  </div>
+  <div class='clearfix'></div>
+  
   <br />
   <br />
   
   
     <div id="notifications" class="col-xs-12">
       <h2 id="month">
-        <%= l @date.in_time_zone('Buenos Aires'), format: :mes_anio %>
+        Menú de <%= l @date.in_time_zone('Buenos Aires'), format: :mes_anio %>
       </h2>      
       <%= calendar @date do |date| %>
         <%= date.day %>

@@ -215,4 +215,5 @@ es:
       custom: "%d-%b-%Y %H:%M"
       fecha_short: "%d-%b-%y"
       mes_anio: "%B %Y"
+      fecha_texto: "%d de %B de %Y"
     pm: pm

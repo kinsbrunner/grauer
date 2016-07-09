@@ -4,7 +4,7 @@ module NotificationsHelper
   end
 
   class Calendar < Struct.new(:view, :date, :callback)
-    HEADER = %w[Domingo Lunes Martes Miércoles Jueves Viernes Sábado]
+    HEADER = %w[Lunes Martes Miércoles Jueves Viernes]
     START_DAY = :sunday
 
     delegate :content_tag, to: :view
@@ -23,8 +23,11 @@ module NotificationsHelper
 
     def week_rows
       weeks.map do |week|
+        adjusted_week = week.map { |day| day_cell(day) }
+        adjusted_week.shift #saco el 1er valor, el del Domingo
+        adjusted_week.pop   #saco el último valor, el del Sábado
         content_tag :tr do
-          week.map { |day| day_cell(day) }.join.html_safe
+          adjusted_week.join.html_safe
         end
       end.join.html_safe
     end

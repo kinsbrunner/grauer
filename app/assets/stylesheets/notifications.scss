@@ -52,6 +52,17 @@
 
 div.hoja { page-break-after: always; }
 
-div.hoja:last-of-type {
-    page-break-after: auto
+div.hoja:last-of-type { page-break-after: auto }
+
+#cuenta {
+  border-collapse: collapse;
+  //width: 100%;
+
+  td, th {
+    font-family: "Lucida Grande", arial, helvetica, sans-serif;
+    padding: 6px;
+    //border: 1px solid #999;
+    font-size: 16px;
+    text-align: left;
+  }
 }
