@@ -5,11 +5,11 @@ class ListsController < ApplicationController
 # LIST ID 1: Ingresos por Escuela (independiente de la Escuela logueada)
   
   def show
-    reporte_id = params[:id]
-    if reporte_id == '1'
+    @reporte_id = params[:id]
+    if @reporte_id == '1'
       @families = current_school.families.order(:apellido).page(params[:page])
-    elsif reporte_id == '2'
-
+    elsif @reporte_id == '2'
+      @incomes = current_school.movements
     else
       return render_not_found
     end

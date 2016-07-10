@@ -6,7 +6,7 @@ class MovementsController < ApplicationController
   end
   
   def create
-    @movement = current_family.movements.new(movement_params.merge(user: current_user))
+    @movement = current_family.movements.new(movement_params.merge(user: current_user, school: current_school))
     
     if @movement.tipo == Movement::TIPO_TIPOS['Pago'] 
       @movement.do_forma_validation = false
@@ -33,6 +33,11 @@ class MovementsController < ApplicationController
   def movement_params
     params.require(:movement).permit(:tipo, :monto, :saldo, :forma, :descuento, :nota)
   end 
+
+  helper_method :current_school
+  def current_school
+    @current_school ||= School.find_by_id(params[:school_id])
+  end  
   
   helper_method :current_family
   def current_family

@@ -2,6 +2,7 @@ class Movement < ActiveRecord::Base
   belongs_to :family
   belongs_to :user
   belongs_to :bill
+  belongs_to :school
 
   before_save :adjust_monto
   after_save  :add_descuento
@@ -69,9 +70,25 @@ class Movement < ActiveRecord::Base
     TIPO_DESCUENTOS.invert["%.2f" % BigDecimal(self.descuento).truncate(2)] 
   end
 
-
-  private
-
+  def add_descuento
+    if self.tipo == TIPO_TIPOS['Pago'] && self.descuento > 0
+      mov           = Movement.new
+      mov.family_id = self.family_id
+      mov.user_id   = self.user_id
+      mov.school_id = self.school_id
+      mov.tipo      = TIPO_TIPOS['Descuento']
+      mov.monto     = (self.monto / (1 - self.descuento)) * self.descuento
+      mov.descuento = self.descuento
+      mov.nota = "Relacionado con el pago de $#{-(self.monto.to_i)}"
+      mov.do_forma_validation = true
+      mov.save
+      Rails.logger.info(mov.errors.inspect)
+    end
+  end
+  
+  
+  private  
+  
   def adjust_monto
     if tipo == TIPO_TIPOS['Servicio']
       self.monto = self.monto.abs
@@ -83,16 +100,5 @@ class Movement < ActiveRecord::Base
       self.monto = self.monto * (1 - self.descuento)
     end
   end
-  
-  def add_descuento
-    if self.tipo == TIPO_TIPOS['Pago'] && self.descuento > 0
-      mov           = Movement.new
-      mov.family_id = self.family_id
-      mov.user_id   = self.user_id
-      mov.tipo      = TIPO_TIPOS['Descuento']
-      mov.monto     = (self.monto / (1 - self.descuento)) * self.descuento
-      mov.descuento = self.descuento
-      mov.save
-    end
-  end
+
 end

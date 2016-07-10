@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626142133) do
+ActiveRecord::Schema.define(version: 20160710153718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bills", force: true do |t|
+  create_table "bills", force: :cascade do |t|
     t.integer  "school_id"
     t.integer  "user_id"
     t.integer  "tipo"
@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 20160626142133) do
   add_index "bills", ["school_id"], name: "index_bills_on_school_id", using: :btree
   add_index "bills", ["user_id", "school_id"], name: "index_bills_on_user_id_and_school_id", using: :btree
 
-  create_table "children", force: true do |t|
+  create_table "children", force: :cascade do |t|
     t.integer  "family_id"
-    t.string   "nombre"
+    t.string   "nombre",        limit: 255
     t.integer  "grado"
-    t.string   "division"
+    t.string   "division",      limit: 255
     t.integer  "tipo_servicio"
     t.text     "comentario"
     t.datetime "created_at"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20160626142133) do
 
   add_index "children", ["family_id"], name: "index_children_on_family_id", using: :btree
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "message"
     t.integer  "family_id"
     t.integer  "user_id"
@@ -58,15 +58,15 @@ ActiveRecord::Schema.define(version: 20160626142133) do
   add_index "comments", ["family_id"], name: "index_comments_on_family_id", using: :btree
   add_index "comments", ["user_id", "family_id"], name: "index_comments_on_user_id_and_family_id", using: :btree
 
-  create_table "families", force: true do |t|
-    t.string   "apellido"
-    t.string   "contacto_1"
-    t.string   "contacto_2"
-    t.string   "tel_cel"
-    t.string   "tel_casa"
-    t.string   "tel_alt"
-    t.string   "email"
-    t.string   "direccion"
+  create_table "families", force: :cascade do |t|
+    t.string   "apellido",   limit: 255
+    t.string   "contacto_1", limit: 255
+    t.string   "contacto_2", limit: 255
+    t.string   "tel_cel",    limit: 255
+    t.string   "tel_casa",   limit: 255
+    t.string   "tel_alt",    limit: 255
+    t.string   "email",      limit: 255
+    t.string   "direccion",  limit: 255
     t.integer  "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -76,16 +76,16 @@ ActiveRecord::Schema.define(version: 20160626142133) do
   add_index "families", ["school_id"], name: "index_families_on_school_id", using: :btree
   add_index "families", ["user_id"], name: "index_families_on_user_id", using: :btree
 
-  create_table "foods", force: true do |t|
+  create_table "foods", force: :cascade do |t|
     t.integer  "tipo"
-    t.string   "comida"
+    t.string   "comida",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "foods", ["tipo"], name: "index_foods_on_tipo", using: :btree
 
-  create_table "menus", force: true do |t|
+  create_table "menus", force: :cascade do |t|
     t.integer  "school_id"
     t.integer  "food_id"
     t.date     "fecha"
@@ -101,14 +101,14 @@ ActiveRecord::Schema.define(version: 20160626142133) do
   add_index "menus", ["school_id"], name: "index_menus_on_school_id", using: :btree
   add_index "menus", ["user_id"], name: "index_menus_on_user_id", using: :btree
 
-  create_table "menus_foods", id: false, force: true do |t|
+  create_table "menus_foods", id: false, force: :cascade do |t|
     t.integer "menu_id"
     t.integer "food_id"
   end
 
   add_index "menus_foods", ["menu_id"], name: "index_menus_foods_on_menu_id", using: :btree
 
-  create_table "movements", force: true do |t|
+  create_table "movements", force: :cascade do |t|
     t.integer  "family_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -119,37 +119,39 @@ ActiveRecord::Schema.define(version: 20160626142133) do
     t.decimal  "descuento",  precision: 8, scale: 2, default: 0.0
     t.text     "nota"
     t.integer  "bill_id"
+    t.integer  "school_id"
   end
 
   add_index "movements", ["bill_id"], name: "index_movements_on_bill_id", using: :btree
   add_index "movements", ["family_id"], name: "index_movements_on_family_id", using: :btree
+  add_index "movements", ["school_id"], name: "index_movements_on_school_id", using: :btree
   add_index "movements", ["user_id", "family_id"], name: "index_movements_on_user_id_and_family_id", using: :btree
 
-  create_table "schools", force: true do |t|
-    t.string   "name"
+  create_table "schools", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "schools", ["name"], name: "index_schools_on_name", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "username"
-    t.string   "firstname"
-    t.string   "lastname"
-    t.boolean  "admin",                  default: false
-    t.string   "email",                  default: "",    null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "username",               limit: 255
+    t.string   "firstname",              limit: 255
+    t.string   "lastname",               limit: 255
+    t.boolean  "admin",                              default: false
+    t.string   "email",                  limit: 255, default: "",    null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
