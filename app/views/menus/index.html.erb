@@ -145,7 +145,7 @@ jQuery(document).on("mousemove", function (event) {
 
 	<div id='wrap'>
 		<div id='external-events'>
-			<h4>Platos Principales</h4>
+			<h4>Platos</h4>
  			<% @foods_p.each do |food_p| %>
       	<div class='fc-event' id='<%= food_p.id.to_s %>'><%= food_p.comida %></div>
 			<% end %>
@@ -154,6 +154,12 @@ jQuery(document).on("mousemove", function (event) {
 			<h4>Acompañamientos</h4>
 			<% @foods_a.each do |food_a| %>
       	<div class='fc-event' id='<%= food_a.id.to_s %>'><%= food_a.comida %></div>
+			<% end %>
+	
+			<br />
+			<h4>Festividades</h4>
+			<% @feriados.each do |feriado| %>
+      	<div class='fc-event' id='<%= feriado.id.to_s %>'><%= feriado.comida %></div>
 			<% end %>
 			
 			<br />

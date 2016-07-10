@@ -4,6 +4,7 @@ class MenusController < ApplicationController
   def index
     @foods_p = Food.where("tipo = "+ Food::TIPO_COMIDAS['Principal'].to_s).order(:comida)
     @foods_a = Food.where("tipo = "+ Food::TIPO_COMIDAS['Acompañamiento'].to_s).order(:comida)
+    @feriados = Food.where("tipo = "+ Food::TIPO_COMIDAS['Feriados/Festividades'].to_s).order(:comida)
   end
 
   def get_menus
