@@ -58,6 +58,7 @@
       </thead>
       <tbody>
         <% @families.each do |family| %>
+          <% if (family.get_saldo > 0) %>
           <tr>
             <td><%= family.apellido %></td>
             <td><%= number_to_currency(family.get_saldo) %></td>
@@ -66,6 +67,7 @@
             <td><%= family.tel_alt %></td>
             <td><%= family.direccion %></td>
           </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
@@ -75,22 +77,6 @@
   </div>
 
 <% elsif @reporte_id == '2' %>
-
-  <script>
-    $(document).ready(function(){
-      $('.datatable').DataTable( {
-            responsive: true,
-            "language": {
-                "sProcessing":     "Procesando...",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sLoadingRecords": "Cargando...",
-                "decimal": ",",
-                "thousands": "."
-            }
-        });
-    });
-  </script>
 
   <div class="col-xs-12 marco">
     <h1 class="pull-left'">
@@ -104,7 +90,6 @@
         <% @months.each do |month| %>
           <th><%= I18n.t("date.month_names")[month] %></th>
         <% end %>
-        <th>TOTAL</th>
       </tr>
       <% @schools.each do |school| %>
       <tr>
@@ -112,11 +97,10 @@
         <% @ingresos[school.name].each do |ing| %>
         <td>
           <% @months.each do |month| %>
-            <%= number_to_currency(ing[month]) %>
+            <%= ing[month] %>
           <% end %>
         </td>
         <% end %> 
-        <td>Acá va el total</td>
       </tr>
       <% end %>
     </table>
