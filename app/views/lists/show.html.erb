@@ -76,24 +76,50 @@
 
 <% elsif @reporte_id == '2' %>
 
-  
+  <script>
+    $(document).ready(function(){
+      $('.datatable').DataTable( {
+            responsive: true,
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sLoadingRecords": "Cargando...",
+                "decimal": ",",
+                "thousands": "."
+            }
+        });
+    });
+  </script>
 
   <div class="col-xs-12 marco">
     <h1 class="pull-left'">
       Listado de Ingresos por Escuela
     </h1>
+    <br />
     
-    <table>
-    <% @incomes.each do |income| %>
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap incomes">
       <tr>
-        <td><%= income.school.name %></td>
-        <td><%= income.anio.to_i %></td>
-        <td><%= income.mes.to_i %></td>
-        <td><%= number_to_currency(-income.income) %></td>
+        <th></th> <!-- Esta primera columna es para el nombre de la Escuela -->
+        <% @months.each do |month| %>
+          <th><%= I18n.t("date.month_names")[month] %></th>
+        <% end %>
+        <th>TOTAL</th>
       </tr>
-    <% end %>    
+      <% @schools.each do |school| %>
+      <tr>
+        <td><%= school.name %></td>        
+        <% @ingresos[school.name].each do |ing| %>
+        <td>
+          <% @months.each do |month| %>
+            <%= number_to_currency(ing[month]) %>
+          <% end %>
+        </td>
+        <% end %> 
+        <td>Acá va el total</td>
+      </tr>
+      <% end %>
     </table>
-     
   </div>
 
 <% elsif @reporte_id == '3' %>
