@@ -96,4 +96,78 @@
      
   </div>
 
+<% elsif @reporte_id == '3' %>
+
+  <script>
+    $(document).ready(function(){
+      $('.datatable').DataTable( {
+            responsive: true,
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ almunos",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando almunos del _START_ al _END_ de un total de _TOTAL_ almunos",
+                "sInfoEmpty":      "Mostrando almunos del 0 al 0 de un total de 0 almunos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ almunos)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                  "sFirst":    "Primero",
+                  "sLast":     "Ultimo",
+                  "sNext":     "Siguiente",
+                  "sPrevious": "Anterior"
+                },
+                "oAria": {
+                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "decimal": ",",
+                "thousands": "."
+            },
+            aLengthMenu: [
+              [25, 50, 100, -1],
+              [25, 50, 100, "Todos"]
+            ],
+            iDisplayLength: -1
+        });
+    });
+  </script>
+
+  <div class="col-xs-12 marco">
+    <h1 class="pull-left'">
+      Listado de Alumnos
+    </h1>
+
+      <br />
+      <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
+      <thead>
+        <tr>
+          <th>Apellido</th>
+          <th>Nombre</th>
+          <th>Grado</th>
+          <th>División</th>
+          <th>Tipo de Servicio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.family.apellido %></td>
+            <td><%= student.nombre %></td>
+            <td><%= student.humanized_grado %></td>
+            <td><%= student.division %></td>
+            <td><%= student.humanized_tipo_serv %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <%= paginate @students %>
+    </div>
+  </div>
+
 <% end %>
