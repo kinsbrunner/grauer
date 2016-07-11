@@ -9,7 +9,7 @@ class ListsController < ApplicationController
     if @reporte_id == '1'
       @families = current_school.families.order(:apellido).page(params[:page])
     elsif @reporte_id == '2'
-      @incomes = current_school.movements
+      @incomes = Movement.select("extract(year from created_at) as anio, extract(month from created_at) as mes, school_id, sum(monto) as income").where(tipo: 1).group("anio, mes, school_id")  
     else
       return render_not_found
     end

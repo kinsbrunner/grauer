@@ -76,78 +76,24 @@
 
 <% elsif @reporte_id == '2' %>
 
-  <script>
-    $(document).ready(function(){
-      $('.datatable').DataTable( {
-            responsive: true,
-            "language": {
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ familias",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando familias del _START_ al _END_ de un total de _TOTAL_ familias",
-                "sInfoEmpty":      "Mostrando familias del 0 al 0 de un total de 0 familias",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ familias)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                  "sFirst":    "Primero",
-                  "sLast":     "Ultimo",
-                  "sNext":     "Siguiente",
-                  "sPrevious": "Anterior"
-                },
-                "oAria": {
-                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "decimal": ",",
-                "thousands": "."
-            },
-            aLengthMenu: [
-              [25, 50, 100, -1],
-              [25, 50, 100, "Todas"]
-            ],
-            iDisplayLength: -1
-        });
-    });
-  </script>
+  
 
   <div class="col-xs-12 marco">
     <h1 class="pull-left'">
       Listado de Ingresos por Escuela
     </h1>
-
-      <br />
-      <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
-      <thead>
-        <tr>
-          <th>Familia</th>
-          <th>Deuda</th>
-          <th>Celular</th>
-          <th>Tel Casa</th>
-          <th>Tel Alternativo</th>
-          <th>Dirección</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @families.each do |family| %>
-          <tr>
-            <td><%= family.apellido %></td>
-            <td><%= number_to_currency(family.get_saldo) %></td>
-            <td><%= family.tel_cel %></td>
-            <td><%= family.tel_casa %></td>
-            <td><%= family.tel_alt %></td>
-            <td><%= family.direccion %></td>
-          </tr>
-        <% end %>
-      </tbody>
+    
+    <table>
+    <% @incomes.each do |income| %>
+      <tr>
+        <td><%= income.school.name %></td>
+        <td><%= income.anio.to_i %></td>
+        <td><%= income.mes.to_i %></td>
+        <td><%= number_to_currency(-income.income) %></td>
+      </tr>
+    <% end %>    
     </table>
-    <div class="text-center">
-      <%= paginate @families %>
-    </div>
+     
   </div>
 
 <% end %>
