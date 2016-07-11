@@ -24,7 +24,7 @@ class ListsController < ApplicationController
         end
       end
       @incomes.each do |inc|
-        @ingresos[inc.school.name][inc.mes.to_i] = inc.income
+        @ingresos[inc.school.name][inc.mes.to_i] = -inc.income
       end
       
     elsif @reporte_id == '3'
