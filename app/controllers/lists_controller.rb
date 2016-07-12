@@ -15,26 +15,43 @@ class ListsController < ApplicationController
       
       @schools = School.order(:name)
       @months = 1..12
-      @incomes = Movement.select("extract(year from created_at) as anio, extract(month from created_at) as mes, school_id, sum(monto) as income").where("tipo = 1 AND extract(year from created_at) = date_part('year', CURRENT_DATE)").group("anio, mes, school_id")  
+      @incomes = Movement.select("extract(year from created_at) as anio, extract(month from created_at) as mes, school_id, sum(monto) as income").where("tipo = 1 AND extract(year from created_at) >= (date_part('year', CURRENT_DATE)-1)").group("anio, mes, school_id")  
       @ingresos = Hash.new
       @schools.each do |s|
         @ingresos[s.name] = Hash.new
+        
+        # Año actual
+        @ingresos[s.name][Date.today.year] = Hash.new
         @months.each do |mes|
-          @ingresos[s.name][mes] = 0
+          @ingresos[s.name][Date.today.year][mes] = 0
+        end
+        # Año anterior
+        @ingresos[s.name][Date.today.year-1] = Hash.new
+        @months.each do |mes|
+          @ingresos[s.name][Date.today.year-1][mes] = 0
         end
       end
       @incomes.each do |inc|
-        @ingresos[inc.school.name][inc.mes.to_i] = -inc.income
+        @ingresos[inc.school.name][inc.anio.to_i][inc.mes.to_i] = -inc.income
       end
       
-      #Calculo TOTAL por Escuela
+      #Calculo TOTAL por Escuela - Año actual
       @schools.each do |s|
         total = 0
         @months.each do |mes|
-          total = total + @ingresos[s.name][mes]
+          total = total + @ingresos[s.name][Date.today.year][mes]
         end
-        @ingresos[s.name]['total'] = total
+        @ingresos[s.name][Date.today.year]['total'] = total
       end
+
+      #Calculo TOTAL por Escuela - Año anterior
+      @schools.each do |s|
+        total = 0
+        @months.each do |mes|
+          total = total + @ingresos[s.name][Date.today.year-1][mes]
+        end
+        @ingresos[s.name][Date.today.year-1]['total'] = total
+      end      
       
     elsif @reporte_id == '3'
     
