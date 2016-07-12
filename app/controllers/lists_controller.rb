@@ -27,6 +27,15 @@ class ListsController < ApplicationController
         @ingresos[inc.school.name][inc.mes.to_i] = -inc.income
       end
       
+      #Calculo TOTAL por Escuela
+      @schools.each do |s|
+        total = 0
+        @months.each do |mes|
+          total = total + @ingresos[s.name][mes]
+        end
+        @ingresos[s.name]['total'] = total
+      end
+      
     elsif @reporte_id == '3'
     
       @students = current_school.children.page(params[:page])
