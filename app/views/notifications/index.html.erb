@@ -6,7 +6,8 @@
   <table class = 'header'>
     <tr>
       <td>
-        <h2>ESCUELA <br /> <%= current_school.name.upcase %></h2>
+        
+        <h2 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h2>
       </td>
       <td class= 'nombre_entrega'>
         <h4><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h4>
@@ -41,9 +42,10 @@
   
   
   <div id="notifications" class="col-xs-12">
-    <h2 id="month">
-      MENU DE <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
-    </h2>      
+    <h1 id="month" style="font-family: 'ribbonregular';">MENÚ</h1>
+    <h2 id="month" class="ribbon">
+      <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
+    </h2><br /><br />  
     <%= calendar @date do |date| %>
       <%= date.day %>
       <% if @menus_by_date[date] %>
