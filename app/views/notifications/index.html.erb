@@ -59,7 +59,6 @@
       <%= date.day %>
       <% if @menus_by_date[date] %>
         <ul>
-          <li> Ensalada </li>
           <% @menus_by_date[date].each do |menu| %>
             <li><%= menu.food.comida %></li>
           <% end %>

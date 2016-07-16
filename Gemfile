@@ -79,3 +79,5 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+
+gem 'touchpunch-rails'

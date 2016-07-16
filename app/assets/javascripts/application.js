@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require jquery.ui.touch-punch
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
