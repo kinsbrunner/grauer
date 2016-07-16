@@ -10,7 +10,7 @@
         <h2 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h2>
       </td>
       <td class= 'nombre_entrega'>
-        <h4><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h4>
+        <h6><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h6>
       </td>
       <td>  
         <%= wicked_pdf_image_tag 'logo.png', :width => "198",  :height=>"88", class: 'pull-right'  %>
@@ -18,9 +18,10 @@
     </tr>
   </table>
   <hr />
+  <hr />
   
   <br />
-  <div id="cuenta" class="col-xs-12">
+  <div class="col-xs-12">
     <table id="cuenta">
       <tr>
         <td>Estado previo a última factura:</td>
@@ -44,7 +45,7 @@
   
   <div id="notifications" class="col-xs-12">
     <h1 id="month" style="font-family: 'ribbonregular';">MENÚ</h1>
-    
+
     <div class="col-xs-4 col-xs-offset-4 ribbon">
       <h2 id="month_text">
         <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>

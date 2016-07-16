@@ -4,7 +4,7 @@ module NotificationsHelper
   end
 
   class Calendar < Struct.new(:view, :date, :callback)
-    HEADER = %w[Lunes Martes Miércoles Jueves Viernes]
+    HEADER = %w[Lunes Martes Miercoles Jueves Viernes]
     START_DAY = :sunday
 
     delegate :content_tag, to: :view
@@ -17,7 +17,7 @@ module NotificationsHelper
 
     def header
       content_tag :tr do
-        HEADER.map { |day| content_tag :th, day }.join.html_safe
+        HEADER.map { |day| content_tag :th, day.upcase }.join.html_safe
       end
     end
 
