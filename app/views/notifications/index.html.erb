@@ -17,6 +17,7 @@
       </td>
     </tr>
   </table>
+  <hr />
   
   <br />
   <div id="cuenta" class="col-xs-12">
@@ -43,9 +44,16 @@
   
   <div id="notifications" class="col-xs-12">
     <h1 id="month" style="font-family: 'ribbonregular';">MENÚ</h1>
-    <h2 id="month" class="ribbon">
-      <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
-    </h2><br /><br />  
+    
+    <div class="col-xs-4 col-xs-offset-4 ribbon">
+      <h2 id="month_text">
+        <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
+      </h2>
+    </div>
+    <div class='clearfix'></div>
+    
+    <br />
+    
     <%= calendar @date do |date| %>
       <%= date.day %>
       <% if @menus_by_date[date] %>
