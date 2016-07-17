@@ -32,7 +32,7 @@
         <td><%= number_to_currency(family.ultima_factura.monto) %></td>
       </tr>
       <tr>
-        <td><b>Estado al <%= l @date.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
+        <td><b>Estado al <%= l Date.today.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
         <td><b><%= number_to_currency(family.get_saldo) %></b></td>
       </tr>      
     </table>

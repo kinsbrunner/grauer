@@ -1,12 +1,22 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:show]
+
+# NOTIF ID 1: Muestra con calendario del mes actual
+# NOTIF ID 2: Muestra con calendario del mes siguiente
   
-  def index
+  def show
     @menus = current_school.menus.order(:fecha)
     @menus_by_date = @menus.group_by(&:fecha)
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today    
-    
     @families = current_school.families.order(:apellido, :contacto_1)
+    
+    @notif_id = params[:id]
+    if @notif_id == '1'
+      @date = Date.today
+    elsif @notif_id == '2'
+      @date = Date.today.at_beginning_of_month.next_month
+    else
+      return render_not_found      
+    end
     
     respond_to do |format|
       format.html
@@ -30,5 +40,5 @@ class NotificationsController < ApplicationController
     helper_method :current_school
     def current_school
       @current_school ||= School.find_by_id(params[:school_id])
-    end  
+    end
 end
