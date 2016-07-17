@@ -159,7 +159,7 @@ jQuery(document).on("mousemove", function (event) {
 			<br />
 			<h4>Festividades</h4>
 			<% @feriados.each do |feriado| %>
-      	<div class='fc-event' id='<%= feriado.id.to_s %>'><%= feriado.comida %></div>
+      	<div class='fc-event feriado' id='<%= feriado.id.to_s %>'><%= feriado.comida %></div>
 			<% end %>
 			
 			<br />
