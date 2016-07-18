@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :movements
   has_many :menus
   has_many :bills
+  has_many :evolutions
   
   attr_accessor :school
 end

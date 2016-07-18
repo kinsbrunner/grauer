@@ -32,4 +32,22 @@ class Child < ActiveRecord::Base
   def humanized_grado
     GRADOS.invert[self.grado]
   end
+  
+  def pasar_grado(curr_user)
+    if self.grado <= Child::GRADOS['6to Grado']
+      self.grado += 1 
+      if self.save
+        self.family.comments.create(message: "#{self.nombre.to_s} ha pasado a #{self.humanized_grado}", user: curr_user)
+      end
+    else
+      self.egresar_alumno(curr_user)
+    end
+  end
+  
+  def egresar_alumno(curr_user)
+    if self.destroy
+      self.family.comments.create(message: "#{self.nombre.to_s} ha egresado de la escuela", user: curr_user)
+    end
+  end
+  
 end

@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
   has_many :children, through: :families
   has_many :bills
   has_many :movements
+  has_many :evolutions
 
   has_many :menus
   has_many :foods, through: :menus

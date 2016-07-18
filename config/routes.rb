@@ -10,6 +10,7 @@ Grauer::Application.routes.draw do
     end
     resources :notifications, only: [:show]
     resources :lists, only: [:show]
+    resources :evolutions, only: [:index, :create]  
   end
   resources :foods, only: [:index, :new, :create, :destroy, :edit, :update]
   resources :menus, only: [:index, :create, :update, :destroy] do

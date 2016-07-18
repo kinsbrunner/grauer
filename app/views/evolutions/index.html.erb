@@ -1,0 +1,71 @@
+<div class='col-xs-10 col-xs-offset-1'>
+
+  <h1 class="pull-left'">
+    Promociones Escuela <%= current_school.name %>
+    <%= link_to school_evolutions_path, method: :post, class: 'btn btn-primary pull-right' do %>
+      <span class="glyphicon glyphicon-plus"></span> 
+      Promover Alumnos
+    <% end %>
+  </h1>
+  <div class='seccion'>
+    <p>
+      <b><u>IMPORTANTE:</u></b> Se debe tener mucho cuidado con esta funcionalidad ya que, una vez ejecutada, sólo se podrá volver al estado anterior de los datos de forma manual.
+    </p>
+    <br />
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Usuario</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @evolutions.each do |evol| %>
+          <tr>
+            <td><%= l evol.created_at.in_time_zone('Buenos Aires'), format: :custom %></td>
+            <td><%= "#{evol.user.firstname} #{evol.user.lastname}" %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+    <div class='clearfix'></div>
+  </div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.datatable').DataTable( {
+        responsive: true,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Ultimo",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+            },
+            "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "decimal": ",",
+            "thousands": "."
+         },
+        "bSort": false
+    });
+});
+</script>
