@@ -8,55 +8,68 @@
  <div class="seccion">
     <%= simple_form_for @bill do |f| %>
       <div class="col-xs-12">
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
-            <br />
-          </div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
+					<br />
+				</div>
 
-          <div class="col-md-6 col-xs-12">
-						<% if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s %>
-							<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Mensual']], :disabled => [Bill::TIPOS_FACTURACION['Diaria']], input_html: { class: 'input-sm' } %>
-						<% elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
-							<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Diaria']], :disabled => [Bill::TIPOS_FACTURACION['Mensual']], input_html: { class: 'input-sm' } %>
-						<% end %>
-            <br />
-          </div>
-          <div class="clearfix"></div>
+				<div class="col-md-6 col-xs-12">
+					<% if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s %>
+						<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Mensual']], :disabled => [Bill::TIPOS_FACTURACION['Diaria']], input_html: { class: 'input-sm' } %>
+					<% elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+						<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Diaria']], :disabled => [Bill::TIPOS_FACTURACION['Mensual']], input_html: { class: 'input-sm' } %>
+					<% end %>
+					<br />
+				</div>
+				<div class="clearfix"></div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :limite_grp_1, label: 'Límite Grupo 1', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :valor_1, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
-          <div class="clearfix"></div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :valor_1, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
+				<div class="clearfix"></div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :limite_grp_2, label: 'Límite Grupo 2', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :valor_2, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
-          <div class="clearfix"></div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :valor_2, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
+				<div class="clearfix"></div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :limite_grp_3, label: 'Límite Grupo 3', as: :select, :include_blank => true, collection: Child::GRADOS, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
 
-          <div class="col-md-6 col-xs-12">
-            <%= f.input :valor_3, input_html: { class: 'input-sm' } %>
-            <br />
-          </div>
-          <div class="clearfix"></div>          
+				<div class="col-md-6 col-xs-12">
+					<%= f.input :valor_3, input_html: { class: 'input-sm' } %>
+					<br />
+				</div>
+				<div class="clearfix"></div>
       </div>
-   
+			
+	 		<% if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+	 		<br />
+	 		<br />
+	 		<u>Asignar cantidad de Días en los que utilizó el servicio:</u>
+	 		<div class="col-xs-12">
+				<% @children.each do |child| %>
+					<%= "#{child.nombre} #{child.family.apellido}" %> <br />
+				<% end %>
+	 		</div>
+	 		<div class="clearfix"></div>
+	 		<br />
+	 		<% end %>
+
       <div>  
         <br /><br />
         <div class="pull-right">
