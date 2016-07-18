@@ -2,7 +2,7 @@
 
   <h1 class="pull-left'">
     Promociones Escuela <%= current_school.name %>
-    <%= link_to school_evolutions_path, method: :post, class: 'btn btn-primary pull-right' do %>
+    <%= link_to school_evolutions_path, method: :post, class: 'btn btn-primary pull-right', data: {confirm:'¿Está seguro que desea promover a todos los alumnos de esta escuela?'} do %>
       <span class="glyphicon glyphicon-plus"></span> 
       Promover Alumnos
     <% end %>
