@@ -52,32 +52,35 @@ class BillsController < ApplicationController
       total = 0
       detalle = ''
       children = Child.where(family_id: family, tipo_servicio: Child::TIPO_SERVICIOS['Mensual'])
-      children.each do |child|
-        if detalle.empty?
-          detalle = 'Componentes de factura: '
+      if children.length > 0
+        children.each do |child|
+          if detalle.empty?
+            detalle = 'Componentes de factura: '
+          end
+
+          if child.grado <= factura.limite_grp_1
+            comps << factura.valor_1.to_i
+          elsif child.grado <= factura.limite_grp_2
+            comps << factura.valor_2.to_i
+          else
+            comps << factura.valor_3.to_i
+          end
         end
 
-        if child.grado <= factura.limite_grp_1
-          comps << factura.valor_1.to_i
-        elsif child.grado <= factura.limite_grp_2
-          comps << factura.valor_2.to_i
-        else
-          comps << factura.valor_3.to_i
+        total = comps.inject(0){|sum, x| sum + x.to_i }
+        detalle = comps.join(' + ')
+
+        if total > 0
+          mov           = Movement.new
+          mov.family_id = family.id
+          mov.user_id   = current_user.id
+          mov.bill_id   = factura.id
+          mov.tipo      = Movement::TIPO_TIPOS['Servicio']
+          mov.monto     = total
+          mov.nota      = detalle
+          mov.do_forma_validation = true
+          mov.save!
         end
-      end
-
-      total = comps.inject(0){|sum, x| sum + x.to_i }
-      detalle = comps.join(' + ')
-
-      if total > 0
-        mov           = Movement.new
-        mov.family_id = family.id
-        mov.user_id   = current_user.id
-        mov.bill_id   = factura.id
-        mov.tipo      = Movement::TIPO_TIPOS['Servicio']
-        mov.monto     = total
-        mov.nota      = detalle 
-        mov.save!
       end
     end
   end

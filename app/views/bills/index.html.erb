@@ -1,5 +1,4 @@
 <div class='col-xs-10 col-xs-offset-1'>
-
   <h1 class="pull-left'">
     Facturación Mensual
     <%= link_to new_bill_path, class: 'btn btn-primary pull-right' do %>
@@ -33,62 +32,10 @@
             </td>
           </tr>
         <% end %>
-
-        <% if @bills_monthly.empty? %>
-          <tr>
-            <td colspan='4'>No hay facturas por mostrar</td>
-          </tr>
-        <% end %>
       </tbody>
     </table>
-
     <div class='clearfix'></div>
   </div>
-
-  <br /><br />
-
-  <h1 class="pull-left'">
-    Facturación Diaria
-  </h1>
-
-  <div class='seccion'>
-    <table class='table table-condensed table_margin_off'>
-      <thead>
-        <tr>
-          <th>Período</th>
-          <th>Grupo 1</th>
-          <th>Valor </th>
-          <th>Grupo 2</th>
-          <th>Valor</th>
-          <th>Grupo 3</th>
-          <th>Valor</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @bills_monthly.each do |bm| %>
-          <tr>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-            <td><%= 'BLALBA' %></td>
-          </tr>
-        <% end %>
-
-        <% if @bills_monthly.empty? %>
-          <tr>
-            <td colspan='7'>No hay facturas por mostrar</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <div class='clearfix'></div>
-  </div>
-
 </div>
 
 <script>
