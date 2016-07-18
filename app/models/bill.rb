@@ -10,7 +10,7 @@ class Bill < ActiveRecord::Base
   
   validates :school_id, presence: true
   validates :tipo, presence: true
-  validates :periodo, presence: true, uniqueness: { scope: :school_id, message: "Ya se ha facturado este período para esta Escuela" }
+  validates :periodo, presence: true, uniqueness: { scope: [:school_id, :tipo], message: "Ya se ha facturado este período para esta Escuela" }
   validates :limite_grp_1, presence: true
   validates :valor_1, presence: true, :numericality => true
   validates :valor_2, presence: true, :numericality => true, if: "limite_grp_2 != nil"

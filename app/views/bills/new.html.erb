@@ -1,5 +1,9 @@
 <div class="col-xs-6 col-xs-offset-3">
-  <h1>Facturar Clientes Mensuales</h1>
+	<% if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s %>
+		<h1>Facturar Clientes Mensuales</h1>
+	<% elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+		<h1>Facturar Clientes Diarios</h1>
+	<% end %>
 
  <div class="seccion">
     <%= simple_form_for @bill do |f| %>
@@ -10,7 +14,11 @@
           </div>
 
           <div class="col-md-6 col-xs-12">
-            <%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :disabled => Bill::TIPOS_FACTURACION['Diaria'], input_html: { class: 'input-sm' } %>
+						<% if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s %>
+							<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Mensual']], :disabled => [Bill::TIPOS_FACTURACION['Diaria']], input_html: { class: 'input-sm' } %>
+						<% elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+							<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Diaria']], :disabled => [Bill::TIPOS_FACTURACION['Mensual']], input_html: { class: 'input-sm' } %>
+						<% end %>
             <br />
           </div>
           <div class="clearfix"></div>
@@ -52,12 +60,12 @@
       <div>  
         <br /><br />
         <div class="pull-right">
-          <%= link_to bills_path, class: 'btn btn-primary' do %>
+          <%= link_to bills_path(:tipo => @tipo), class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-remove"></span> 
             Cancelar
           <% end %>
         
-          <%= button_tag(type: 'submit', class: 'btn btn-primary separate_btn') do %>
+          <%= button_tag(type: 'submit', class: 'btn btn-primary separate_btn', data: {tipo: @tipo}) do %>
             <span class="glyphicon glyphicon-ok"></span>
             Crear
           <% end %>
