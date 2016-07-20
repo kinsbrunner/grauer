@@ -27,7 +27,8 @@ $(document).ready(function(){
             },
             "decimal": ",",
             "thousands": "."
-        }
+        },
+        "order": [[ 8, "asc" ]]
     });
 });
 </script>
@@ -51,6 +52,7 @@ $(document).ready(function(){
         <th>Tel Casa</th>
         <th>Tel Alternativo</th>
         <th>Dirección</th>
+        <th>Estado</th>
       </tr>
     </thead>
     <tbody>
@@ -64,8 +66,22 @@ $(document).ready(function(){
           <td><%= family.tel_casa %></td>
           <td><%= family.tel_alt %></td>
           <td><%= family.direccion %></td>
+          <td><%= family.activo ? 'Activo' : 'Inactivo' %></td>
         </tr>
       <% end %>
+      <% if @families.empty? %>
+        <tr>
+          <td>Sin registros por mostrar</td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+          <td></td>  
+        </tr>
+      <% end %>      
     </tbody>
   </table>
   <div class="text-center">

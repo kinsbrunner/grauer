@@ -7,6 +7,10 @@ Grauer::Application.routes.draw do
       resources :children, only: [:new, :create, :edit, :update, :destroy]
       resources :comments, only: [:new, :create]
       resources :movements, only: [:new, :create, :destroy]
+      member do
+        get 'enable'
+        get 'disable'
+      end
     end
     resources :notifications, only: [:show]
     resources :lists, only: [:show]

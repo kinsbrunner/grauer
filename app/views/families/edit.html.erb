@@ -1,33 +1,32 @@
 <div class="col-xs-6 col-xs-offset-3">
-  
+
   <h1 class="pull-left'">Modificación de Familia</h1>
 
   <div class="clearfix"></div>
-  
+
   <div class="seccion">
     <%= simple_form_for [current_school, current_family] do |f| %>
-       <div class="col-md-6 col-xs-12">
+      <div class="col-md-6 col-xs-12">
         <div class="col-md-10">
           <%= f.input :apellido, input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
-        
+
         <div class="col-md-10">
           <%= f.input :contacto_1, label: 'Contacto Principal', input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
-        
+
         <div class="col-md-10">
           <%= f.input :contacto_2, label: 'Contacto Alternativo', input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
 
         <div class="col-md-10">
           <%= f.input :email, input_html: { class: 'input-sm' } %>
-          <br />
         </div>
         <div class="clearfix"></div>
         <br />
@@ -36,46 +35,70 @@
       <div class="col-md-6 col-xs-12">
         <div class="col-md-10">
           <%= f.input :tel_cel, label: 'Teléfono Celular', input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
 
         <div class="col-md-10">
           <%= f.input :tel_casa, label: 'Teléfono Domicilio', input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
 
         <div class="col-md-10">
           <%= f.input :tel_alt, label: 'Teléfono Alternativo', input_html: { class: 'input-sm' } %>
-          <br />
+            <br />
         </div>
         <div class="clearfix"></div>
 
         <div class="col-md-10">
           <%= f.input :direccion, label: 'Dirección', input_html: { class: 'input-sm' } %>
         </div>
-        <div class="clearfix"></div>      
+        <div class="clearfix"></div>
       </div>
-      <br /><br />
       
+      <% if !current_family.tiene_hijos? %>
+      <div class="col-xs-12">
+        <div class="col-md-10">
+          <h5><b>Estado</b></h5>
+          <%= f.input :activo, as: :boolean, label: '', input_html: { class: 'input-sm', data: { :'on-text' => 'Activa', :'off-text' => 'Inactiva', :'on-color' => 'success', :'off-color' => 'default' } } %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <% end %>
+
+      <br />
+      <br />
+
       <div class="clearfix"></div>
 
-      <div>  
+      <div>
         <br /><br />
         <div class="pull-right">
           <%= link_to school_family_path(current_school, current_family), class: 'btn btn-primary' do %>
-            <span class="glyphicon glyphicon-remove"></span> 
-            Cancelar
+            <span class="glyphicon glyphicon-remove"></span> Cancelar
           <% end %>
-        
+
           <%= button_tag(type: 'submit', class: 'btn btn-primary separate_btn') do %>
-            <span class="glyphicon glyphicon-ok"></span>
-            Modificar
+            <span class="glyphicon glyphicon-ok"></span> Modificar
           <% end %>
         </div>
       </div>
       <div class="clearfix"></div>
-    <% end %>
+      <% end %>
   </div>
 </div>
+
+<script>
+  $('#family_activo').bootstrapSwitch();
+  $('#switch_estado').bootstrapSwitch();
+
+  $('#switch_estado').on('switchChange.bootstrapSwitch', function(event, state) {
+    console.log(state); // true | false
+    if (state == true) {
+      console.log('CALL ENABLE!');
+    } else {
+      console.log('CALL DISABLE!');
+    }
+  });
+</script>

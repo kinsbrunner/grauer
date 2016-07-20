@@ -10,7 +10,7 @@ class FamiliesController < ApplicationController
 
     return render_not_found if current_school.blank?
     session[:school_id] = current_school.id
-    @families = current_school.families.order(:apellido).page(params[:page])
+    @families = current_school.families.order(activo: :DESC, apellido: :ASC).page(params[:page])
   end
 
   def new
@@ -27,8 +27,8 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    @children = current_family.children.order(grado: :desc, division: :asc, nombre: :asc).all
-    @comments = current_family.comments.order(created_at: :desc).all
+    @children = current_family.children.order(grado: :DESC, division: :ASC, nombre: :ASC).all
+    @comments = current_family.comments.order(created_at: :DESC).all
     @comment  = Comment.new
     @movements = current_family.movements.order(:created_at).page(params[:page])
     
@@ -46,11 +46,21 @@ class FamiliesController < ApplicationController
     current_family.update_attributes(family_params)
     redirect_to school_family_path(current_school, current_family)
   end
+  
+  def enable
+    curent_family.update_attribute(:activo => 'true')
+    redirect_to school_family_path(current_school, current_family)
+  end
+  
+  def disable
+    curent_family.update_attribute(:activo => 'false')
+    redirect_to school_family_path(current_school, current_family)
+  end
 
 
   private
     def family_params
-      params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion)
+      params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion, :activo)
     end
 
     def family_belongs_school      

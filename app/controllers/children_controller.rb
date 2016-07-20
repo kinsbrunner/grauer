@@ -8,6 +8,9 @@ class ChildrenController < ApplicationController
   def create
     @child = current_family.children.create(child_params)
     if @child.valid?
+      if !current_family.activo && current_family.tiene_hijos?
+        current_family.update_attribute(:activo, true)
+      end
       redirect_to school_family_path(current_school, current_family)
     else
       render :new, status: :unprocessable_entity

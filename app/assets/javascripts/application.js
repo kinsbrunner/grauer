@@ -22,5 +22,6 @@
 //= require fullcalendar
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-switch
 //= require turbolinks
 //= require_tree .

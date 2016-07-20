@@ -22,4 +22,8 @@ class Family < ActiveRecord::Base
   def saldo_previo_ult_factura
     return get_saldo - ultima_factura.monto
   end
+  
+  def tiene_hijos?
+    return self.children.length > 0 ? true : false
+  end
 end

@@ -60,8 +60,7 @@ class BillsController < ApplicationController
 
   def generate_movements(factura, tipo)
     if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
-
-      families = Family.where(school_id: current_school)
+      families = Family.where(school_id: current_school, activo: true)
       families.each do |family|
         comps = Array.new
         total = 0

@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
   def show
     @menus = current_school.menus.order(:fecha)
     @menus_by_date = @menus.group_by(&:fecha)
-    @families = current_school.families.order(:apellido, :contacto_1)
+    @families = current_school.families.where(activo: true).order(:apellido, :contacto_1)
     
     @notif_id = params[:id]
     if @notif_id == '1'

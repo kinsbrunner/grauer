@@ -9,7 +9,7 @@ class ListsController < ApplicationController
     @reporte_id = params[:id]
     if @reporte_id == '1'
       
-      @families = current_school.families.order(:apellido).page(params[:page])
+      @families = current_school.families.where(activo: true).order(:apellido).page(params[:page])
       
     elsif @reporte_id == '2'
       

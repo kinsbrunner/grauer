@@ -81,3 +81,5 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 
 gem 'touchpunch-rails'
+
+gem 'bootstrap-switch-rails'
