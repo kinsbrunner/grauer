@@ -1,6 +1,8 @@
 class Bill < ActiveRecord::Base
   has_many :movements, :dependent => :destroy
-
+  has_many :menu_day, :dependent => :destroy
+  accepts_nested_attributes_for :menu_day
+  
   attr_accessor :periodo_mask
 
   before_save :check_limites

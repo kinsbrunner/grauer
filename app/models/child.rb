@@ -1,6 +1,7 @@
 class Child < ActiveRecord::Base
   belongs_to :family
-
+  has_many :menu_day, :dependent => :destroy
+  
   validates :nombre, presence: true
   validates :grado, presence: true
   validates :tipo_servicio, presence: true

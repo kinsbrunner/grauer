@@ -60,10 +60,16 @@
 	 		<% if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
 	 		<br />
 	 		<br />
+	 		
 	 		<u>Asignar cantidad de Días en los que utilizó el servicio:</u>
+	 		<br />
 	 		<div class="col-xs-12">
-				<% @children.each do |child| %>
-					<%= "#{child.nombre} #{child.family.apellido}" %> <br />
+				<% @bill.menu_day.each do |menu_day| %>
+					<%= f.simple_fields_for "menu_day_attributes[]", menu_day do |pf| %>
+						<%= pf.input :child_id, as: :hidden, :input_html => { :value => menu_day.child.id } %>
+						<%= pf.input :cantidad, label: "Días de #{menu_day.child.nombre} #{menu_day.child.family.apellido}" %>
+						<br />
+					<% end %>
 				<% end %>
 	 		</div>
 	 		<div class="clearfix"></div>
