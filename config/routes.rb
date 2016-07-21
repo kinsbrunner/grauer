@@ -15,10 +15,10 @@ Grauer::Application.routes.draw do
     resources :notifications, only: [:show]
     resources :lists, only: [:show]
     resources :evolutions, only: [:index, :create]  
+    resources :bills, only: [:index, :new, :create, :destroy, :edit, :update]
   end
   resources :foods, only: [:index, :new, :create, :destroy, :edit, :update]
   resources :menus, only: [:index, :create, :update, :destroy] do
     get :get_menus, on: :collection
   end
-  resources :bills, only: [:index, :new, :create, :destroy]
 end

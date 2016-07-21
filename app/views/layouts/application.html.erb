@@ -37,8 +37,8 @@
         <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Facturación<b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Mensual', bills_path(:tipo => Bill::TIPOS_FACTURACION['Mensual']) %></li>
-            <li><%= link_to 'Diaria', bills_path(:tipo => Bill::TIPOS_FACTURACION['Diaria']) %></li>
+            <li><%= link_to 'Mensual', school_bills_path(session[:school_id], :tipo => Bill::TIPOS_FACTURACION['Mensual']) %></li>
+            <li><%= link_to 'Diaria', school_bills_path(session[:school_id], :tipo => Bill::TIPOS_FACTURACION['Diaria']) %></li>
           </ul>        
         </li>
         <li>

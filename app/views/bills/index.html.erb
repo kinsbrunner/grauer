@@ -6,7 +6,7 @@
       Facturación Diaria  
     <% end %>
     
-    <%= link_to new_bill_path(:tipo => @tipo), class: 'btn btn-primary pull-right' do %>
+    <%= link_to new_school_bill_path(:tipo => @tipo), class: 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-plus"></span> 
       Facturar Mes
     <% end %>    
@@ -33,7 +33,11 @@
             <td><%= bill.limite_grp_2.nil? ? '-' : 'Hasta ' + bill.humanized_limite_grp_2 + ':' + number_to_currency(bill.valor_2) %></td>
             <td><%= bill.limite_grp_3.nil? ? '-' : 'Hasta ' + bill.humanized_limite_grp_3 + ':' + number_to_currency(bill.valor_3) %></td>
             <td>
-              <%= link_to bill_path(bill, :tipo => @tipo), method: :delete, data: {confirm:'IMPORTANTE: Al eliminar esta Factura, se borrarán todos los movimientos generados por esta. ¿Está seguro que desea eliminarla?'} do %>
+              <%= link_to edit_school_bill_path(current_school, bill, :tipo => @tipo) do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+              &nbsp;&nbsp;&nbsp;
+              <%= link_to school_bill_path(current_school, bill, :tipo => @tipo), method: :delete, data: {confirm:'IMPORTANTE: Al eliminar esta Factura, se borrarán todos los movimientos generados por esta. ¿Está seguro que desea eliminarla?'} do %>
                 <span class="glyphicon glyphicon-trash"></span>
               <% end %>
             </td>

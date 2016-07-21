@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
+  before_action :authenticate_user!, only: [:index, :new, :create, :destroy, :edit, :update]
 
 
   def index
@@ -31,7 +31,7 @@ class BillsController < ApplicationController
       @bill = current_school.bills.create(bill_params.merge(user: current_user))
       if @bill.valid?
         generate_movements(@bill, @tipo)
-        redirect_to bills_path(tipo: @tipo)
+        redirect_to school_bills_path(tipo: @tipo)
       else
         render :new, status: :unprocessable_entity
       end
@@ -42,10 +42,16 @@ class BillsController < ApplicationController
     return render_not_found if current_bill.blank?
     @tipo = params[:tipo]
     current_bill.destroy
-    redirect_to bills_path(tipo: @tipo)
+    redirect_to school_bills_path(tipo: @tipo)
   end
 
-
+  def edit
+  end
+  
+  def update
+  end
+  
+  
   private 
 
   def bill_params

@@ -6,7 +6,7 @@
 	<% end %>
 
  <div class="seccion">
-    <%= simple_form_for @bill do |f| %>
+    <%= simple_form_for [current_school, @bill] do |f| %>
       <div class="col-xs-12">
 				<div class="col-md-6 col-xs-12">
 					<%= f.input :periodo, as: :string, label: 'Período', input_html: { class: 'datepicker input-sm', :onkeydown => 'return false' } %>
@@ -79,7 +79,7 @@
       <div>  
         <br /><br />
         <div class="pull-right">
-          <%= link_to bills_path(:tipo => @tipo), class: 'btn btn-primary' do %>
+          <%= link_to school_bills_path(:tipo => @tipo), class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-remove"></span> 
             Cancelar
           <% end %>
