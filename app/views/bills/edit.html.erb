@@ -60,13 +60,11 @@
 	 		<br />
 	 		<br />
 	 		<div class="col-xs-12">
-				<% @bill.menu_day.order(:id).each do |menu_day| %>
-					<%= f.simple_fields_for "menu_day_attributes[]", menu_day do |pf| %>
-						<%= pf.input :id, as: :hidden, :input_html => { :value => menu_day.id } %>
-						<%= pf.input :child_id, as: :hidden, :input_html => { :value => menu_day.child.id } %>
-						<%= pf.input :cantidad, label: "Días de #{menu_day.child.nombre} #{menu_day.child.family.apellido}" %>
-						<br />
-					<% end %>
+				<%= f.simple_fields_for :menu_day, f.object.menu_day.order(:id) do |md| %>
+					<%= md.input :id, as: :hidden %>
+					<%= md.input :child_id, as: :hidden %>
+					<%= md.input :cantidad, label: "Días de #{md.object.child.nombre} #{md.object.child.family.apellido}" %>
+					<br />
 				<% end %>
 	 		</div>
 	 		<div class="clearfix"></div>

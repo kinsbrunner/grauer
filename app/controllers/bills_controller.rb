@@ -54,14 +54,18 @@ class BillsController < ApplicationController
   
   def update
     @tipo = params[:bill][:tipo]
+    @bill = current_bill
     
     Bill.transaction do
-      current_bill.update_attributes(bill_params)
-      if current_bill.valid?
-        current_bill.movements.destroy_all
-        generate_movements(current_bill, @tipo)
-        redirect_to school_bills_path(tipo: current_bill.tipo)
+      @bill.update_attributes(bill_params)
+      if @bill.valid?
+        @bill.movements.destroy_all
+        generate_movements(@bill, @tipo)
+        redirect_to school_bills_path(tipo: @bill.tipo)
       else
+        @bill.errors.full_messages.each do |message|
+          puts message
+        end
         render :edit, status: :unprocessable_entity
       end
     end
