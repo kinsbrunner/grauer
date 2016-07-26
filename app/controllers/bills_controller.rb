@@ -1,5 +1,6 @@
 class BillsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :destroy, :edit, :update]
+  before_action :check_is_diaria, only: [:edit, :update]
 
 
   def index
@@ -17,7 +18,7 @@ class BillsController < ApplicationController
     @bill = Bill.new
     @tipo = params[:tipo]
     if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s
-      @children = current_school.children.where(tipo_servicio: Child::TIPO_SERVICIOS['Diario'])
+      @children = current_school.children.where(tipo_servicio: Child::TIPO_SERVICIOS['Diario']).joins(:family).order('families.apellido asc', 'children.nombre asc')
       @children.each do |child|
         @menu_day = @bill.menu_day.new
         @menu_day.child = child
@@ -46,16 +47,31 @@ class BillsController < ApplicationController
   end
 
   def edit
+    @tipo = params[:tipo]
+    @bill = current_bill
+    menu_day_attributes = @bill.menu_day
   end
   
   def update
+    @tipo = params[:bill][:tipo]
+    
+    Bill.transaction do
+      current_bill.update_attributes(bill_params)
+      if current_bill.valid?
+        current_bill.movements.destroy_all
+        generate_movements(current_bill, @tipo)
+        redirect_to school_bills_path(tipo: current_bill.tipo)
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
   end
   
   
   private 
 
   def bill_params
-    params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3, :menu_day_attributes => [:child_id, :cantidad])
+    params.require(:bill).permit(:tipo, :periodo, :limite_grp_1, :valor_1, :limite_grp_2, :valor_2, :limite_grp_3, :valor_3, :menu_day_attributes => [:id, :bill_id, :child_id, :cantidad])
   end
   
   helper_method :current_school
@@ -68,58 +84,76 @@ class BillsController < ApplicationController
     @current_bill ||= Bill.find_by_id(params[:id])
   end  
 
+  def check_is_diaria
+    if current_bill.tipo != Bill::TIPOS_FACTURACION['Diaria']
+      return render text: 'Not Allowed', status: :forbidden
+    end    
+  end
+
   def generate_movements(factura, tipo)
-    families = Family.where(school_id: current_school, activo: true)
-    families.each do |family|
-      comps = Array.new
-      total = 0
-      detalle = ''
-      if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
-        children = Child.where(family_id: family, tipo_servicio: Child::TIPO_SERVICIOS['Mensual'])
-        detalle = "Componentes de factura mensual: "
-      else
-        children = Child.where(family_id: family, tipo_servicio: Child::TIPO_SERVICIOS['Diario'])
-        detalle = "Componentes de factura diaria: "
+    if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
+      tipo_servicio = Child::TIPO_SERVICIOS['Mensual']
+    else
+      tipo_servicio = Child::TIPO_SERVICIOS['Diario']
+    end
+    
+    families = Hash.new
+    children = Child.joins(:family).where(families: {school_id: current_school, activo: 'true'}, children: {tipo_servicio: tipo_servicio}).order(:family_id)
+    children.each do |child|
+      if !families.has_key?(child.family_id)
+        families[child.family_id] = Array.new
       end
-      if children.length > 0
-        children.each do |child|
-          if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
-            if child.grado <= factura.limite_grp_1
-              comps << factura.valor_1.to_i
-            elsif child.grado <= factura.limite_grp_2
-              comps << factura.valor_2.to_i
-            else
-              comps << factura.valor_3.to_i
-            end
-          else
-            day = params[:bill][:menu_day_attributes].find {|md| md['child_id'] == child.id.to_s }
-            cant = day['cantidad'].to_i
-            if child.grado <= factura.limite_grp_1
-              comps << factura.valor_1.to_i * cant
-            elsif child.grado <= factura.limite_grp_2
-              comps << factura.valor_2.to_i * cant
-            else
-              comps << factura.valor_3.to_i * cant
-            end            
+      
+      if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
+        if child.grado <= factura.limite_grp_1
+          families[child.family_id].push(factura.valor_1.to_i)
+        elsif child.grado <= factura.limite_grp_2
+          families[child.family_id].push(factura.valor_2.to_i)
+        else
+          families[child.family_id].push(factura.valor_3.to_i)
+        end
+      else
+        if params[:bill][:menu_day_attributes].is_a?(Array) #this case is on CREATE
+          day = params[:bill][:menu_day_attributes].find {|md| md['child_id'] == child.id.to_s }
+        elsif params[:bill][:menu_day_attributes].is_a?(Hash) #this case is on UPDATE
+          params[:bill][:menu_day_attributes].each do |dummy, ch|
+            day = ch
+            break if ch["child_id"] == child.id.to_s
           end
         end
-
-        total = comps.inject(0){|sum, x| sum + x.to_i }
-        detalle = comps.join(' + ')
-
-        if total > 0
-          mov           = Movement.new
-          mov.family_id = family.id
-          mov.user_id   = current_user.id
-          mov.bill_id   = factura.id
-          mov.tipo      = Movement::TIPO_TIPOS['Servicio']
-          mov.monto     = total
-          mov.nota      = detalle
-          mov.do_forma_validation = true
-          mov.save!
+        cant = day['cantidad'].to_i
+        if child.grado <= factura.limite_grp_1
+          families[child.family_id].push(factura.valor_1.to_i * cant)
+        elsif child.grado <= factura.limite_grp_2
+          families[child.family_id].push(factura.valor_2.to_i * cant)
+        else
+          families[child.family_id].push(factura.valor_3.to_i * cant)
         end
       end
     end
-  end
 
+    families.each do |key, comps|
+      total = comps.inject(0){|sum, x| sum + x.to_i }
+      if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
+        detalle = "Factura mensual (#{I18n.t("date.month_names")[factura.periodo.mon]}): "
+      else
+        detalle = "Factura diaria (#{I18n.t("date.month_names")[factura.periodo.mon]}): "
+      end
+      detalle += comps.join(' + ')
+
+      if total > 0
+        mov           = Movement.new
+        mov.family_id = key
+        mov.user_id   = current_user.id
+        mov.school_id = current_school.id
+        mov.bill_id   = factura.id
+        mov.tipo      = Movement::TIPO_TIPOS['Servicio']
+        mov.monto     = total
+        mov.nota      = detalle
+        mov.do_forma_validation = true
+        mov.save!
+      end      
+    end
+  end  
+  
 end

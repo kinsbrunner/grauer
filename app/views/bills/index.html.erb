@@ -33,10 +33,13 @@
             <td><%= bill.limite_grp_2.nil? ? '-' : 'Hasta ' + bill.humanized_limite_grp_2 + ':' + number_to_currency(bill.valor_2) %></td>
             <td><%= bill.limite_grp_3.nil? ? '-' : 'Hasta ' + bill.humanized_limite_grp_3 + ':' + number_to_currency(bill.valor_3) %></td>
             <td>
-              <%= link_to edit_school_bill_path(current_school, bill, :tipo => @tipo) do %>
-                <span class="glyphicon glyphicon-pencil"></span>
+              <% if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+                <%= link_to edit_school_bill_path(current_school, bill, :tipo => @tipo) do %>
+                  <span class="glyphicon glyphicon-pencil"></span>
+                <% end %>
+                &nbsp;&nbsp;&nbsp;
               <% end %>
-              &nbsp;&nbsp;&nbsp;
+              
               <%= link_to school_bill_path(current_school, bill, :tipo => @tipo), method: :delete, data: {confirm:'IMPORTANTE: Al eliminar esta Factura, se borrarán todos los movimientos generados por esta. ¿Está seguro que desea eliminarla?'} do %>
                 <span class="glyphicon glyphicon-trash"></span>
               <% end %>

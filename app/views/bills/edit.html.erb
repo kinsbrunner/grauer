@@ -14,11 +14,7 @@
 				</div>
 
 				<div class="col-md-6 col-xs-12">
-					<% if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s %>
-						<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Mensual']], :disabled => [Bill::TIPOS_FACTURACION['Diaria']], input_html: { class: 'input-sm' } %>
-					<% elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
-						<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Diaria']], :disabled => [Bill::TIPOS_FACTURACION['Mensual']], input_html: { class: 'input-sm' } %>
-					<% end %>
+					<%= f.input :tipo, as: :select, :include_blank => false, collection: Bill::TIPOS_FACTURACION, :selected => [Bill::TIPOS_FACTURACION['Diaria']], :disabled => [Bill::TIPOS_FACTURACION['Mensual']], input_html: { class: 'input-sm' } %>
 					<br />
 				</div>
 				<div class="clearfix"></div>
@@ -56,8 +52,7 @@
 				</div>
 				<div class="clearfix"></div>
       </div>
-			
-	 		<% if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s %>
+
 	 		<br />
 	 		<br />
 	 		
@@ -65,8 +60,9 @@
 	 		<br />
 	 		<br />
 	 		<div class="col-xs-12">
-				<% @bill.menu_day.each do |menu_day| %>
+				<% @bill.menu_day.order(:id).each do |menu_day| %>
 					<%= f.simple_fields_for "menu_day_attributes[]", menu_day do |pf| %>
+						<%= pf.input :id, as: :hidden, :input_html => { :value => menu_day.id } %>
 						<%= pf.input :child_id, as: :hidden, :input_html => { :value => menu_day.child.id } %>
 						<%= pf.input :cantidad, label: "Días de #{menu_day.child.nombre} #{menu_day.child.family.apellido}" %>
 						<br />
@@ -74,11 +70,8 @@
 				<% end %>
 	 		</div>
 	 		<div class="clearfix"></div>
-	 		<br />
-	 		<% end %>
 
       <div>  
-        <br /><br />
         <div class="pull-right">
           <%= link_to school_bills_path(:tipo => @tipo), class: 'btn btn-primary' do %>
             <span class="glyphicon glyphicon-remove"></span> 
@@ -87,7 +80,7 @@
         
           <%= button_tag(type: 'submit', class: 'btn btn-primary separate_btn', data: {tipo: @tipo}) do %>
             <span class="glyphicon glyphicon-ok"></span>
-            Crear
+            Modificar
           <% end %>
         </div>
       </div>
@@ -98,82 +91,23 @@
 
 <script type="text/javascript">
   $(function() {
-    periodo = $('#bill_periodo');
+    
+    periodo  = $("#bill_periodo");
+    tipo     = $("#bill_tipo");
+    limite_1 = $("#bill_limite_grp_1");
+    valor_1  = $("#bill_valor_1");
+    limite_2 = $("#bill_limite_grp_2");
+    valor_2  = $("#bill_valor_2");
+    limite_3 = $("#bill_limite_grp_3");
+    valor_3  = $("#bill_valor_3");
 
-    periodo.datepicker({
-      format: "yyyy-mm-dd",
-      startView: 1,
-      minViewMode: 1,
-      maxViewMode: 2,
-      language: "es",
-      autoclose: true,
-      todayHighlight: true
-    });
-	});
-	
-	limite_1 = $("#bill_limite_grp_1");
-	limite_2 = $("#bill_limite_grp_2");
-	valor_2 = $("#bill_valor_2");
-	limite_3 = $("#bill_limite_grp_3");
-	valor_3 = $("#bill_valor_3");
-	
-  if(limite_2.val() == ''){
+    periodo.prop('disabled', 'disabled');
+    tipo.prop('disabled', 'disabled');
+    limite_1.prop('disabled', 'disabled');
+    valor_1.prop('disabled', 'disabled');
     limite_2.prop('disabled', 'disabled');
     valor_2.prop('disabled', 'disabled');
-  }
-
-  if(limite_3.val() == ''){
-  	limite_3.prop('disabled', 'disabled');
-  	valor_3.prop('disabled', 'disabled');
-  }
-
-	limite_1.change(function() {
-		if(limite_1.val() == <%= Child::GRADOS['7mo Grado'] %>){
-			limite_2.prop('disabled', 'disabled')
-			        .val('');
-			valor_2.prop('disabled', 'disabled')
-						 .val('');
-		}
-		else{
-			limite_2.prop('disabled', false);
-			valor_2.prop('disabled', false);
-		}
-
-    if(limite_1.val() != ''){
-      $('#bill_limite_grp_2 option').show();
-      $('#bill_limite_grp_2 option').filter(function() {
-        return parseInt($(this).attr("value")) <= parseInt(limite_1.val());
-      }).hide();
-    }
-	});
-	
-	limite_2.change(function() {
-		if(limite_2.val() == <%= Child::GRADOS['7mo Grado'] %> || limite_2.val() == ''){
-			limite_3.prop('disabled', 'disabled')
-							.val('');
-			valor_3.prop('disabled', 'disabled')
-						 .val('');
-		}
-		else{
-      limite_3.val(<%= Child::GRADOS['7mo Grado'].to_s %>);
-      limite_3.prop('disabled', false);
-			valor_3.prop('disabled', false);
-		}
-    
-		if(limite_2.val() == ''){
-			valor_2.val('');
-		}
-    else {
-      $('#bill_limite_grp_3 option').show();
-      $('#bill_limite_grp_3 option').filter(function() {
-        return parseInt($(this).attr("value")) <= parseInt(limite_2.val());
-      }).hide();
-    }
-  });
-	
-	limite_3.change(function() {
-		if(limite_3.val() == ''){
-			valor_3.val('');
-		}
+    limite_3.prop('disabled', 'disabled');
+    valor_3.prop('disabled', 'disabled');
 	});
 </script>
