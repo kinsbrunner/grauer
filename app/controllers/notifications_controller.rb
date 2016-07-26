@@ -21,13 +21,13 @@ class NotificationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render  :pdf         => "Impresiones_#{current_school.name}", 
-                :template    => 'notifications/index.html.erb',   # Excluding ".pdf" extension.
+        render  :pdf         => "Notificaciones_#{current_school.name}", 
+                :template    => 'notifications/show.html.erb',   # Excluding ".pdf" extension.
                 :disposition => 'inline',  # 'attachment'
                 :orientation => 'portrait', 
                 :page_size   => 'A4',
-                :title       => 'TITULITO',
-                :margin      =>  {  top:      5,                     # default 10 (mm)
+                :title       => "Notificaciones de Escuela #{current_school.name}",
+                :margin      =>  {  top:      5,  # default 10 (mm)
                                     bottom:   10,
                                     left:     10,
                                     right:    5 }
@@ -35,7 +35,7 @@ class NotificationsController < ApplicationController
     end    
   end  
 
-  
+
   private
     helper_method :current_school
     def current_school
