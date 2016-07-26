@@ -60,7 +60,7 @@
 	 		<br />
 	 		<br />
 	 		<div class="col-xs-12">
-				<%= f.simple_fields_for :menu_day, f.object.menu_day.order(:id) do |md| %>
+				<%= f.simple_fields_for :menu_day, @bill.menu_day.sort_by(&:id) do |md| %>
 					<%= md.input :id, as: :hidden %>
 					<%= md.input :child_id, as: :hidden %>
 					<%= md.input :cantidad, label: "Días de #{md.object.child.nombre} #{md.object.child.family.apellido}" %>
