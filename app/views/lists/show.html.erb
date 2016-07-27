@@ -84,7 +84,7 @@
   <script>
     $(document).ready(function(){
       $('.datatable').DataTable( {
-          responsive: true,
+          responsive: false,
           sDom: '',
           'initComplete': function (settings, json){
             this.api().columns('.sum').every(function(){
@@ -128,7 +128,7 @@
     <h1>Listado de Ingresos por Escuela</h1>
     <br />
     <h3>Año Actual - <%= Date.today.year %></h3>    
-    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap incomes">
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap incomess">
       <thead>
         <tr>
           <th></th> <!-- Esta primera columna es para el nombre de la Escuela -->
@@ -154,27 +154,27 @@
       </tbody>
       <tfoot>
         <tr>
-            <th>Total Mensual</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th class='nowrap'>Total Mensual</th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
         </tr>
       </tfoot>
     </table>
 
     <br />
     <h3>Año Anterior - <%= Date.today.year - 1 %></h3>    
-    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap incomes">
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap incomess">
       <thead>
         <tr>
           <th></th> <!-- Esta primera columna es para el nombre de la Escuela -->
@@ -187,9 +187,9 @@
       <tbody>
         <% @schools.each do |school| %>
         <tr>
-          <td><%= school.name %></td>
+          <td class='nowrap'><%= school.name %></td>
           <% @ingresos[school.name][Date.today.year-1].each do |ing| %>
-          <td>
+          <td class='nowrap'>
             <% @months.each do |month| %>
               <%= number_to_currency(ing[month]) %>
             <% end %>
@@ -200,20 +200,20 @@
       </tbody>
       <tfoot>
         <tr>
-            <th>Total Mensual</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th class='nowrap'>Total Mensual</th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
+            <th class='nowrap'></th>
         </tr>
       </tfoot>
     </table>
