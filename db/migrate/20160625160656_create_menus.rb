@@ -1,7 +1,5 @@
 class CreateMenus < ActiveRecord::Migration
   def change
-    drop_table :menus
-
     create_table :menus do |t|
       t.belongs_to :school, index: true
       t.belongs_to :food, index: true
