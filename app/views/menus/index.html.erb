@@ -1,5 +1,4 @@
 <script>
-
 	$(document).ready(function() {
 		/* initialize the external events
 		-----------------------------------------------------------------*/
@@ -11,8 +10,6 @@
 				revertDuration: 0  //  original position after the drag
 			});
 		});
-
-
 
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
@@ -114,33 +111,32 @@
 		});
 		
 	});
-	
-function isElemOverDiv() {
-   var trashEl = jQuery('#trash');
-   var ofs = trashEl.offset();
-   var x1 = ofs.left;
-   var x2 = ofs.left + trashEl.outerWidth(true);
-   var y1 = ofs.top;
-   var y2 = ofs.top + trashEl.outerHeight(true);
-   if (currentMousePos.x >= x1 && currentMousePos.x <= x2 && currentMousePos.y >= y1 && currentMousePos.y <= y2) {      
-		 return true;    
-	 }    
-	return false; 
-}	
 
-var currentMousePos = {
-  	x: -1,
-  	y: -1
-};
+	function isElemOverDiv() {
+		 var trashEl = jQuery('#trash');
+		 var ofs = trashEl.offset();
+		 var x1 = ofs.left;
+		 var x2 = ofs.left + trashEl.outerWidth(true);
+		 var y1 = ofs.top;
+		 var y2 = ofs.top + trashEl.outerHeight(true);
+		 if (currentMousePos.x >= x1 && currentMousePos.x <= x2 && currentMousePos.y >= y1 && currentMousePos.y <= y2) {      
+			 return true;    
+		 }    
+		return false; 
+	}	
 
-jQuery(document).on("mousemove", function (event) {
-	currentMousePos.x = event.pageX;
-	currentMousePos.y = event.pageY;
-});	
-	
+	var currentMousePos = {
+			x: -1,
+			y: -1
+	};
+
+	jQuery(document).on("mousemove", function (event) {
+		currentMousePos.x = event.pageX;
+		currentMousePos.y = event.pageY;
+	});	
 </script>
 
-<div class="col-xs-12 col-md-10 col-md-offset-1">
+<div class="col-xs-12">
   <h1>Administración de Menúes</h1>
 
 	<div id='wrap'>
@@ -168,7 +164,7 @@ jQuery(document).on("mousemove", function (event) {
   		</p>
 		</div>
 		
-		<div id='calendar'></div>
+		<div id='calendar' class='calendar_tablet'></div>
 		
 		<div style='clear:both'></div>
 	</div>

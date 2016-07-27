@@ -48,11 +48,15 @@
 	}
 
 	#calendar {
-		float: right;
-		width: 900px;
+		float: left;  /*right;*/
+		width: 825px; /*900px;*/
 	}
 
 	.feriado {
 		background-color: #FF6862;
 		border-color: red;
+	}
+
+	.calendar_tablet{
+		padding-left: 10px;
 	}
