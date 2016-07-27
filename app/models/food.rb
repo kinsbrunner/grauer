@@ -1,6 +1,6 @@
 class Food < ActiveRecord::Base 
   has_many :menus
-  has_many :escuelas, through: :menus
+  has_many :schools, through: :menus
 
   validates :tipo, presence: true
   validates :comida, presence: true

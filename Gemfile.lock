@@ -42,7 +42,7 @@ GEM
     bcrypt (3.1.11)
     bootstrap-datepicker-rails (1.6.1.1)
       railties (>= 3.0)
-    bootstrap-sass (3.3.6)
+    bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap-switch-rails (3.3.3)
@@ -74,7 +74,7 @@ GEM
       jquery-rails (>= 4.0.5, < 5.0.0)
       jquery-ui-rails (>= 5.0.2)
       momentjs-rails (>= 2.9.0)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     hirb (0.7.3)
     hirb-unicode (0.0.5)
@@ -181,7 +181,7 @@ GEM
     rspec-support (3.5.0)
     ruby-graphviz (1.2.2)
     sass (3.4.22)
-    sass-rails (5.0.5)
+    sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -215,7 +215,7 @@ GEM
     warden (1.2.6)
       rack (>= 1.0)
     wicked_pdf (1.0.6)
-    wkhtmltopdf-binary (0.9.9.3)
+    wkhtmltopdf-binary (0.12.3)
 
 PLATFORMS
   ruby
@@ -242,7 +242,7 @@ DEPENDENCIES
   rails-erd
   rails-i18n
   rails_12factor
-  rspec-rails (~> 3.0)
+  rspec-rails (~> 3.5)
   sass-rails (>= 3.2)
   sdoc
   simple_form
