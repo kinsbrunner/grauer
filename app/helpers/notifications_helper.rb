@@ -46,6 +46,10 @@ module NotificationsHelper
     def weeks
       first = date.beginning_of_month.beginning_of_week(START_DAY)
       last = date.end_of_month.end_of_week(START_DAY)
+      if last.day >= 6
+        #Si el último día es > = 6, restar una semana ya que sino va a mostrar la primera semana del mes siguiente
+        last = last - 7
+      end
       (first..last).to_a.in_groups_of(7)
     end
   end

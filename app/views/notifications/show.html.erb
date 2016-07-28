@@ -2,81 +2,83 @@
 <%= wicked_pdf_stylesheet_link_tag 'application' %>
 
 <% @families.each do |family| %>
-<div class='hoja'>
-  <table class = 'header'>
-    <tr>
-      <td>
-        
-        <h2 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h2>
-      </td>
-      <td class= 'nombre_entrega'>
-        <h6><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h6>
-      </td>
-      <td>  
-        <%= wicked_pdf_image_tag 'logo.png', :width => "198",  :height=>"88", class: 'pull-right'  %>
-      </td>
-    </tr>
-  </table>
-  <hr />
-  <hr />
-  
-  <br />
-  <div class="col-xs-12">
-    <table id="cuenta">
-      <tr>
-        <td>Estado previo a última factura:</td>
-        <td><%= number_to_currency(family.saldo_previo_ult_factura) %></td>
-      </tr>
-      <tr>
-        <td>Ultima factura (<%= l family.ultima_factura.created_at.in_time_zone('Buenos Aires'), format: :fecha_texto %>):</td>
-        <td><%= number_to_currency(family.ultima_factura.monto) %></td>
-      </tr>
-      <tr>
-        <td><b>Estado al <%= l Date.today.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
-        <td><b><%= number_to_currency(family.get_saldo) %></b></td>
-      </tr>      
-    </table>
-  </div>
-  <div class='clearfix'></div>
-  
-  <br />
-  <br />
-  
-  
-  <div id="notifications" class="col-xs-12">
-    <h1 id="month" style="font-family: 'ribbonregular';">MENÚ</h1>
+  <% if !family.hijo_menor.nil? %>
+    <div class='hoja'>
+      <table class = 'header'>
+        <tr>
+          <td>
 
-    <div class="col-xs-4 col-xs-offset-4 ribbon">
-      <h2 id="month_text">
-        <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
-      </h2>
+            <h2 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h2>
+          </td>
+          <td class= 'nombre_entrega'>
+            <h6><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h6>
+          </td>
+          <td>  
+            <%= wicked_pdf_image_tag 'logo.png', :width => "198",  :height=>"88", class: 'pull-right'  %>
+          </td>
+        </tr>
+      </table>
+      <hr />
+      <hr />
+
+      <br />
+      <div class="col-xs-12">
+        <table id="cuenta">
+          <tr>
+            <td>Estado previo a última factura:</td>
+            <td><%= number_to_currency(family.saldo_previo_ult_factura) %></td>
+          </tr>
+          <tr>
+            <td>Ultima factura (<%= l family.ultima_factura.created_at.in_time_zone('Buenos Aires'), format: :fecha_texto %>):</td>
+            <td><%= number_to_currency(family.ultima_factura.monto) %></td>
+          </tr>
+          <tr>
+            <td><b>Estado al <%= l Date.today.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
+            <td><b><%= number_to_currency(family.get_saldo) %></b></td>
+          </tr>      
+        </table>
+      </div>
+      <div class='clearfix'></div>
+
+      <br />
+      <br />
+
+
+      <div id="notifications" class="col-xs-12">
+        <h1 id="month" style="font-family: 'ribbonregular';">MENÚ</h1>
+
+        <div class="col-xs-4 col-xs-offset-4 ribbon">
+          <h2 id="month_text">
+            <%= (l @date.in_time_zone('Buenos Aires') , format: :mes_anio ).upcase %>
+          </h2>
+        </div>
+        <div class='clearfix'></div>
+
+        <br />
+
+        <%= calendar @date do |date| %>
+          <%= date.day %>
+          <% if @menus_by_date[date] %>
+            <ul>
+              <% @menus_by_date[date].each do |menu| %>
+                <li><%= menu.food.comida %></li>
+              <% end %>
+            </ul>
+          <% end %>        
+        <% end %>
+      </div>
+      <div class='clearfix'></div>
+
+      <div class = 'texto_final'>
+        <br />
+        <br />
+        <p>
+          Sumamos a este menú todos los días souflé (zapallitos, calabazas, vegetales, etc.), calabaza, arroz y frutas de estación. <br /> 
+          El buffet de ensaladas cuenta diariamente con una amplia variedad, donde los chicos eligen libremente.<br />
+          Ante la necesidad de alguna dieta, por favor, enviar el pedido por cuaderno de comunicaciones.<br />
+          Los días en que el menú tiene alimentos fritos, también existe la alternativa de solicitar al horno.
+        </p>  
+      </div>
     </div>
-    <div class='clearfix'></div>
-    
-    <br />
-    
-    <%= calendar @date do |date| %>
-      <%= date.day %>
-      <% if @menus_by_date[date] %>
-        <ul>
-          <% @menus_by_date[date].each do |menu| %>
-            <li><%= menu.food.comida %></li>
-          <% end %>
-        </ul>
-      <% end %>        
-    <% end %>
-  </div>
-  <div class='clearfix'></div>
-  
-  <div class = 'texto_final'>
-    <br />
-    <br />
-    <p>
-      Sumamos a este menú todos los días souflé (zapallitos, calabazas, vegetales, etc.), calabaza, arroz y frutas de estación. <br /> 
-      El buffet de ensaladas cuenta diariamente con una amplia variedad, donde los chicos eligen libremente.<br />
-      Ante la necesidad de alguna dieta, por favor, enviar el pedido por cuaderno de comunicaciones.<br />
-      Los días en que el menú tiene alimentos fritos, también existe la alternativa de solicitar al horno.
-    </p>  
-  </div>
-</div>
+  <% end %>
 <% end %>
