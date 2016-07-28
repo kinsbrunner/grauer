@@ -21,11 +21,17 @@ class FoodsController < ApplicationController
   
   def edit
     @food ||= Food.find_by_id(params[:id])
+    return render_not_found if @food.blank?
   end
 
   def update
+    return render_not_found if current_food.blank?
     current_food.update_attributes(food_params)
-    redirect_to foods_path
+    if current_food.valid?
+      redirect_to foods_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
   
   def destroy

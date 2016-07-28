@@ -1,17 +1,15 @@
 <script>
   $(function() {
+    console.log("CARGAA!!!");
     $('#mySchool').modal({backdrop: 'static', keyboard: false, show: true})
-  });
 
-  $(function(){
     var button = $('#button');
-
-    button.click(function(){
+    button.click(function(event){
       var school_id = $('#_id').val();
-    
       if(school_id){
         window.location.href = 'schools/' + school_id + '/families';
       }
+      event.preventDefault();
     });
   });
 </script>

@@ -9,5 +9,10 @@ FactoryGirl.define do
     password_confirmation "secretPassword"
   end
 
-
+  factory :food do
+    sequence :comida do |n|
+      "Comida_#{n}"
+    end
+    tipo 1
+  end
 end
