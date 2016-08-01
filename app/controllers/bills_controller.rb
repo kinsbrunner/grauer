@@ -151,7 +151,7 @@ class BillsController < ApplicationController
         mov.user_id   = current_user.id
         mov.school_id = current_school.id
         mov.bill_id   = factura.id
-        mov.tipo      = Movement::TIPO_TIPOS['Servicio']
+        mov.tipo      = Movement::TIPO_TIPOS['Comedor']
         mov.monto     = total
         mov.nota      = detalle
         mov.do_forma_validation = true

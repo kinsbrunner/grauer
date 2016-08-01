@@ -17,14 +17,14 @@ class Movement < ActiveRecord::Base
   
   TIPO_TIPOS = {
     'Pago'            => 1,
-    'Servicio'        => 2,
+    'Comedor'         => 2,
     'Nota de Crédito' => 3,
     'Descuento'       => 4
   }
 
   TIPO_TIPOS_DDLB = {
     'Pago'            => 1,
-    'Servicio'        => 2,
+    'Comdor'          => 2,
     'Nota de Crédito' => 3
   }
 
@@ -90,7 +90,7 @@ class Movement < ActiveRecord::Base
   private  
   
   def adjust_monto
-    if tipo == TIPO_TIPOS['Servicio']
+    if tipo == TIPO_TIPOS['Comedor']
       self.monto = self.monto.abs
     else  
       self.monto = -(self.monto.abs)

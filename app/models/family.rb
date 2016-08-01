@@ -16,7 +16,7 @@ class Family < ActiveRecord::Base
   end
   
   def ultima_factura
-    return self.movements.where("tipo = " + Movement::TIPO_TIPOS['Servicio'].to_s).order(created_at: :DESC).first
+    return self.movements.where("tipo = " + Movement::TIPO_TIPOS['Comedor'].to_s).order(created_at: :DESC).first
   end 
   
   def saldo_previo_ult_factura

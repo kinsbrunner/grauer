@@ -56,7 +56,7 @@
     forma = $('#movement_forma');
 
     tipo.change(function() {
-      if(tipo.val() == <%= Movement::TIPO_TIPOS['Servicio'] %> || tipo.val() == <%= Movement::TIPO_TIPOS['Nota de Crédito'] %>){
+      if(tipo.val() == <%= Movement::TIPO_TIPOS['Comedor'] %> || tipo.val() == <%= Movement::TIPO_TIPOS['Nota de Crédito'] %>){
         descuento.prop('disabled', 'disabled')
                  .val('');
         forma.prop('disabled', 'disabled')
