@@ -6,6 +6,7 @@ class Food < ActiveRecord::Base
   validates :comida, presence: true
   
   TIPO_COMIDAS = {
+    'Ensalada'              => 0,
     'Principal'             => 1,
     'Acompañamiento'        => 2,
     'Feriados/Festividades' => 3

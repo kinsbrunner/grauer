@@ -6,7 +6,7 @@ class NotificationsController < ApplicationController
   
   def show
     @menus = current_school.menus.order(:fecha)
-    @menus_by_date = @menus.group_by(&:fecha)
+    @menus_by_date = @menus.joins(:food).order("foods.tipo").group_by(&:fecha)
     @families = current_school.families.where(activo: true).order(:apellido, :contacto_1)
     
     precios_mensuales = current_school.ultima_factura_mensual
