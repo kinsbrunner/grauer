@@ -9,6 +9,25 @@ class NotificationsController < ApplicationController
     @menus_by_date = @menus.group_by(&:fecha)
     @families = current_school.families.where(activo: true).order(:apellido, :contacto_1)
     
+    precios_mensuales = current_school.ultima_factura_mensual
+    @rangos_mensuales = ''
+    if precios_mensuales.limite_grp_1
+      @rangos_mensuales = "hasta #{precios_mensuales.humanized_limite_grp_1} es de #{helper.number_to_currency(precios_mensuales.valor_1, :precision => 0)}"
+    end
+    if precios_mensuales.limite_grp_2
+      @rangos_mensuales += ", hasta #{precios_mensuales.humanized_limite_grp_2} es de #{helper.number_to_currency(precios_mensuales.valor_2, :precision => 0)}"
+    end
+    if precios_mensuales.limite_grp_3
+      @rangos_mensuales += ", hasta #{precios_mensuales.humanized_limite_grp_3} es de #{helper.number_to_currency(precios_mensuales.valor_3, :precision => 0)}"
+    end
+    
+    fact_dia = current_school.ultima_factura_diaria
+    precios = Array.new
+    precios.push(fact_dia.valor_1)
+    precios.push(fact_dia.valor_2)
+    precios.push(fact_dia.valor_3)
+    @precio_diario = precios.max
+
     @notif_id = params[:id]
     if @notif_id == '1'
       @date = Date.today
@@ -40,5 +59,11 @@ class NotificationsController < ApplicationController
     helper_method :current_school
     def current_school
       @current_school ||= School.find_by_id(params[:school_id])
+    end
+
+    def helper
+      @helper ||= Class.new do
+        include ActionView::Helpers::NumberHelper
+      end.new
     end
 end

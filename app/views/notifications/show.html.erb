@@ -23,14 +23,50 @@
 
       <br />
       <div class="col-xs-12">
-        <table id="cuenta">
+        <%
+          ult_fac_mes = family.ultima_factura_mensual 
+          if ult_fac_mes
+            fmensual = ult_fac_mes.monto
+          else
+            fmensual = nil
+          end
+          
+          ult_fac_dia = family.ultima_factura_diaria
+          if ult_fac_dia
+            fdiaria = ult_fac_dia.monto
+          else
+            fdiaria = nil
+          end
+
+          saldo = family.get_saldo
+          if fmensual.present?
+            saldo -=  fmensual
+          end
+          if fdiaria.present?
+            saldo -=  fdiaria
+          end          
+        %>
+        <table id="cuenta" border='1'>
           <tr>
-            <td>Estado previo a última factura:</td>
-            <td><%= number_to_currency(family.saldo_previo_ult_factura) %></td>
+            <td rowspan='4' class='notif_texto'> 
+              <p>
+                <b>Estimados Padres:</b><br />
+                El costo mensual del servicio de comedor para los chicos de <%= @rangos_mensuales %>.-<br />
+                Les recordamos que para aquellos padres que abonen antes del día 10, tendrán un descuento del 10%.<br />
+                El costo diario del servicio es de <%= number_to_currency(@precio_diario, :precision => 0) %>.-
+              </p>
+            </td>
+            <td>Saldo Anterior:</td>
+            <td><%= number_to_currency(saldo) %></td>
+          </tr>
+
+          <tr>
+            <td><%= fmensual ? "#{ult_fac_mes.nota}:" : 'Ultima factura mensual' %></td>
+            <td><%= fmensual ? number_to_currency(fmensual) : '---' %></td>
           </tr>
           <tr>
-            <td>Ultima factura (<%= l family.ultima_factura.created_at.in_time_zone('Buenos Aires'), format: :fecha_texto %>):</td>
-            <td><%= number_to_currency(family.ultima_factura.monto) %></td>
+            <td><%= fdiaria ? "#{ult_fac_dia.nota}:" : 'Ultima factura diaria' %></td>
+            <td><%= fdiaria ? number_to_currency(fdiaria) : '---' %></td>
           </tr>
           <tr>
             <td><b>Estado al <%= l Date.today.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
