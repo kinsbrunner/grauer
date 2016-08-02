@@ -7,14 +7,13 @@
       <table class = 'header'>
         <tr>
           <td>
-
-            <h2 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h2>
+            <h1 style="font-family: 'insigniaaroman';">ESCUELA <br /> <%= current_school.name.upcase %></h1>
           </td>
           <td class= 'nombre_entrega'>
-            <h6><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h6>
+            <h5><%= "#{family.hijo_menor.nombre} #{family.apellido} (#{family.hijo_menor.humanized_grado} #{family.hijo_menor.division})" %></h5>
           </td>
           <td>  
-            <%= wicked_pdf_image_tag 'logo.png', :width => "198",  :height=>"88", class: 'pull-right'  %>
+            <%= wicked_pdf_image_tag 'logo.png', :width => "218",  :height=>"97", class: 'pull-right'  %>
           </td>
         </tr>
       </table>

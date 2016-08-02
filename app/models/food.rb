@@ -3,7 +3,7 @@ class Food < ActiveRecord::Base
   has_many :schools, through: :menus
 
   validates :tipo, presence: true
-  validates :comida, presence: true
+  validates :comida, presence: true, uniqueness: true
   
   TIPO_COMIDAS = {
     'Ensalada'              => 0,
