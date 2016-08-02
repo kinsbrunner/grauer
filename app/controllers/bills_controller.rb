@@ -139,11 +139,12 @@ class BillsController < ApplicationController
     families.each do |key, comps|
       total = comps.inject(0){|sum, x| sum + x.to_i }
       if tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
-        detalle = "Factura mensual (#{I18n.t("date.month_names")[factura.periodo.mon]}): "
+        detalle = "Mensual (#{I18n.t("date.month_names")[factura.periodo.mon]}: "
       else
-        detalle = "Factura diaria (#{I18n.t("date.month_names")[factura.periodo.mon]}): "
+        detalle = "Diario (#{I18n.t("date.month_names")[factura.periodo.mon]}: "
       end
       detalle += comps.join(' + ')
+      detalle += ')'
 
       if total > 0
         mov           = Movement.new

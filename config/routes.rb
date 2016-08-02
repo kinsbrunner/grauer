@@ -12,7 +12,7 @@ Grauer::Application.routes.draw do
         get 'disable'
       end
     end
-    resources :notifications, only: [:show]
+    resources :notifications, only: [:index]
     resources :lists, only: [:show]
     resources :evolutions, only: [:index, :create]  
     resources :bills, only: [:index, :new, :create, :destroy, :edit, :update]

@@ -1,10 +1,7 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_user!, only: [:index]
 
-# NOTIF ID 1: Muestra con calendario del mes actual
-# NOTIF ID 2: Muestra con calendario del mes siguiente
-  
-  def show
+  def index
     @menus = current_school.menus.order(:fecha)
     @menus_by_date = @menus.joins(:food).order("foods.tipo").group_by(&:fecha)
     @families = current_school.families.where(activo: true).order(:apellido, :contacto_1)
@@ -28,20 +25,13 @@ class NotificationsController < ApplicationController
     precios.push(fact_dia.valor_3)
     @precio_diario = precios.max
 
-    @notif_id = params[:id]
-    if @notif_id == '1'
-      @date = Date.today
-    elsif @notif_id == '2'
-      @date = Date.today.at_beginning_of_month.next_month
-    else
-      return render_not_found      
-    end
+    @date = Date.today
     
     respond_to do |format|
       format.html
       format.pdf do
         render  :pdf         => "Notificaciones_#{current_school.name}", 
-                :template    => 'notifications/show.html.erb',   # Excluding ".pdf" extension.
+                :template    => 'notifications/index.html.erb',   # Excluding ".pdf" extension.
                 :disposition => 'inline',  # 'attachment'
                 :orientation => 'portrait', 
                 :page_size   => 'A4',

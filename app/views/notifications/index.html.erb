@@ -61,15 +61,15 @@
           </tr>
 
           <tr>
-            <td><%= fmensual ? "#{ult_fac_mes.nota}:" : 'Ultima factura mensual' %></td>
+            <td><%= fmensual ? "#{ult_fac_mes.nota}:" : 'Mensual:' %></td>
             <td><%= fmensual ? number_to_currency(fmensual) : '---' %></td>
           </tr>
           <tr>
-            <td><%= fdiaria ? "#{ult_fac_dia.nota}:" : 'Ultima factura diaria' %></td>
+            <td><%= fdiaria ? "#{ult_fac_dia.nota}:" : 'Diario:' %></td>
             <td><%= fdiaria ? number_to_currency(fdiaria) : '---' %></td>
           </tr>
           <tr>
-            <td><b>Estado al <%= l Date.today.in_time_zone('Buenos Aires'), format: :fecha_texto %>:</b></td>
+            <td><b>Saldo:</b></td>
             <td><b><%= number_to_currency(family.get_saldo) %></b></td>
           </tr>      
         </table>
