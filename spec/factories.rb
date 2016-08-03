@@ -6,13 +6,11 @@ FactoryGirl.define do
     tipo 1
   end
   
-  
   factory :school do
     sequence :name do |n|
       "School_#{n}"
     end
   end
-  
   
   factory :family do
     apellido    "Kinsbrunner"
@@ -28,7 +26,6 @@ FactoryGirl.define do
     school_id   1
   end  
   
-  
   factory :child do
     nombre        "Pedrito"
     grado         1
@@ -38,12 +35,23 @@ FactoryGirl.define do
     association :family, factory: :family
   end
 
-  
   factory :comment do
     message     "Este es un comentario"
     association :family, factory: :family
   end  
+
   
+  factory :movement do
+    tipo        1   # Pago
+    monto       500
+    forma       1   # Efectivo
+    descuento   0.00
+    nota        "Esta es una nota de un movimiento"
+    association :family, factory: :family
+    association :user, factory: :user
+    association :school, factory: :school
+    # faltaría association contra Bill
+  end
   
   factory :user do
     sequence :email do |n|
