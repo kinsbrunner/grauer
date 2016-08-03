@@ -10,7 +10,11 @@ class EvolutionsController < ApplicationController
     if @evolution.valid?
       alumnos = current_school.children
       alumnos.each do |alumno|
-        alumno.pasar_grado(current_user)
+        if alumno.grado <= Child::GRADOS['6to Grado']
+          alumno.pasar_grado
+        elsif alumno.grado == Child::GRADOS['7mo Grado']
+          alumno.egresar_alumno(current_user)
+        end
       end
     end
     redirect_to school_evolutions_path

@@ -29,6 +29,22 @@ FactoryGirl.define do
   end  
   
   
+  factory :child do
+    nombre        "Pedrito"
+    grado         1
+    division      "A"
+    tipo_servicio 1
+    comentario    "Es un buen pibe"
+    association :family, factory: :family
+  end
+
+  
+  factory :comment do
+    message     "Este es un comentario"
+    association :family, factory: :family
+  end  
+  
+  
   factory :user do
     sequence :email do |n|
       "Dummy_#{n}@email.com"

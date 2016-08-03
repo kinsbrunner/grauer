@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe School, type: :model do
   # Valid factory test is on factories_spec.rb
 
-  it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
-  it { should have_many(:families) }
-  it { should have_many(:children).through(:families)  }  
-  it { should have_many(:bills) }
-  it { should have_many(:movements) }
-  it { should have_many(:evolutions) }
-  it { should have_many(:menus) }
-  it { should have_many(:foods).through(:menus)  }  
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name) }
+  it { is_expected.to have_many(:families) }
+  it { is_expected.to have_many(:children).through(:families)  }  
+  it { is_expected.to have_many(:bills) }
+  it { is_expected.to have_many(:movements) }
+  it { is_expected.to have_many(:evolutions) }
+  it { is_expected.to have_many(:foods).through(:menus)  }  
+  it { is_expected.to have_many(:menus) }
   
   
   it "returns the monthly bill of the current month"
