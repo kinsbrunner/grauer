@@ -12,7 +12,6 @@ class Food < ActiveRecord::Base
     'Feriados/Festividades' => 3
   }
 
-
   def humanized_tipo
     TIPO_COMIDAS.invert[self.tipo]
   end

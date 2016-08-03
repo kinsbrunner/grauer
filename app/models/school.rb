@@ -7,6 +7,8 @@ class School < ActiveRecord::Base
 
   has_many :menus
   has_many :foods, through: :menus
+  
+  validates :name, presence: true, uniqueness: true
 
   def ultima_factura_mensual #Se factura por adelantado
     curr_month = Date.today.beginning_of_month
