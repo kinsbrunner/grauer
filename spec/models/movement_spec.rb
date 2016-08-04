@@ -14,13 +14,24 @@ RSpec.describe Movement, type: :model do
   
   context "payments" do
     it { is_expected.to validate_presence_of(:forma) }
+
+    it "should adjust Monto when Payment has Descuento" do
+      @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Pago'], descuento: 0.10)
+      @new_val = -@mov.monto * (1 - @mov.descuento)
+      expect{@mov.save}.to change{@mov.monto}.to(@new_val)
+      #Acá deberia agregar un DESCUENTO
+    end
+
+    it "should not adjust Monto when Payment has no Descuento" do
+      @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Pago'], descuento: 0)
+      expect{@mov.save}.to change{@mov.monto}.to(-@mov.monto)
+    end     
   end
   
-  context "deductions" do
-    
+  context "deductions" do    
+    it "should not adjust Monto" do
+      @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Comedor'])
+      expect{@mov.save}.not_to change{@mov.monto}
+    end        
   end
-  
-  
-  # add_descuento
-  # adjust_monto
 end
