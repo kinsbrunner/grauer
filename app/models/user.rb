@@ -11,5 +11,8 @@ class User < ActiveRecord::Base
   has_many :bills
   has_many :evolutions
   
+  validates :firstname, presence: true
+  validates :lastname, presence: true
+  
   attr_accessor :school
 end

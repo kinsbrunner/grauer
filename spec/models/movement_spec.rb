@@ -19,7 +19,11 @@ RSpec.describe Movement, type: :model do
       @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Pago'], descuento: 0.10)
       @new_val = -@mov.monto * (1 - @mov.descuento)
       expect{@mov.save}.to change{@mov.monto}.to(@new_val)
-      #Acá deberia agregar un DESCUENTO
+    end
+    
+    it "should create an additional Movement for Descuento type" do
+      @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Pago'], descuento: 0.10)
+      expect{@mov.add_descuento}.to change(Movement, :count).by(1)
     end
 
     it "should not adjust Monto when Payment has no Descuento" do
