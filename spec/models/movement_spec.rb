@@ -13,6 +13,7 @@ RSpec.describe Movement, type: :model do
   it { is_expected.to belong_to(:school) }
   
   context "payments" do
+    before { allow(subject).to receive(:do_forma_validation).and_return(false) }
     it { is_expected.to validate_presence_of(:forma) }
 
     it "should adjust Monto when Payment has Descuento" do
@@ -32,7 +33,10 @@ RSpec.describe Movement, type: :model do
     end     
   end
   
-  context "deductions" do    
+  context "deductions" do
+    before { allow(subject).to receive(:do_forma_validation).and_return(true) }
+    it { is_expected.not_to validate_presence_of(:forma) }
+    
     it "should not adjust Monto" do
       @mov = FactoryGirl.build(:movement, tipo: Movement::TIPO_TIPOS['Comedor'])
       expect{@mov.save}.not_to change{@mov.monto}

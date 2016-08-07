@@ -1,15 +1,18 @@
 FactoryGirl.define do
+  sequence(:name)   { |s| "School_#{s}" }
+  sequence(:comida) { |c| "Comida_#{c}" }
+  sequence(:email)  { |e| "Dummy_#{e}@email.com" }
+  sequence(:periodo){ |p|  p.days.from_now.to_date }
+  
+
+  
   factory :food do
-    sequence :comida do |n|
-      "Comida_#{n}"
-    end
+    comida
     tipo 1
   end
   
   factory :school do
-    sequence :name do |n|
-      "School_#{n}"
-    end
+    name
   end
   
   factory :family do
@@ -22,8 +25,8 @@ FactoryGirl.define do
     email       "dummy@gmail.com"
     direccion   "Callecita 1234"
     activo      true
-    user_id     1
-    school_id   1
+    association :user, factory: :user
+    association :school, factory: :school
   end  
   
   factory :child do
@@ -39,7 +42,6 @@ FactoryGirl.define do
     message     "Este es un comentario"
     association :family, factory: :family
   end  
-
   
   factory :movement do
     tipo        1   # Pago
@@ -50,18 +52,29 @@ FactoryGirl.define do
     association :family, factory: :family
     association :user, factory: :user
     association :school, factory: :school
-    # faltaría association contra Bill
+    #### Activar una vez que funcione BILL de vuelta!!!
+    #association :bill, factory: :bill
   end
   
   factory :user do
-    sequence :email do |n|
-      "Dummy_#{n}@email.com"
-    end
+    email
     firstname "Dummy"
     lastname "Dummy"
     password "secretPassword"
     password_confirmation "secretPassword"
   end
 
+  factory :bill do
+    periodo
+    tipo         Bill::TIPOS_FACTURACION['Mensual']
+    limite_grp_1 Child::GRADOS['1er Grado']
+    valor_1      100.00
+    limite_grp_2 Child::GRADOS['3er Grado']
+    valor_2      200.00
+    limite_grp_3 Child::GRADOS['7mo Grado']
+    valor_3      300.00
+    association :school, factory: :school
+    association :user, factory: :user
+  end
 
 end

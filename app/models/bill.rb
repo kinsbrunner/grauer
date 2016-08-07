@@ -46,6 +46,7 @@ class Bill < ActiveRecord::Base
   private
 
   def check_limites
+    # Esto no impide que se grabe, sólo muestra los mensajes de error
     errors.add(:limite_grp_2, "El valor debe ser mayor al Límite de Grupo 1") if limite_grp_1.present? && limite_grp_2.present? && limite_grp_2 <= limite_grp_1
     errors.add(:limite_grp_3, "El valor debe ser mayor al Límite de Grupo 2") if limite_grp_2.present? && limite_grp_3.present? && limite_grp_3 <= limite_grp_2
   end
