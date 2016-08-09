@@ -1,6 +1,4 @@
 Grauer::Application.configure do
-  config.action_mailer.default_url_options = { host: 'localhost:3030' }
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -28,4 +26,13 @@ Grauer::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  
+  #config.action_mailer.default_url_options = { :host => 'http://preview.4swbztzlih82rzfrdpgqeuvrr3utmx6r070va48r4hfcrf6r.box.codeanywhere.com:3001' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+ 
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  
 end

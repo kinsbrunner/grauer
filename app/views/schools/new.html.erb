@@ -1,0 +1,25 @@
+<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+  <h1>Nueva Escuela</h1>
+  <br />
+
+  <div class="seccion">
+    <%= simple_form_for @school do |f| %>
+      <div class='row'>
+        <div class="col-xs-12">
+          <%= f.input :name, label: 'Escuela' %>
+          <br />
+        </div>
+      </div>
+   
+      <div class='row'>
+        <br />
+        <div class='pull-right seccion_botonera'>
+          <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
+            <span class="glyphicon glyphicon-ok"></span>
+            Crear
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div> 
+</div>

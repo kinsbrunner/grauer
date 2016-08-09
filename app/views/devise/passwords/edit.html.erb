@@ -1,5 +1,5 @@
 <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 box">
-  <h2 class="text-center">Cambio de contraseñá</h2>
+  <h2 class="text-center">Cambio de contraseña</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
     <%= f.error_notification %>
@@ -8,8 +8,10 @@
     <%= f.full_error :reset_password_token %>
 
     <div class="form-inputs">
-      <%= f.input :password, label: "Nueva contraseña", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+      <%= f.input :password, label: "Nueva contraseña", required: true, autofocus: true, hint: ("mínimo #{@minimum_password_length} caracteres" if @minimum_password_length) %>
+      <br />
       <%= f.input :password_confirmation, label: "Confirme nueva contraseña", required: true %>
+      <br />
     </div>
 
     <div class="form-actions">
