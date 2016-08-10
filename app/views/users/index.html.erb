@@ -1,0 +1,62 @@
+<script>
+$(document).ready(function(){
+  $('.datatable').DataTable( {
+        responsive: true,
+        "language": {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ usuarios",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando del usuario _START_ al _END_ (_TOTAL_ total)",
+            "sInfoEmpty":      "Mostrando usuarios del 0 al 0 de un total de 0 usuarios",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ usuarios)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Ultimo",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+            },
+            "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+</script>
+
+<div class="col-xs-12 col-md-6 col-md-offset-3">
+  <%= link_to new_user_registration_path, class: "btn btn-primary pull-right" do %>
+    <span class="glyphicon glyphicon-plus"></span> 
+    Usuario
+  <% end %> 
+</div>
+<div class="col-xs-12 col-md-6 col-md-offset-3 marco">
+    <br />
+    <table class="datatable table table-striped table-hover table-condensed table-bordered display nowrap" width="100%">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Usuario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.firstname %></td>
+          <td><%= user.lastname %></td>
+          <td><%= user.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= paginate @users %>
+  </div>
+</div>

@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
   before_action :check_admin, only: [:new, :create]
   
   def index
-    @schools = School.order(:name)
+    @schools = School.order(:name).page(params[:page])
   end
   
   def new

@@ -1,5 +1,7 @@
 Grauer::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {                                                                                                                    
+        registrations: 'users/registrations'                                                                                                                         
+      }  
 
   root 'schools#index'
   resources :schools, only: [:index, :new, :create] do
@@ -21,4 +23,5 @@ Grauer::Application.routes.draw do
   resources :menus, only: [:index, :create, :update, :destroy] do
     get :get_menus, on: :collection
   end
+  resources :users, only: [:index]
 end
