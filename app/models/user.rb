@@ -9,12 +9,12 @@ class User < ActiveRecord::Base
          :validatable, 
          :timeoutable
 
-  has_many :families
-  has_many :comments
-  has_many :movements
-  has_many :menus
-  has_many :bills
-  has_many :evolutions
+  has_many :families, :dependent => :restrict_with_error
+  has_many :comments, :dependent => :restrict_with_error
+  has_many :movements, :dependent => :restrict_with_error
+  has_many :menus, :dependent => :restrict_with_error
+  has_many :bills, :dependent => :restrict_with_error
+  has_many :evolutions, :dependent => :restrict_with_error
   
   validates :firstname, presence: true
   validates :lastname, presence: true

@@ -36,6 +36,12 @@ class FoodsController < ApplicationController
   
   def destroy
     return render_not_found if current_food.blank?
+    
+    if current_food.menus.count > 0
+      flash[:alert] = "No se puede eliminar la Comida ya que es utilizada en algunos Menúes"
+    else  
+      flash[:notice] = "Se ha eliminado la Comida satisfactoriamente"
+    end
     current_food.destroy
     redirect_to foods_path
   end

@@ -1,9 +1,9 @@
 class Family < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
-  has_many   :children
-  has_many   :comments
-  has_many   :movements
+  has_many   :children, :dependent => :restrict_with_error
+  has_many   :comments, :dependent => :restrict_with_error
+  has_many   :movements, :dependent => :restrict_with_error
 
   validates :apellido, presence: true
 

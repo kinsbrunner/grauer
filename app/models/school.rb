@@ -1,12 +1,11 @@
 class School < ActiveRecord::Base
-  has_many :families
-  has_many :children, through: :families
-  has_many :bills
-  has_many :movements
-  has_many :evolutions
-
-  has_many :menus
-  has_many :foods, through: :menus
+  has_many :families, :dependent => :restrict_with_error
+  has_many :children, through: :families, :dependent => :restrict_with_error
+  has_many :bills, :dependent => :restrict_with_error
+  has_many :movements, :dependent => :restrict_with_error
+  has_many :evolutions, :dependent => :restrict_with_error
+  has_many :menus, :dependent => :restrict_with_error
+  has_many :foods, through: :menus, :dependent => :restrict_with_error
   
   validates :name, presence: true, uniqueness: true
 
