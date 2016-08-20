@@ -9,9 +9,6 @@ class UserMailer < ApplicationMailer
 
   def password_changed(id)
     @user = User.find(id)
-    puts '------------------------------------------>'
-    puts @user.inspect
-    puts '------------------------------------------>'
     mail to: @user.email, subject: "Su contraseña de Grauer Catering ha sido modificada"
   end  
 end

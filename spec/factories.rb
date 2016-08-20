@@ -10,7 +10,7 @@ FactoryGirl.define do
     comida
     tipo 1
   end
-  
+
   factory :school do
     name
   end

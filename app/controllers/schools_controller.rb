@@ -4,6 +4,10 @@ class SchoolsController < ApplicationController
   
   def index
     @schools = School.order(:name).page(params[:page])
+    
+    if !@schools && current_user.admin
+      redirect_to new_school_path
+    end
   end
   
   def new
