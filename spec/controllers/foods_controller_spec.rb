@@ -77,12 +77,12 @@ RSpec.describe FoodsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     
-    it "should return a 404 error message if the gram is not found" do
+    it "should return a 404 error message if the food is not found" do
       user = FactoryGirl.create(:user)
       sign_in user
       
       get :edit, id: 'BLABLABLA'
-      expect(response).to have_http_status(:not_found)      
+      expect(response).to have_http_status(:not_found)
     end
     
     it "should require users to be logged in" do
@@ -135,6 +135,34 @@ RSpec.describe FoodsController, type: :controller do
   end
   
   describe "foods#destroy action" do
+    before :each do
+      @food = FactoryGirl.create(:food)
+    end
     
+    it "should successfully delete a food if found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      
+      expect{delete :destroy, id: @food}.to change(Food, :count).by(-1)
+      expect(response).to redirect_to foods_path
+      
+      f = Food.find_by_id(@food)
+      expect(f).to eq nil
+    end
+  
+    it "should return a 404 error message if the food is not found" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      
+      delete :destroy, id: 'BLABLABLA'
+      expect(response).to have_http_status(:not_found)
+      expect{response}.not_to change(Food,:count)
+    end
+
+    it "should require users to be logged in" do
+      delete :destroy, id: @food
+      expect(response).to redirect_to new_user_session_path
+    end
+
   end
 end
