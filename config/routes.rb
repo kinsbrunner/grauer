@@ -7,7 +7,7 @@ Grauer::Application.routes.draw do
   resources :schools, only: [:index, :new, :create] do
     resources :families, only: [:index, :new, :create, :show, :edit, :update] do
       resources :children, only: [:new, :create, :edit, :update, :destroy]
-      resources :comments, only: [:new, :create]
+      resources :comments, only: [:create]
       resources :movements, only: [:new, :create, :destroy]
       member do
         get 'enable'
