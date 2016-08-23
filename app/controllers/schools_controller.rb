@@ -25,7 +25,7 @@ class SchoolsController < ApplicationController
   
   def check_admin
     if !current_user.admin
-      return render text: 'Not Allowed', status: forbidden
+      return render text: 'Not Allowed', status: :forbidden
     end
   end
 

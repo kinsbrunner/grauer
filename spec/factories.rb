@@ -62,8 +62,18 @@ FactoryGirl.define do
     lastname "Dummy"
     password "secretPassword"
     password_confirmation "secretPassword"
+    admin false
   end
 
+  factory :user_admin, parent: :user do
+    email
+    firstname "Dummy"
+    lastname "Dummy"
+    password "secretPassword"
+    password_confirmation "secretPassword"
+    admin true
+  end  
+  
   factory :bill do
     periodo
     tipo         Bill::TIPOS_FACTURACION['Mensual']
