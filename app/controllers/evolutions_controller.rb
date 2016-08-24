@@ -2,6 +2,7 @@ class EvolutionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   
   def index
+    return render_not_found if current_school.blank?
     @evolutions = current_school.evolutions.order(created_at: :DESC).page(params[:page])
   end
   
@@ -25,6 +26,6 @@ class EvolutionsController < ApplicationController
   
   helper_method :current_school
   def current_school
-    @current_school ||= School.find_by_id(session[:school_id])
+    @current_school ||= School.find_by_id(params[:school_id])
   end  
 end

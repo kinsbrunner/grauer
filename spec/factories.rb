@@ -87,4 +87,9 @@ FactoryGirl.define do
     association :user, factory: :user
   end
 
+  factory :evolution do
+    association :school, factory: :school
+    association :user, factory: :user    
+  end
+
 end

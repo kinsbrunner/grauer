@@ -18,11 +18,17 @@ class ChildrenController < ApplicationController
   end
 
   def edit
+    return render_not_found if current_child.blank?
   end
 
   def update
+    return render_not_found if current_child.blank?
     current_child.update_attributes(child_params)
-    redirect_to school_family_path(current_school, current_family)
+    if current_child.valid?
+      redirect_to school_family_path(current_school, current_family)
+    else
+      render :edit, status: :unprocessable_entity
+    end    
   end
 
   def destroy
