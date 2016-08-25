@@ -66,20 +66,19 @@ RSpec.describe FoodsController, type: :controller do
   
   describe "foods#edit action" do
     before :each do
+      @user = FactoryGirl.create(:user)
       @food = FactoryGirl.create(:food)
     end
     
     it "should successfully show the edit form if the food is found" do
-      user = FactoryGirl.create(:user)
-      sign_in user
+      sign_in @user
       
       get :edit, id: @food
       expect(response).to have_http_status(:success)
     end
     
     it "should return a 404 error message if the food is not found" do
-      user = FactoryGirl.create(:user)
-      sign_in user
+      sign_in @user
       
       get :edit, id: 'BLABLABLA'
       expect(response).to have_http_status(:not_found)

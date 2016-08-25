@@ -2,6 +2,8 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
 
   def index
+    return render_not_found if current_school.blank?
+    
     @menus = current_school.menus.order(:fecha)
     @menus_by_date = @menus.joins(:food).order("foods.tipo").group_by(&:fecha)
     @families = current_school.families.where(activo: true).order(:apellido, :contacto_1)

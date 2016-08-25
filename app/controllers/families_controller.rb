@@ -39,12 +39,18 @@ class FamiliesController < ApplicationController
     end
   end
 
-  def edit
+  def edit    
+    return render_not_found if current_family.blank?
   end
 
   def update
+    return render_not_found if current_family.blank?
     current_family.update_attributes(family_params)
-    redirect_to school_family_path(current_school, current_family)
+    if current_family.valid?
+      redirect_to school_family_path(current_school, current_family)
+    else
+      render :edit, status: :unprocessable_entity
+    end     
   end
   
   def enable
@@ -59,18 +65,19 @@ class FamiliesController < ApplicationController
 
 
   private
-    def family_params
-      params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion, :activo)
-    end
 
-    def family_belongs_school      
-      if !current_family || current_family.school != current_school
-        return render text: 'No relation', status: :bad_request
-      end
+  def family_params
+    params.require(:family).permit(:apellido, :contacto_1, :contacto_2, :tel_cel, :tel_casa, :tel_alt, :email, :direccion, :activo)
+  end
+
+  def family_belongs_school      
+    if !current_family || current_family.school != current_school
+      return render text: 'No relation', status: :not_found
     end
-  
-    helper_method :current_family
-    def current_family
-      @current_family ||= Family.find_by_id(params[:id])
-    end
+  end
+
+  helper_method :current_family
+  def current_family
+    @current_family ||= Family.find_by_id(params[:id])
+  end
 end

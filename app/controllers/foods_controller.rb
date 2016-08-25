@@ -20,8 +20,7 @@ class FoodsController < ApplicationController
   end
   
   def edit
-    @food ||= Food.find_by_id(params[:id])
-    return render_not_found if @food.blank?
+    return render_not_found if current_food.blank?
   end
 
   def update

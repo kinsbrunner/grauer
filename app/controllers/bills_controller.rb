@@ -4,6 +4,8 @@ class BillsController < ApplicationController
 
 
   def index
+    return render_not_found if current_school.blank?
+    
     @tipo = params[:tipo]
     if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
       @bills = current_school.bills.where("tipo = #{Bill::TIPOS_FACTURACION['Mensual'].to_s}").order(:periodo).page(params[:page])
