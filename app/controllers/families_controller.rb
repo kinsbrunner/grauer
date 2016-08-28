@@ -52,16 +52,6 @@ class FamiliesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end     
   end
-  
-  def enable
-    curent_family.update_attribute(:activo => 'true')
-    redirect_to school_family_path(current_school, current_family)
-  end
-  
-  def disable
-    curent_family.update_attribute(:activo => 'false')
-    redirect_to school_family_path(current_school, current_family)
-  end
 
 
   private

@@ -116,7 +116,7 @@ RSpec.describe FamiliesController, type: :controller do
       expect(@family.apellido).to eq "Nuevo"
     end
     
-    it "should have HTTP 404 error message if the food cannot be found" do
+    it "should have HTTP 404 error message if the family cannot be found" do
       sign_in @user
       
       patch :update, id: 'BLABLABLA', family: FactoryGirl.attributes_for(:family, apellido: "Nuevo"), school_id: @school
@@ -158,5 +158,5 @@ RSpec.describe FamiliesController, type: :controller do
       get :show, id: @family, school_id: @school
       expect(response).to redirect_to new_user_session_path
     end
-  end
+  end  
 end
