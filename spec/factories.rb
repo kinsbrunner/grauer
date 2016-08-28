@@ -92,4 +92,11 @@ FactoryGirl.define do
     association :user, factory: :user    
   end
 
+  factory :menu do
+    fecha Date.today
+    association :school, factory: :school
+    association :user, factory: :user    
+    association :food, factory: :food    
+  end
+  
 end

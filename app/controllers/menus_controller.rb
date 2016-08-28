@@ -2,6 +2,7 @@ class MenusController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create, :update, :destroy]
   
   def index
+    return render_not_found if current_school.blank?
     @foods_p = Food.where(:tipo => Food::TIPO_COMIDAS['Principal']).order(:comida)
     @foods_a = Food.where("tipo = #{Food::TIPO_COMIDAS['Acompañamiento']} OR tipo = #{Food::TIPO_COMIDAS['Ensalada']}").order(:comida)
     @feriados = Food.where(:tipo => Food::TIPO_COMIDAS['Feriados/Festividades']).order(:comida)
@@ -26,8 +27,9 @@ class MenusController < ApplicationController
   end
 
   def update
+    return render_not_found if current_menu.blank?
     @menu = Menu.where("school_id = :school_id AND food_id = :food_id AND fecha = :fecha", 
-      {school_id: current_menu.school_id, food_id: current_menu.food_id, fecha: params[:fecha]})
+      {school_id: current_menu.school.id, food_id: current_menu.food.id, fecha: params[:fecha]})
     if @menu.blank?
       current_menu.update_attribute(:fecha, params[:fecha])
       render :json => { status: 0 }
@@ -39,9 +41,10 @@ class MenusController < ApplicationController
   def destroy
     if current_menu.blank?
       render :json => { status: -1 }
+    else
+      current_menu.destroy
+      render :json => { status: 0 }
     end
-    current_menu.destroy
-    render :json => { status: 0 }
   end
   
 
@@ -54,7 +57,8 @@ class MenusController < ApplicationController
 
   helper_method :current_school
   def current_school
-    @current_school ||= School.find_by_id(session[:school_id])
+    #@current_school ||= School.find_by_id(session[:school_id])
+    @current_school ||= School.find_by_id(params[:school_id])
   end
 
   def menu_params

@@ -1,5 +1,8 @@
 <script>
 	$(document).ready(function() {
+		
+		var school_id = $('#school_id').val();
+		
 		/* initialize the external events
 		-----------------------------------------------------------------*/
 		$('#external-events .fc-event').each(function() {
@@ -38,7 +41,7 @@
 				titulo = $.trim($(this).text());
 				
 				$.ajax({
-						url: "/menus",
+						url: "/schools/" + school_id + "/menus",
 						type: "POST",
 						data: { menu: {
 							fecha: fecha,
@@ -65,7 +68,7 @@
 			eventDrop: function(event, delta, revertFunc) {
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO MOVER MENUES*/
 				$.ajax({
-						url: "/menus/" + event.id,
+						url: "/schools/" + school_id + "/menus/" + event.id,
 						type: "PUT",
 						data: { fecha: event.start.format() },
 						dataType: "JSON",
@@ -84,7 +87,7 @@
 				/*ACA VA EL CODIGO PARA CUANDO QUIERO ELIMINAR MENUES*/
 				if (isElemOverDiv()) {
 					$.ajax({
-						url: "/menus/" + event.id,
+						url: "/schools/" + school_id + "/menus/" + event.id,
 						type: "DELETE",
 						dataType: "JSON",
 						success: function(resp) {
@@ -135,6 +138,8 @@
 		currentMousePos.y = event.pageY;
 	});	
 </script>
+
+<input type="hidden" id="school_id" value="<%= current_school[:id] %>">
 
 <div class="col-xs-12">
   <h1>Administración de Menúes</h1>
