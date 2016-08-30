@@ -27,25 +27,26 @@ class NotificationsController < ApplicationController
       precios.push(fact_dia.valor_2)
       precios.push(fact_dia.valor_3)
       @precio_diario = precios.max
-
-      @date = Date.today
-
-      respond_to do |format|
-        format.html
-        format.pdf do
-          render  :pdf         => "Notificaciones_#{current_school.name}", 
-                  :template    => 'notifications/index.html.erb',   # Excluding ".pdf" extension.
-                  :disposition => 'inline',  # 'attachment'
-                  :orientation => 'portrait', 
-                  :page_size   => 'A4',
-                  :title       => "Notificaciones de Escuela #{current_school.name}",
-                  :margin      =>  {  top:      5,  # default 10 (mm)
-                                      bottom:   10,
-                                      left:     10,
-                                      right:    5 }
-        end
+    end
+    
+    @date = Date.today
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render  :pdf         => "Notificaciones_#{current_school.name}", 
+                :template    => 'notifications/index.html.erb',   # Excluding ".pdf" extension.
+                :disposition => 'inline',  # 'attachment'
+                :orientation => 'portrait', 
+                :page_size   => 'A4',
+                :title       => "Notificaciones de Escuela #{current_school.name}",
+                :margin      =>  {  top:      5,  # default 10 (mm)
+                                    bottom:   10,
+                                    left:     10,
+                                    right:    5 }
       end
     end
+    
   end  
 
 
