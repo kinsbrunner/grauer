@@ -20,14 +20,16 @@ class NotificationsController < ApplicationController
       if precios_mensuales.limite_grp_3
         @rangos_mensuales += ", hasta #{precios_mensuales.humanized_limite_grp_3} es de #{helper.number_to_currency(precios_mensuales.valor_3, :precision => 0)}"
       end
+    end
 
-      fact_dia = current_school.ultima_factura_diaria
+    fact_dia = current_school.ultima_factura_diaria
+    if fact_dia
       precios = Array.new
       precios.push(fact_dia.valor_1)
       precios.push(fact_dia.valor_2)
       precios.push(fact_dia.valor_3)
       @precio_diario = precios.max
-    end
+    end    
     
     @date = Date.today
     
