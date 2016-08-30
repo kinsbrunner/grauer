@@ -1,6 +1,10 @@
 <meta charset="utf-8" />
 <%= wicked_pdf_stylesheet_link_tag 'application' %>
 
+<% if @families.empty? %>
+  NO EXISTEN FAMILIAS EN EL SISTEMA!
+<% end %>
+
 <% @families.each do |family| %>
   <% if !family.hijo_menor.nil? %>
     <div class='hoja'>
