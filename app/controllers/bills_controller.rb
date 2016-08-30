@@ -17,6 +17,7 @@ class BillsController < ApplicationController
   end
 
   def new
+    return render_not_found if current_school.blank?
     @bill = Bill.new
     @tipo = params[:tipo]
     if @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s
@@ -29,6 +30,7 @@ class BillsController < ApplicationController
   end
   
   def create
+    return render_not_found if current_school.blank?
     @tipo = params[:bill][:tipo]
     Bill.transaction do   
       @bill = current_school.bills.create(bill_params.merge(user: current_user))
@@ -42,6 +44,7 @@ class BillsController < ApplicationController
   end
 
   def destroy
+    return render_not_found if current_school.blank?
     return render_not_found if current_bill.blank?
     @tipo = params[:tipo]
     current_bill.destroy
@@ -49,12 +52,16 @@ class BillsController < ApplicationController
   end
 
   def edit
+    return render_not_found if current_school.blank?
+    return render_not_found if current_bill.blank?
     @tipo = params[:tipo]
     @bill = current_bill
     menu_day_attributes = @bill.menu_day
   end
   
   def update
+    return render_not_found if current_school.blank?
+    return render_not_found if current_bill.blank?
     @tipo = params[:bill][:tipo]
     @bill = current_bill
     
@@ -82,7 +89,8 @@ class BillsController < ApplicationController
   
   helper_method :current_school
   def current_school
-    @current_school ||= School.find_by_id(session[:school_id])
+    #@current_school ||= School.find_by_id(session[:school_id])
+    @current_school ||= School.find_by_id(params[:school_id])
   end  
 
   helper_method :current_bill
@@ -91,6 +99,7 @@ class BillsController < ApplicationController
   end  
 
   def check_is_diaria
+    return render_not_found if current_bill.blank?
     if current_bill.tipo != Bill::TIPOS_FACTURACION['Diaria']
       return render text: 'Not Allowed', status: :forbidden
     end    

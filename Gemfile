@@ -85,5 +85,4 @@ gem 'touchpunch-rails'
 
 gem 'bootstrap-switch-rails'
 
-gem 'backup'
-gem 'whenever'
+gem 'figaro'

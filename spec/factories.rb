@@ -99,4 +99,10 @@ FactoryGirl.define do
     association :food, factory: :food    
   end
   
+  factory :menu_day do
+    association :bill, factory: :bill
+    association :child, factory: :child
+    cantidad 10
+  end
+  
 end

@@ -74,7 +74,7 @@ RSpec.describe ChildrenController, type: :controller do
     end
   end
 
-  describe "foods#update action" do
+  describe "children#update action" do
     before :each do
       @user = FactoryGirl.create(:user)
       @school = FactoryGirl.create(:school)
