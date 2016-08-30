@@ -80,9 +80,12 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-heroku'
 
 gem 'touchpunch-rails'
 
 gem 'bootstrap-switch-rails'
 
 gem 'figaro'
+
+gem 'puma'
