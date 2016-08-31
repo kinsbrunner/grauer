@@ -28,12 +28,21 @@ Grauer::Application.configure do
   config.assets.debug = true
   
   
-  #config.action_mailer.default_url_options = { :host => 'http://preview.4swbztzlih82rzfrdpgqeuvrr3utmx6r070va48r4hfcrf6r.box.codeanywhere.com:3001' }
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => ENV["HOST"] }
+  #config.action_mailer.default_url_options = { :host => 'localhost:3000' }
  
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-  #config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.mailgun.org",
+    :port => 587,
+    :domain => ENV["MAILGUN_DOMAIN"],
+    :user_name => ENV["MAILGUN_ACCOUNT"],
+    :password => ENV['MAILGUN_PASS']
+  }
 
+  # HELP: http://www.leemunroe.com/send-automated-email-ruby-rails-mailgun/
+  
 end
