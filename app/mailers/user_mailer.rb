@@ -8,7 +8,8 @@ class UserMailer < ApplicationMailer
   default from: "no-responder@grauercatering.com"
 
   def password_changed(id)
+    attachments.inline['logo.png'] = File.read(Rails.root.join("app/assets/images/logo.png"))
     @user = User.find(id)
-    mail to: @user.email, subject: "Su contraseña de Grauer Catering ha sido modificada"
+    mail to: @user.email, subject: "GrauerCatering.com - Su contraseña ha sido modificada"
   end  
 end

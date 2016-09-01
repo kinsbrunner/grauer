@@ -27,10 +27,9 @@ Grauer::Application.configure do
   # number of complex assets.
   config.assets.debug = true
   
-  
+  config.action_controller.asset_host
+  config.action_mailer.asset_host
   config.action_mailer.default_url_options = { :host => ENV["HOST"] }
-  #config.action_mailer.default_url_options = { :host => 'localhost:3000' }
- 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
