@@ -21,6 +21,7 @@ class FoodsController < ApplicationController
   
   def edit
     return render_not_found if current_food.blank?
+    @food = current_food
   end
 
   def update
