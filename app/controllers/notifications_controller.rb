@@ -25,9 +25,9 @@ class NotificationsController < ApplicationController
     fact_dia = current_school.ultima_factura_diaria
     if fact_dia
       precios = Array.new
-      precios.push(fact_dia.valor_1)
-      precios.push(fact_dia.valor_2)
-      precios.push(fact_dia.valor_3)
+      precios.push(fact_dia.valor_1) if fact_dia.valor_1
+      precios.push(fact_dia.valor_2) if fact_dia.valor_2
+      precios.push(fact_dia.valor_3) if fact_dia.valor_3
       @precio_diario = precios.max
     end    
     
