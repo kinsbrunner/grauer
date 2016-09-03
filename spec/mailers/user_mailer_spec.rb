@@ -6,7 +6,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { UserMailer.password_changed(user.id) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Su contraseña de Grauer Catering ha sido modificada")
+      expect(mail.subject).to eq("GrauerCatering.com - Su contraseña ha sido modificada")
       expect(mail.to).to eq([user.email])
       expect(mail.from).to eq(["no-responder@grauercatering.com"])
     end
