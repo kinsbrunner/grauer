@@ -89,11 +89,12 @@
           'initComplete': function (settings, json){
             this.api().columns('.sum').every(function(){
               var column = this;
-
+              
               var sum = column
                 .data()
                 .reduce(function (a, b) {
                   result = parseFloat(remove_thousand_ind(invert_comma_dot(a.substr(1))), 10) + parseFloat(remove_thousand_ind(invert_comma_dot(b.substr(1))), 10);
+                  console.log(addCommas(result));
                   return invert_comma_dot(addCommas(result));
                 });
 
@@ -115,7 +116,7 @@
       nStr += '';
       var x = nStr.split('.');
       var x1 = x[0];
-      var x2 = x.length > 1 ? '.' + x[1] : '';
+      var x2 = x.length > 1 ? '.' + x[1] : '.00';
       var rgx = /(\d+)(\d{3})/;
       while (rgx.test(x1)) {
           x1 = x1.replace(rgx, '$1' + ',' + '$2');
@@ -228,12 +229,12 @@
             responsive: true,
             "language": {
                 "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ almunos",
+                "sLengthMenu":     "Mostrar _MENU_ alumnos",
                 "sZeroRecords":    "No se encontraron resultados",
                 "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando almunos del _START_ al _END_ de un total de _TOTAL_ almunos",
-                "sInfoEmpty":      "Mostrando almunos del 0 al 0 de un total de 0 almunos",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ almunos)",
+                "sInfo":           "Mostrando alumnos del _START_ al _END_ de un total de _TOTAL_ alumnos",
+                "sInfoEmpty":      "Mostrando alumnos del 0 al 0 de un total de 0 alumnos",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ alumnos)",
                 "sInfoPostFix":    "",
                 "sSearch":         "Buscar:",
                 "sUrl":            "",

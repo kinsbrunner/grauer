@@ -24,7 +24,7 @@ class Movement < ActiveRecord::Base
 
   TIPO_TIPOS_DDLB = {
     'Pago'            => 1,
-    'Comdeor'         => 2,
+    'Comedor'         => 2,
     'Nota de Crédito' => 3
   }
 
