@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
   before_action :check_admin, only: [:new, :create]
   
   def index
-    @schools = School.order(:name).page(params[:page])
+    @schools = School.order(:name)
     
     if @schools.count == 0 && current_user.admin
       redirect_to new_school_path

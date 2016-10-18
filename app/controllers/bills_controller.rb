@@ -8,9 +8,9 @@ class BillsController < ApplicationController
     
     @tipo = params[:tipo]
     if @tipo == Bill::TIPOS_FACTURACION['Mensual'].to_s
-      @bills = current_school.bills.where("tipo = #{Bill::TIPOS_FACTURACION['Mensual'].to_s}").order(:periodo).page(params[:page])
+      @bills = current_school.bills.where("tipo = #{Bill::TIPOS_FACTURACION['Mensual'].to_s}").order(:periodo)
     elsif @tipo == Bill::TIPOS_FACTURACION['Diaria'].to_s
-      @bills = current_school.bills.where("tipo = #{Bill::TIPOS_FACTURACION['Diaria'].to_s}").order(:periodo).page(params[:page])
+      @bills = current_school.bills.where("tipo = #{Bill::TIPOS_FACTURACION['Diaria'].to_s}").order(:periodo)
     else
       return render_not_found
     end

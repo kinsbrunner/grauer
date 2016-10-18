@@ -3,7 +3,7 @@ class EvolutionsController < ApplicationController
   
   def index
     return render_not_found if current_school.blank?
-    @evolutions = current_school.evolutions.order(created_at: :DESC).page(params[:page])
+    @evolutions = current_school.evolutions.order(created_at: :DESC)
   end
   
   def create

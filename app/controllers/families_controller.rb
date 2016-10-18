@@ -10,7 +10,7 @@ class FamiliesController < ApplicationController
 
     return render_not_found if current_school.blank?
     session[:school_id] = current_school.id
-    @families = current_school.families.order(activo: :DESC, apellido: :ASC).page(params[:page])
+    @families = current_school.families.order(activo: :DESC, apellido: :ASC)
   end
 
   def new
@@ -27,10 +27,10 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    @children = current_family.children.order(grado: :DESC, division: :ASC, nombre: :ASC).all
+    @children = current_family.children.order(grado: :DESC, division: :ASC, nombre: :ASC)
     @comments = current_family.comments.order(created_at: :DESC).all
     @comment  = Comment.new
-    @movements = current_family.movements.order(:created_at).page(params[:page])
+    @movements = current_family.movements.order(:created_at)
     
     @total = 0
     @movements.each do |mov|

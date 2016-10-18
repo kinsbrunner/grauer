@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
   
   def index
-    @users = User.order(:firstname, :lastname).page(params[:page])
+    @users = User.order(:firstname, :lastname)
   end
     
   def check_admin

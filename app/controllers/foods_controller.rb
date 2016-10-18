@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :destroy, :edit, :update]
   
   def index
-    @foods = Food.order(:comida).page(params[:page])
+    @foods = Food.order(:comida)
     @food = Food.new
   end
   

@@ -9,7 +9,7 @@ class ListsController < ApplicationController
     @reporte_id = params[:id]
     if @reporte_id == '1'
       
-      @families = current_school.families.order(activo: :DESC, apellido: :ASC).page(params[:page])
+      @families = current_school.families.order(activo: :DESC, apellido: :ASC)
       
     elsif @reporte_id == '2'
       
@@ -55,7 +55,7 @@ class ListsController < ApplicationController
       
     elsif @reporte_id == '3'
     
-      @students = current_school.children.page(params[:page])
+      @students = current_school.children
     
     else
       
