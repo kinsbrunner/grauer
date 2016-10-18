@@ -23,6 +23,8 @@ module NotificationsHelper
 
     def week_rows
       weeks.map do |week|
+        day_num = week[-1].mday
+        next if day_num == 1 #elimino el primer renglón si el Sábado empieza el mes
         adjusted_week = week.map { |day| day_cell(day) }
         adjusted_week.shift #saco el 1er valor, el del Domingo
         adjusted_week.pop   #saco el último valor, el del Sábado

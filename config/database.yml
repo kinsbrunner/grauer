@@ -18,10 +18,10 @@ development:
   adapter: postgresql
   encoding: unicode
   template: template0
-  database: <%= ENV['DATABASE'] %>
+  database: grauer_development
   pool: 5
-  username: <%= ENV['USERNAME'] %>
-  password: <%= ENV['PASSWORD'] %>
+  username: postgres
+  password: password
   host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
